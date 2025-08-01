@@ -1,0 +1,70 @@
+[project]
+name = "python-socketio-stubs"
+version = "0.0.0"
+description = "python-socketio stubs"
+authors = [{ name = "phi", email = "phi.friday@gmail.com" }]
+dependencies = [
+    "typing-extensions>=4.4.0",
+]
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">= 3.10"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Typing :: Stubs Only",
+]
+
+[project.urls]
+Repository = "https://github.com/phi-friday/python-socketio-stubs"
+
+[project.optional-dependencies]
+mypy = [
+    "mypy>=1.17.1",
+]
+mypy-strict = [
+    "mypy==1.17.1",
+    "python-socketio-stubs[mypy]",
+]
+
+[dependency-groups]
+python-socketio-dependencies = [
+    "python-socketio[client,asyncio_client]>=5.13.0",
+]
+dev = [
+    { include-group = "python-socketio-dependencies" },
+    "ruff==0.12.7",
+    "pre-commit>=4.2.0",
+    "poethepoet>=0.36.0",
+    "python-socketio-stubs[mypy-strict]",
+]
+
+[tool.poe.tasks]
+lint = ["_lint:check", "_lint:format"]
+"_lint:check" = "ruff check src --fix"
+"_lint:format" = "ruff format src"
+mypy = "mypy src --strict"
+check = "pre-commit run --all-files --show-diff-on-failure"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/socketio-stubs"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/socketio-stubs"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+disable_error_code = "import-untyped,overload-overlap,override"
+disallow_subclassing_any = false
+local_partial_types = true
+mypy_path = "typings"

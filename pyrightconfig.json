@@ -1,0 +1,20 @@
+{
+    "include": [
+        "src/python-socketio-stubs",
+    ],
+    "typeCheckingMode": "strict",
+    "pythonVersion": "3.10",
+    "pythonPlatform": "Linux",
+    "reportMissingTypeStubs": false,
+    "reportInconsistentConstructor": false,
+    "reportUnknownArgumentType": false,
+    "reportOverlappingOverload": false,
+    "reportUnknownVariableType": false,
+    "reportUnknownMemberType": false,
+    "reportUnnecessaryIsInstance": false,
+    "reportUnnecessaryComparison": false,
+    "reportDeprecated": false,
+    "reportPrivateUsage": false,
+    "reportUnnecessaryTypeIgnoreComment": true,
+    "stubPath": "./typings"
+}
