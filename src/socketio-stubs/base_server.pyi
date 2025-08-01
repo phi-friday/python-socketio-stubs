@@ -11,7 +11,7 @@ from socketio.manager import Manager
 _T_co = TypeVar("_T_co", bound=Server | AsyncServer, covariant=True)
 _F = TypeVar("_F", bound=Callable[..., Any])
 
-default_logger: Incomplete
+default_logger: logging.Logger
 
 class BaseServer(Generic[_T_co]):
     reserved_events: ClassVar[list[str]]
