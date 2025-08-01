@@ -1,15 +1,14 @@
 from collections.abc import Callable
 from threading import Thread
-from typing import Literal, ParamSpec, TypeAlias, TypeVar
+from typing import Literal, ParamSpec, TypeVar
 
 import engineio
 from _typeshed import Incomplete
 from socketio import base_client
+from socketio._types import DataType
 
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
-
-DataType: TypeAlias = str | bytes | list[Incomplete] | dict[Incomplete, Incomplete]
 
 class Client(base_client.BaseClient[engineio.Client]):
     connection_url: str  # pyright: ignore[reportIncompatibleVariableOverride]

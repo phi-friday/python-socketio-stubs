@@ -1,13 +1,12 @@
 import logging
 from collections.abc import Callable, Mapping
-from contextlib import AbstractContextManager
 from threading import Thread
-from typing import Any, Literal, NoReturn, ParamSpec, TypeAlias, TypeVar, overload
+from typing import Literal, NoReturn, ParamSpec, TypeAlias, TypeVar, overload
 
 import engineio
 from _typeshed import Incomplete
-from engineio.socket import Socket
 from socketio import base_server
+from socketio._types import SessionContextManager
 from socketio.admin import InstrumentedServer
 
 DataType: TypeAlias = str | bytes | list[Incomplete] | dict[Incomplete, Incomplete]
@@ -16,20 +15,11 @@ _T = TypeVar("_T")
 
 default_logger: logging.Logger
 
-class _SessionContextManager(AbstractContextManager[Socket]):
-    server: Server
-    sid: str
-    namespace: str | None
-    session: Socket | None
-
-    def __enter__(self) -> Socket: ...
-    def __exit__(self, *args: object, **kwargs: Any) -> None: ...
-
 class Server(base_server.BaseServer[engineio.Server]):
     def emit(
         self,
         event: str,
-        data: DataType | None = ...,
+        data: DataType | tuple[DataType, ...] | None = ...,
         to: str | None = ...,
         room: str | None = ...,
         skip_sid: str | list[str] | None = ...,
@@ -39,7 +29,7 @@ class Server(base_server.BaseServer[engineio.Server]):
     ) -> None: ...
     def send(
         self,
-        data: DataType | None = ...,
+        data: DataType | tuple[DataType, ...] | None,
         to: str | None = ...,
         room: str | None = ...,
         skip_sid: str | list[str] | None = ...,
@@ -51,7 +41,7 @@ class Server(base_server.BaseServer[engineio.Server]):
     def call(
         self,
         event: str,
-        data: DataType | None = ...,
+        data: DataType | tuple[DataType, ...] | None = ...,
         to: None = ...,
         sid: None = ...,
         namespace: str | None = ...,
@@ -62,7 +52,7 @@ class Server(base_server.BaseServer[engineio.Server]):
     def call(
         self,
         event: str,
-        data: DataType | None = ...,
+        data: DataType | tuple[DataType, ...] | None = ...,
         to: str | None = ...,
         sid: str | None = ...,
         namespace: str | None = ...,
@@ -81,12 +71,9 @@ class Server(base_server.BaseServer[engineio.Server]):
         session: dict[Incomplete, Incomplete],
         namespace: str | None = ...,
     ) -> None: ...
-    server: Incomplete
-    sid: Incomplete
-    namespace: Incomplete
     def session(
         self, sid: str, namespace: str | None = ...
-    ) -> _SessionContextManager: ...
+    ) -> SessionContextManager: ...
     def disconnect(
         self, sid: str, namespace: str | None = ..., ignore_queue: bool = ...
     ) -> None: ...

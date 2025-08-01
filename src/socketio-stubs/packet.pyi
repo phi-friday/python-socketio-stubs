@@ -1,10 +1,9 @@
 from types import ModuleType
-from typing import Literal, TypeAlias
+from typing import Literal
 
 from _typeshed import Incomplete
+from socketio._types import DataType
 from typing_extensions import Buffer
-
-DataType: TypeAlias = str | bytes | list[Incomplete] | dict[Incomplete, Incomplete]
 
 CONNECT: Literal[0]
 DISCONNECT: Literal[1]

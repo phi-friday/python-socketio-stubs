@@ -1,11 +1,10 @@
 import logging
 from collections.abc import Callable, Sequence
-from typing import Any, Literal, TypeAlias
+from typing import Any, Literal
 
 from _typeshed import Incomplete
 from socketio import base_manager
-
-DataType: TypeAlias = str | bytes | list[Incomplete] | dict[Incomplete, Incomplete]
+from socketio._types import DataType
 
 default_logger: logging.Logger
 
