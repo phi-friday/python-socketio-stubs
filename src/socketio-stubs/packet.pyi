@@ -1,7 +1,10 @@
 from types import ModuleType
-from typing import Literal
+from typing import Literal, TypeAlias
 
 from _typeshed import Incomplete
+from typing_extensions import Buffer
+
+DataType: TypeAlias = str | bytes | list[Incomplete] | dict[Incomplete, Incomplete]
 
 CONNECT: Literal[0]
 DISCONNECT: Literal[1]
@@ -26,7 +29,7 @@ class Packet:
     uses_binary_events: bool
     json: ModuleType
     packet_type: Literal[0, 1, 2, 3, 4, 5, 6]
-    data: Incomplete
+    data: list[DataType] | None
     namespace: str | None
     id: str | None
     attachment_count: int
@@ -34,13 +37,13 @@ class Packet:
     def __init__(
         self,
         packet_type: Literal[0, 1, 2, 3, 4, 5, 6] = ...,
-        data: Incomplete | None = ...,
+        data: list[DataType] | None = ...,
         namespace: str | None = ...,
         id: str | None = ...,
         binary: Incomplete | None = ...,
-        encoded_packet: str | None = ...,
+        encoded_packet: Buffer | None = ...,
     ) -> None: ...
-    def encode(self) -> str | list[str | bytes]: ...
-    def decode(self, encoded_packet: str) -> int: ...
+    def encode(self) -> DataType: ...
+    def decode(self, encoded_packet: Buffer) -> int: ...
     def add_attachment(self, attachment: bytes) -> bool: ...
     def reconstruct_binary(self, attachments: list[bytes]) -> None: ...
