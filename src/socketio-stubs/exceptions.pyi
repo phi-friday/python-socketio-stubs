@@ -1,11 +1,17 @@
-from _typeshed import Incomplete
+from typing import Any
+
+from typing_extensions import NotRequired, Required, TypedDict
+
+class _ErrorArgs(TypedDict, total=False):
+    message: Required[str]
+    data: NotRequired[Any]
 
 class SocketIOError(Exception): ...
 class ConnectionError(SocketIOError): ...
 
 class ConnectionRefusedError(ConnectionError):
-    error_args: Incomplete
-    def __init__(self, *args) -> None: ...
+    error_args: _ErrorArgs
+    def __init__(self, *args: Any) -> None: ...
 
 class TimeoutError(SocketIOError): ...
 class BadNamespaceError(SocketIOError): ...
