@@ -1,6 +1,6 @@
 import logging
 from collections.abc import Callable, Sequence
-from typing import Any, Literal
+from typing import Any
 
 from _typeshed import Incomplete
 from socketio import base_manager
@@ -12,7 +12,7 @@ class Manager(base_manager.BaseManager):
     def can_disconnect(self, sid: str, namespace: str) -> bool: ...
     def emit(
         self,
-        event: Literal[0, 1, 2, 3, 4, 5, 6],
+        event: str,
         data: DataType | tuple[DataType, ...] | None,
         namespace: str,
         room: str | None = ...,
