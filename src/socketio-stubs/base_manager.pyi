@@ -1,5 +1,5 @@
 import logging
-from collections.abc import Generator, KeysView, Sequence
+from collections.abc import Callable, Generator, KeysView, Sequence
 from typing import Any
 
 from _typeshed import Incomplete
@@ -15,7 +15,7 @@ class BaseManager:
         str, dict[str, bidict[str, str]]
     ]
     eio_to_sid: dict[str, str]
-    callbacks: dict[str, dict[int, Incomplete]]
+    callbacks: dict[str, dict[int, Callable[..., Incomplete]]]
     pending_disconnect: dict[str, list[str]]
     def __init__(self) -> None: ...
     def set_server(self, server: BaseServer) -> None: ...
