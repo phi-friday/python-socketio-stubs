@@ -10,7 +10,7 @@ default_logger: logging.Logger
 
 class BaseManager:
     logger: logging.Logger | None
-    server: BaseServer
+    server: BaseServer[Any]
     rooms: dict[  # self.rooms[namespace][room][sio_sid] = eio_sid
         str, dict[str, bidict[str, str]]
     ]
@@ -18,7 +18,7 @@ class BaseManager:
     callbacks: dict[str, dict[int, Callable[..., Incomplete]]]
     pending_disconnect: dict[str, list[str]]
     def __init__(self) -> None: ...
-    def set_server(self, server: BaseServer) -> None: ...
+    def set_server(self, server: BaseServer[Any]) -> None: ...
     def initialize(self) -> None: ...
     def get_namespaces(self) -> KeysView[dict[str, Any]]: ...
     def get_participants(

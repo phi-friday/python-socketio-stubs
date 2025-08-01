@@ -4,7 +4,6 @@ from typing import Any, Literal
 
 from _typeshed import Incomplete
 from socketio import base_manager
-from socketio import packet as packet
 
 default_logger: logging.Logger
 
