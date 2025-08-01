@@ -1,11 +1,15 @@
-from .pubsub_manager import PubSubManager as PubSubManager
-from _typeshed import Incomplete
+import logging
 
-logger: Incomplete
+import kafka
+from socketio.pubsub_manager import PubSubManager
+
+logger: logging.Logger
 
 class KafkaManager(PubSubManager):
     name: str
-    kafka_urls: Incomplete
-    producer: Incomplete
-    consumer: Incomplete
-    def __init__(self, url: str = 'kafka://localhost:9092', channel: str = 'socketio', write_only: bool = False) -> None: ...
+    kafka_urls: list[str]
+    producer: kafka.KafkaProducer
+    consumer: kafka.KafkaConsumer
+    def __init__(
+        self, url: str = ..., channel: str = ..., write_only: bool = ...
+    ) -> None: ...
