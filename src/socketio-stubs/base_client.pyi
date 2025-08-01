@@ -30,12 +30,12 @@ class BaseClient(Generic[_T_co]):
     packet_class: Incomplete
     eio: _T_co
     logger: logging.Logger
-    connection_url: Incomplete
-    connection_headers: Incomplete
-    connection_auth: Incomplete
-    connection_transports: Incomplete
-    connection_namespaces: list[Incomplete]
-    socketio_path: Incomplete
+    connection_url: str | None
+    connection_headers: dict[Incomplete, Incomplete] | None
+    connection_auth: Incomplete | None
+    connection_transports: Literal["polling", "websocket"] | None
+    connection_namespaces: list[str]
+    socketio_path: str | None
     sid: str | None
     connected: bool
     namespaces: dict[str, str | None]

@@ -1,9 +1,11 @@
 import logging
 from collections.abc import Callable, Sequence
-from typing import Any, Literal
+from typing import Any, Literal, TypeAlias
 
 from _typeshed import Incomplete
 from socketio import base_manager
+
+DataType: TypeAlias = str | bytes | list[Incomplete] | dict[Incomplete, Incomplete]
 
 default_logger: logging.Logger
 
@@ -12,7 +14,7 @@ class Manager(base_manager.BaseManager):
     def emit(
         self,
         event: Literal[0, 1, 2, 3, 4, 5, 6],
-        data: tuple[Incomplete, ...] | list[Incomplete] | None,
+        data: DataType | tuple[DataType, ...] | None,
         namespace: str,
         room: str | None = ...,
         skip_sid: str | list[str] | None = ...,

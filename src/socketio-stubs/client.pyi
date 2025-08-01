@@ -1,21 +1,61 @@
-from . import base_client as base_client, exceptions as exceptions, packet as packet
-from _typeshed import Incomplete
+from collections.abc import Callable
+from threading import Thread
+from typing import Literal, ParamSpec, TypeAlias, TypeVar
 
-class Client(base_client.BaseClient):
-    connection_url: Incomplete
-    connection_headers: Incomplete
-    connection_auth: Incomplete
-    connection_transports: Incomplete
-    connection_namespaces: Incomplete
-    socketio_path: Incomplete
-    namespaces: Incomplete
+import engineio
+from _typeshed import Incomplete
+from socketio import base_client
+
+_T = TypeVar("_T")
+_P = ParamSpec("_P")
+
+DataType: TypeAlias = str | bytes | list[Incomplete] | dict[Incomplete, Incomplete]
+
+class Client(base_client.BaseClient[engineio.Client]):
+    connection_url: str  # pyright: ignore[reportIncompatibleVariableOverride]
+    connection_headers: dict[Incomplete, Incomplete]  # pyright: ignore[reportIncompatibleVariableOverride]
+    connection_auth: Incomplete | None
+    connection_transports: Literal["polling", "websocket"] | None
+    connection_namespaces: list[str]
+    socketio_path: str  # pyright: ignore[reportIncompatibleVariableOverride]
+    namespaces: dict[str, str | None]
     connected: bool
-    def connect(self, url, headers={}, auth=None, transports=None, namespaces=None, socketio_path: str = 'socket.io', wait: bool = True, wait_timeout: int = 1, retry: bool = False) -> None: ...
+    def connect(
+        self,
+        url: str,
+        headers: dict[Incomplete, Incomplete] = ...,
+        auth: Incomplete | None = ...,
+        transports: Literal["polling", "websocket"] | None = ...,
+        namespaces: str | list[str] | None = ...,
+        socketio_path: str = ...,
+        wait: bool = ...,
+        wait_timeout: int = ...,
+        retry: bool = ...,
+    ) -> None: ...
     def wait(self) -> None: ...
-    def emit(self, event, data=None, namespace=None, callback=None) -> None: ...
-    def send(self, data, namespace=None, callback=None) -> None: ...
-    def call(self, event, data=None, namespace=None, timeout: int = 60): ...
+    def emit(
+        self,
+        event: str,
+        data: DataType | tuple[DataType, ...] | None = ...,
+        namespace: str | None = ...,
+        callback: Callable[..., Incomplete] = ...,
+    ) -> None: ...
+    def send(
+        self,
+        data: DataType | tuple[DataType, ...] | None,
+        namespace: str | None = ...,
+        callback: Callable[..., Incomplete] = ...,
+    ) -> None: ...
+    def call(
+        self,
+        event: str,
+        data: DataType | tuple[DataType, ...] | None = ...,
+        namespace: str | None = ...,
+        timeout: int = ...,
+    ) -> Incomplete | None: ...
     def disconnect(self) -> None: ...
     def shutdown(self) -> None: ...
-    def start_background_task(self, target, *args, **kwargs): ...
-    def sleep(self, seconds: int = 0): ...
+    def start_background_task(
+        self, target: Callable[_P, _T], *args: _P.args, **kwargs: _P.kwargs
+    ) -> Thread: ...
+    def sleep(self, seconds: int = ...) -> None: ...
