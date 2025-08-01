@@ -1,5 +1,5 @@
 import logging
-from collections.abc import Callable
+from collections.abc import Callable, Mapping
 from typing import Any, ClassVar, Generic, Literal, TypeVar, overload
 
 import engineio
@@ -18,7 +18,7 @@ class BaseServer(Generic[_T_co]):
     reason: ClassVar[type[engineio.Client.reason]]
     packet_class: Incomplete
     eio: _T_co
-    environ: dict[str, Incomplete]
+    environ: Mapping[str, Incomplete]
     handlers: Callable[..., Incomplete]
     namespace_handlers: dict[str, Callable[..., Incomplete]]
     not_handled: object

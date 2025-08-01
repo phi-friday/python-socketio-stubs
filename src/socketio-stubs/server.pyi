@@ -1,24 +1,111 @@
-from . import base_server as base_server, exceptions as exceptions, packet as packet
+import logging
+from collections.abc import Callable, Mapping
+from contextlib import AbstractContextManager
+from threading import Thread
+from typing import Any, Literal, NoReturn, ParamSpec, TypeAlias, TypeVar, overload
+
+import engineio
 from _typeshed import Incomplete
+from engineio.socket import Socket
+from socketio import base_server
+from socketio.admin import InstrumentedServer
 
-default_logger: Incomplete
+DataType: TypeAlias = str | bytes | list[Incomplete] | dict[Incomplete, Incomplete]
+_P = ParamSpec("_P")
+_T = TypeVar("_T")
 
-class Server(base_server.BaseServer):
-    def emit(self, event, data=None, to=None, room=None, skip_sid=None, namespace=None, callback=None, ignore_queue: bool = False) -> None: ...
-    def send(self, data, to=None, room=None, skip_sid=None, namespace=None, callback=None, ignore_queue: bool = False) -> None: ...
-    def call(self, event, data=None, to=None, sid=None, namespace=None, timeout: int = 60, ignore_queue: bool = False): ...
-    def enter_room(self, sid, room, namespace=None) -> None: ...
-    def leave_room(self, sid, room, namespace=None) -> None: ...
-    def close_room(self, room, namespace=None) -> None: ...
-    def get_session(self, sid, namespace=None): ...
-    def save_session(self, sid, session, namespace=None) -> None: ...
+default_logger: logging.Logger
+
+class _SessionContextManager(AbstractContextManager[Socket]):
+    server: Server
+    sid: str
+    namespace: str | None
+    session: Socket | None
+
+    def __enter__(self) -> Socket: ...
+    def __exit__(self, *args: object, **kwargs: Any) -> None: ...
+
+class Server(base_server.BaseServer[engineio.Server]):
+    def emit(
+        self,
+        event: str,
+        data: DataType | None = ...,
+        to: str | None = ...,
+        room: str | None = ...,
+        skip_sid: str | list[str] | None = ...,
+        namespace: str | None = ...,
+        callback: Callable[..., Incomplete] | None = ...,
+        ignore_queue: bool = ...,
+    ) -> None: ...
+    def send(
+        self,
+        data: DataType | None = ...,
+        to: str | None = ...,
+        room: str | None = ...,
+        skip_sid: str | list[str] | None = ...,
+        namespace: str | None = ...,
+        callback: Callable[..., Incomplete] | None = ...,
+        ignore_queue: bool = ...,
+    ) -> None: ...
+    @overload
+    def call(
+        self,
+        event: str,
+        data: DataType | None = ...,
+        to: None = ...,
+        sid: None = ...,
+        namespace: str | None = ...,
+        timeout: int = ...,
+        ignore_queue: bool = ...,
+    ) -> NoReturn: ...
+    @overload
+    def call(
+        self,
+        event: str,
+        data: DataType | None = ...,
+        to: str | None = ...,
+        sid: str | None = ...,
+        namespace: str | None = ...,
+        timeout: int = ...,
+        ignore_queue: bool = ...,
+    ) -> Incomplete | None: ...
+    def enter_room(self, sid: str, room: str, namespace: str | None = ...) -> None: ...
+    def leave_room(self, sid: str, room: str, namespace: str | None = ...) -> None: ...
+    def close_room(self, room: str, namespace: str | None = ...) -> None: ...
+    def get_session(
+        self, sid: str, namespace: str | None = ...
+    ) -> dict[Incomplete, Incomplete]: ...
+    def save_session(
+        self,
+        sid: str,
+        session: dict[Incomplete, Incomplete],
+        namespace: str | None = ...,
+    ) -> None: ...
     server: Incomplete
     sid: Incomplete
     namespace: Incomplete
-    def session(self, sid, namespace=None): ...
-    def disconnect(self, sid, namespace=None, ignore_queue: bool = False) -> None: ...
+    def session(
+        self, sid: str, namespace: str | None = ...
+    ) -> _SessionContextManager: ...
+    def disconnect(
+        self, sid: str, namespace: str | None = ..., ignore_queue: bool = ...
+    ) -> None: ...
     def shutdown(self) -> None: ...
-    def handle_request(self, environ, start_response): ...
-    def start_background_task(self, target, *args, **kwargs): ...
-    def sleep(self, seconds: int = 0): ...
-    def instrument(self, auth=None, mode: str = 'development', read_only: bool = False, server_id=None, namespace: str = '/admin', server_stats_interval: int = 2): ...
+    def handle_request(
+        self,
+        environ: Mapping[str, Incomplete],
+        start_response: Callable[[str, str], Incomplete],
+    ) -> list[str | list[tuple[str, str]] | bytes]: ...
+    def start_background_task(
+        self, target: Callable[_P, _T], *args: _P.args, **kwargs: _P.kwargs
+    ) -> Thread: ...
+    def sleep(self, seconds: int = ...) -> None: ...
+    def instrument(
+        self,
+        auth: Incomplete | None = ...,
+        mode: Literal["development", "production"] = ...,
+        read_only: bool = ...,
+        server_id: str | None = ...,
+        namespace: str = ...,
+        server_stats_interval: int = ...,
+    ) -> InstrumentedServer: ...
