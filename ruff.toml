@@ -51,6 +51,7 @@ ignore = [
     "ISC002", # multi-line-implicit-string-concatenation
     # python-socketio
     "A001",
+    "A002",
 ]
 fixable = [
     "UP",

@@ -1,25 +1,46 @@
+from types import ModuleType
+from typing import Literal
+
 from _typeshed import Incomplete
 
-CONNECT: Incomplete
-DISCONNECT: Incomplete
-EVENT: Incomplete
-ACK: Incomplete
-CONNECT_ERROR: Incomplete
-BINARY_EVENT: Incomplete
-BINARY_ACK: Incomplete
-packet_names: Incomplete
+CONNECT: Literal[0]
+DISCONNECT: Literal[1]
+EVENT: Literal[2]
+ACK: Literal[3]
+CONNECT_ERROR: Literal[4]
+BINARY_EVENT: Literal[5]
+BINARY_ACK: Literal[6]
+packet_names: list[
+    Literal[
+        "CONNECT",
+        "DISCONNECT",
+        "EVENT",
+        "ACK",
+        "CONNECT_ERROR",
+        "BINARY_EVENT",
+        "BINARY_ACK",
+    ]
+]
 
 class Packet:
     uses_binary_events: bool
-    json: Incomplete
-    packet_type: Incomplete
+    json: ModuleType
+    packet_type: Literal[0, 1, 2, 3, 4, 5, 6]
     data: Incomplete
-    namespace: Incomplete
-    id: Incomplete
+    namespace: str | None
+    id: str | None
     attachment_count: int
-    attachments: Incomplete
-    def __init__(self, packet_type=..., data=None, namespace=None, id=None, binary=None, encoded_packet=None) -> None: ...
-    def encode(self): ...
-    def decode(self, encoded_packet): ...
-    def add_attachment(self, attachment): ...
-    def reconstruct_binary(self, attachments) -> None: ...
+    attachments: list[bytes]
+    def __init__(
+        self,
+        packet_type: Literal[0, 1, 2, 3, 4, 5, 6] = ...,
+        data: Incomplete | None = ...,
+        namespace: str | None = ...,
+        id: str | None = ...,
+        binary: Incomplete | None = ...,
+        encoded_packet: str | None = ...,
+    ) -> None: ...
+    def encode(self) -> str | list[str | bytes]: ...
+    def decode(self, encoded_packet: str) -> int: ...
+    def add_attachment(self, attachment: bytes) -> bool: ...
+    def reconstruct_binary(self, attachments: list[bytes]) -> None: ...
