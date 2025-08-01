@@ -67,4 +67,5 @@ strict = true
 disable_error_code = "import-untyped,overload-overlap,override"
 disallow_subclassing_any = false
 local_partial_types = true
+ignore_missing_imports = true
 mypy_path = "typings"
