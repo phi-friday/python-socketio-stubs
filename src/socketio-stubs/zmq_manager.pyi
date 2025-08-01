@@ -1,11 +1,19 @@
-from .pubsub_manager import PubSubManager as PubSubManager
-from _typeshed import Incomplete
+import logging
 from collections.abc import Generator
+
+from eventlet.green.zmq import Socket, _Socket_recv
+from socketio.pubsub_manager import PubSubManager
 
 class ZmqManager(PubSubManager):
     name: str
-    sink: Incomplete
-    sub: Incomplete
-    channel: Incomplete
-    def __init__(self, url: str = 'zmq+tcp://localhost:5555+5556', channel: str = 'socketio', write_only: bool = False, logger=None) -> None: ...
-    def zmq_listen(self) -> Generator[Incomplete]: ...
+    sink: Socket
+    sub: Socket
+    channel: str
+    def __init__(
+        self,
+        url: str = ...,
+        channel: str = ...,
+        write_only: bool = ...,
+        logger: logging.Logger = ...,
+    ) -> None: ...
+    def zmq_listen(self) -> Generator[_Socket_recv]: ...
