@@ -38,6 +38,7 @@ python-socketio-dependencies = [
     "msgpack-types>=0.5.0",
     "eventlet>=0.40.2",
     "tornado>=6.5.1",
+    "kombu>=5.5.4",
 ]
 dev = [
     { include-group = "python-socketio-dependencies" },
