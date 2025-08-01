@@ -7,7 +7,6 @@ import engineio
 from _typeshed import Incomplete
 from engineio import AsyncClient, Client
 from socketio import base_namespace
-from socketio import packet as packet
 
 _T_co = TypeVar("_T_co", bound=Client | AsyncClient, covariant=True)
 _F = TypeVar("_F", bound=Callable[..., Any])

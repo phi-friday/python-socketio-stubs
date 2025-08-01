@@ -1,3 +1,5 @@
+from typing import Any
+
 from _typeshed import Incomplete
 from socketio.base_client import BaseClient
 from socketio.base_server import BaseServer
@@ -14,6 +16,6 @@ class BaseServerNamespace(BaseNamespace):
     def _set_server(self, server: BaseServer) -> None: ...
 
 class BaseClientNamespace(BaseNamespace):
-    client: BaseClient | None
+    client: BaseClient[Any] | None
     def __init__(self, namespace: str | None = ...) -> None: ...
-    def _set_client(self, client: BaseClient) -> None: ...
+    def _set_client(self, client: BaseClient[Any]) -> None: ...
