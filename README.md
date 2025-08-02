@@ -1,7 +1,7 @@
 # python-socketio-stubs
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![PyPI version](https://badge.fury.io/py/python-socketio-stubs.svg)](https://badge.fury.io/py/joblib-stubs)
+[![PyPI version](https://badge.fury.io/py/python-socketio-stubs.svg)](https://badge.fury.io/py/python-socketio-stubs)
 [![python version](https://img.shields.io/pypi/pyversions/python-socketio-stubs.svg)](#)
 
 Warning: This library provides type hints only.
