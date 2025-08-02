@@ -1,16 +1,12 @@
 from typing import Any
 
-from typing_extensions import NotRequired, Required, TypedDict
-
-class _ErrorArgs(TypedDict, total=False):
-    message: Required[str]
-    data: NotRequired[Any]
+from socketio._types import ErrorArgs
 
 class SocketIOError(Exception): ...
 class ConnectionError(SocketIOError): ...
 
 class ConnectionRefusedError(ConnectionError):
-    error_args: _ErrorArgs
+    error_args: ErrorArgs
     def __init__(self, *args: Any) -> None: ...
 
 class TimeoutError(SocketIOError): ...

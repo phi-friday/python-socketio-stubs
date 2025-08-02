@@ -4,7 +4,7 @@ from typing import Any, ClassVar, Literal
 
 from _typeshed import Incomplete
 from socketio import Client
-from socketio._types import DataType
+from socketio._types import DataType, TransportType
 from typing_extensions import Self
 
 class SimpleClient:
@@ -23,7 +23,7 @@ class SimpleClient:
         url: str,
         headers: dict[Incomplete, Incomplete] = ...,
         auth: Incomplete | None = ...,
-        transports: Literal["polling", "websocket"] | None = ...,
+        transports: TransportType | None = ...,
         namespace: str = ...,
         socketio_path: str = ...,
         wait_timeout: int = ...,
@@ -31,7 +31,7 @@ class SimpleClient:
     @property
     def sid(self) -> str | None: ...
     @property
-    def transport(self) -> Literal["polling", "websocket", ""]: ...
+    def transport(self) -> TransportType | Literal[""]: ...
     def emit(
         self, event: str, data: DataType | tuple[DataType, ...] | None = ...
     ) -> None: ...

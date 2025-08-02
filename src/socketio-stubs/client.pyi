@@ -1,11 +1,11 @@
 from collections.abc import Callable
 from threading import Thread
-from typing import Literal, ParamSpec, TypeVar
+from typing import ParamSpec, TypeVar
 
 import engineio
 from _typeshed import Incomplete
 from socketio import base_client
-from socketio._types import DataType
+from socketio._types import DataType, TransportType
 
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
@@ -14,7 +14,7 @@ class Client(base_client.BaseClient[engineio.Client]):
     connection_url: str  # pyright: ignore[reportIncompatibleVariableOverride]
     connection_headers: dict[Incomplete, Incomplete]  # pyright: ignore[reportIncompatibleVariableOverride]
     connection_auth: Incomplete | None
-    connection_transports: Literal["polling", "websocket"] | None
+    connection_transports: TransportType | None
     connection_namespaces: list[str]
     socketio_path: str  # pyright: ignore[reportIncompatibleVariableOverride]
     namespaces: dict[str, str | None]
@@ -24,7 +24,7 @@ class Client(base_client.BaseClient[engineio.Client]):
         url: str,
         headers: dict[Incomplete, Incomplete] = ...,
         auth: Incomplete | None = ...,
-        transports: Literal["polling", "websocket"] | None = ...,
+        transports: TransportType | None = ...,
         namespaces: str | list[str] | None = ...,
         socketio_path: str = ...,
         wait: bool = ...,

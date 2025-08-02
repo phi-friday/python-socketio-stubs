@@ -1,52 +1,28 @@
 from collections.abc import Mapping, Sequence
 from threading import Event as ThreadingEvent
-from typing import Any, Literal
+from typing import Any
 
 from _typeshed import Incomplete
 from gevent.event import Event as GeventEvent
-from socketio._types import DataType
-from socketio.base_server import BaseServer
-from typing_extensions import TypedDict
+from socketio._types import BufferItem, DataType, SerializedSocket, SocketIOModeType
+from socketio.server import Server
 
 HOSTNAME: str
 PID: int
 
-class _BufferItem(TypedDict, total=True):
-    timestamp: int
-    type: str
-    count: int
-
-class _SerializedSocketHandshake(TypedDict, total=True):
-    address: str
-    headers: dict[str, Incomplete]
-    query: dict[str, str]
-    secure: bool
-    url: str
-    issued: int
-    time: str
-
-class _SerializedSocket(TypedDict, total=True):
-    id: str
-    clientId: str
-    transport: Literal["websocket", "polling"]
-    nsp: str
-    data: dict[Incomplete, Incomplete]
-    handshake: _SerializedSocketHandshake
-    rooms: list[str]
-
 class EventBuffer:
-    buffer: dict[str, _BufferItem]
+    buffer: dict[str, BufferItem]
     def __init__(self) -> None: ...
     def push(self, type: str, count: int = ...) -> None: ...
-    def get_and_clear(self) -> list[_BufferItem]: ...
+    def get_and_clear(self) -> list[BufferItem]: ...
 
 class InstrumentedServer:
-    sio: BaseServer[Any]
+    sio: Server
     auth: Incomplete
     admin_namespace: str
     read_only: bool
     server_id: str
-    mode: Literal["development", "production"]
+    mode: SocketIOModeType
     server_stats_interval: int
     event_buffer: EventBuffer
     stop_stats_event: ThreadingEvent | GeventEvent | None
@@ -55,7 +31,7 @@ class InstrumentedServer:
         self,
         sio: Incomplete,
         auth: Incomplete | None = ...,
-        mode: Literal["development", "production"] = ...,
+        mode: SocketIOModeType = ...,
         read_only: bool = ...,
         server_id: str | None = ...,
         namespace: str = ...,
@@ -98,4 +74,4 @@ class InstrumentedServer:
     def shutdown(self) -> None: ...
     def serialize_socket(
         self, sid: str, namespace: str, eio_sid: str | None = ...
-    ) -> _SerializedSocket: ...
+    ) -> SerializedSocket: ...

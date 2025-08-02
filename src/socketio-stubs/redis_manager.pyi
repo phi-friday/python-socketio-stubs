@@ -2,19 +2,14 @@ import logging
 from typing import Any
 
 from _typeshed import Incomplete
+from socketio._types import RedisArgs
 from socketio.pubsub_manager import PubSubManager
-from typing_extensions import TypedDict
 
 logger: Incomplete
 
-class _RedisArgs(TypedDict, total=False):
-    username: str
-    password: str
-    db: int
-
 def parse_redis_sentinel_url(
     url: str,
-) -> tuple[list[tuple[str, int]], str | None, _RedisArgs]: ...
+) -> tuple[list[tuple[str, int]], str | None, RedisArgs]: ...
 
 class RedisManager(PubSubManager):
     name: str

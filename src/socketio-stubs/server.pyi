@@ -1,12 +1,12 @@
 import logging
 from collections.abc import Callable, Mapping
 from threading import Thread
-from typing import Literal, NoReturn, ParamSpec, TypeAlias, TypeVar, overload
+from typing import NoReturn, ParamSpec, TypeAlias, TypeVar, overload
 
 import engineio
 from _typeshed import Incomplete
 from socketio import base_server
-from socketio._types import SessionContextManager
+from socketio._types import SessionContextManager, SocketIOModeType
 from socketio.admin import InstrumentedServer
 
 DataType: TypeAlias = str | bytes | list[Incomplete] | dict[Incomplete, Incomplete]
@@ -90,7 +90,7 @@ class Server(base_server.BaseServer[engineio.Server]):
     def instrument(
         self,
         auth: Incomplete | None = ...,
-        mode: Literal["development", "production"] = ...,
+        mode: SocketIOModeType = ...,
         read_only: bool = ...,
         server_id: str | None = ...,
         namespace: str = ...,

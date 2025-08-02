@@ -1,12 +1,13 @@
 import logging
 from collections.abc import Callable
 from types import FrameType
-from typing import Any, ClassVar, Generic, Literal, overload
+from typing import Any, ClassVar, Generic, overload
 
 import engineio
 from _typeshed import Incomplete
 from engineio import AsyncClient, Client
 from socketio import base_namespace
+from socketio._types import TransportType
 from typing_extensions import TypeVar
 
 _T_co = TypeVar("_T_co", bound=Client | AsyncClient, covariant=True, default=Any)
@@ -34,7 +35,7 @@ class BaseClient(Generic[_T_co]):
     connection_url: str | None
     connection_headers: dict[Incomplete, Incomplete] | None
     connection_auth: Incomplete | None
-    connection_transports: Literal["polling", "websocket"] | None
+    connection_transports: TransportType | None
     connection_namespaces: list[str]
     socketio_path: str | None
     sid: str | None
@@ -92,5 +93,5 @@ class BaseClient(Generic[_T_co]):
         self, namespace_handler: base_namespace.BaseClientNamespace
     ) -> None: ...
     def get_sid(self, namespace: str | None = ...) -> str | None: ...
-    def transport(self) -> Literal["polling", "websocket"]: ...
+    def transport(self) -> TransportType: ...
     def _engineio_client_class(self) -> type[_T_co]: ...

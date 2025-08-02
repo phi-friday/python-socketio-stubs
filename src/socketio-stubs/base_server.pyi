@@ -1,11 +1,12 @@
 import logging
 from collections.abc import Callable, Mapping
-from typing import Any, ClassVar, Generic, Literal, overload
+from typing import Any, ClassVar, Generic, overload
 
 import engineio
 from _typeshed import Incomplete
 from engineio import AsyncServer, Server
 from socketio import base_namespace
+from socketio._types import AsyncModeType, TransportType
 from socketio.manager import Manager
 from typing_extensions import TypeVar
 
@@ -29,12 +30,12 @@ class BaseServer(Generic[_T_co]):
     async_handlers: bool
     always_connect: bool
     namespaces: list[str]
-    async_mode: Literal["eventlet", "gevent_uwsgi", "gevent", "threading"]
+    async_mode: AsyncModeType
     def __init__(
         self,
         client_manager: Manager | None = ...,
         logger: logging.Logger | bool = ...,
-        serializer: str = "default",
+        serializer: str = ...,
         json: Incomplete | None = ...,
         async_handlers: bool = ...,
         always_connect: bool = ...,
@@ -77,9 +78,7 @@ class BaseServer(Generic[_T_co]):
         self, namespace_handler: base_namespace.BaseClientNamespace
     ) -> None: ...
     def rooms(self, sid: str, namespace: str | None = ...) -> str | list[str]: ...
-    def transport(
-        self, sid: str, namespace: str | None = ...
-    ) -> Literal["polling", "websocket"]: ...
+    def transport(self, sid: str, namespace: str | None = ...) -> TransportType: ...
     def get_environ(
         self, sid: str, namespace: str | None = ...
     ) -> Incomplete | None: ...
