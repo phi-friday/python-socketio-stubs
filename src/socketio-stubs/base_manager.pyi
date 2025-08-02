@@ -12,7 +12,7 @@ class BaseManager:
     logger: logging.Logger | None
     server: BaseServer[Any]
     rooms: dict[  # self.rooms[namespace][room][sio_sid] = eio_sid
-        str, dict[str, bidict[str, str]]
+        str, dict[str | None, bidict[str, str]]
     ]
     eio_to_sid: dict[str, str]
     callbacks: dict[str, dict[int, Callable[..., Incomplete]]]
@@ -22,7 +22,7 @@ class BaseManager:
     def initialize(self) -> None: ...
     def get_namespaces(self) -> KeysView[dict[str, Any]]: ...
     def get_participants(
-        self, namespace: str, room: str | Sequence[str]
+        self, namespace: str, room: str | Sequence[str] | None
     ) -> Generator[tuple[str, str]]: ...
     def connect(self, eio_sid: str, namespace: str) -> str: ...
     def is_connected(self, sid: str, namespace: str) -> bool: ...

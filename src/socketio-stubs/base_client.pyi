@@ -1,14 +1,15 @@
 import logging
 from collections.abc import Callable
 from types import FrameType
-from typing import Any, ClassVar, Generic, Literal, TypeVar, overload
+from typing import Any, ClassVar, Generic, Literal, overload
 
 import engineio
 from _typeshed import Incomplete
 from engineio import AsyncClient, Client
 from socketio import base_namespace
+from typing_extensions import TypeVar
 
-_T_co = TypeVar("_T_co", bound=Client | AsyncClient, covariant=True)
+_T_co = TypeVar("_T_co", bound=Client | AsyncClient, covariant=True, default=Any)
 _F = TypeVar("_F", bound=Callable[..., Any])
 
 default_logger: logging.Logger
