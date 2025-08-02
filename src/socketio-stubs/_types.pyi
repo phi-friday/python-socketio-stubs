@@ -1,8 +1,15 @@
 from contextlib import AbstractContextManager
-from typing import Any, Literal, TypeAlias
+from threading import Event as ThreadingEvent
+from typing import Any, Literal, TypeAlias, overload
 
 from _typeshed import Incomplete
+from engineio.async_drivers.eventlet import EventletThread
+from engineio.async_drivers.gevent import Thread as GeventThread
+from engineio.async_drivers.gevent_uwsgi import Thread as GeventUWSGThread
+from engineio.async_drivers.threading import DaemonThread
 from engineio.socket import Socket
+from gevent.event import Event as GeventEvent
+from socketio.admin import InstrumentedServer
 from socketio.server import Server
 from typing_extensions import NotRequired, Required, TypedDict
 
@@ -12,7 +19,7 @@ SocketIOModeType: TypeAlias = Literal["development", "production"]
 AsyncModeType: TypeAlias = Literal["eventlet", "gevent_uwsgi", "gevent", "threading"]
 
 class SessionContextManager(AbstractContextManager[Socket]):
-    server: Server
+    server: Server[Any]
     sid: str
     namespace: str | None
     session: Socket | None
@@ -51,3 +58,123 @@ class RedisArgs(TypedDict, total=False):
     username: str
     password: str
     db: int
+
+class StopStateEventDescriptor:
+    @overload
+    def __get__(
+        self,
+        instance: InstrumentedServer[Literal["gevent_uwsgi"]],
+        owner: type[InstrumentedServer[Any]],
+    ) -> GeventEvent | None: ...
+    @overload
+    def __get__(
+        self,
+        instance: InstrumentedServer[Literal["gevent"]],
+        owner: type[InstrumentedServer[Any]],
+    ) -> GeventEvent | None: ...
+    @overload
+    def __get__(
+        self,
+        instance: InstrumentedServer[Literal["eventlet"]],
+        owner: type[InstrumentedServer[Any]],
+    ) -> ThreadingEvent | None: ...
+    @overload
+    def __get__(
+        self,
+        instance: InstrumentedServer[Literal["threading"]],
+        owner: type[InstrumentedServer[Any]],
+    ) -> ThreadingEvent | None: ...
+    @overload
+    def __get__(
+        self, instance: InstrumentedServer[Any], owner: type[InstrumentedServer[Any]]
+    ) -> ThreadingEvent | GeventEvent | None: ...
+    @overload
+    def __set__(
+        self,
+        instance: InstrumentedServer[Literal["gevent_uwsgi"]],
+        value: GeventEvent | None,
+    ) -> None: ...
+    @overload
+    def __set__(
+        self, instance: InstrumentedServer[Literal["gevent"]], value: GeventEvent | None
+    ) -> None: ...
+    @overload
+    def __set__(
+        self,
+        instance: InstrumentedServer[Literal["eventlet"]],
+        value: ThreadingEvent | None,
+    ) -> None: ...
+    @overload
+    def __set__(
+        self,
+        instance: InstrumentedServer[Literal["threading"]],
+        value: ThreadingEvent | None,
+    ) -> None: ...
+    @overload
+    def __set__(
+        self,
+        instance: InstrumentedServer[Any],
+        value: ThreadingEvent | GeventEvent | None,
+    ) -> None: ...
+    def __delete__(self, instance: InstrumentedServer[Any]) -> None: ...
+
+class StatsTaskDescriptor:
+    @overload
+    def __get__(
+        self,
+        instance: InstrumentedServer[Literal["eventlet"]],
+        owner: type[InstrumentedServer[Literal["eventlet"]]],
+    ) -> EventletThread | None: ...
+    @overload
+    def __get__(
+        self,
+        instance: InstrumentedServer[Literal["gevent_uwsgi"]],
+        owner: type[InstrumentedServer[Literal["gevent_uwsgi",]]],
+    ) -> GeventUWSGThread | None: ...
+    @overload
+    def __get__(
+        self,
+        instance: InstrumentedServer[Literal["gevent"]],
+        owner: type[InstrumentedServer[Literal["gevent"]]],
+    ) -> GeventThread | None: ...
+    @overload
+    def __get__(
+        self,
+        instance: InstrumentedServer[Literal["threading"]],
+        owner: type[InstrumentedServer[Literal["threading"]]],
+    ) -> DaemonThread | None: ...
+    @overload
+    def __get__(
+        self, instance: InstrumentedServer[Any], owner: type[InstrumentedServer[Any]]
+    ) -> EventletThread | GeventUWSGThread | GeventThread | DaemonThread | None: ...
+    @overload
+    def __set__(
+        self,
+        instance: InstrumentedServer[Literal["eventlet",]],
+        value: EventletThread | None,
+    ) -> None: ...
+    @overload
+    def __set__(
+        self,
+        instance: InstrumentedServer[Literal["gevent_uwsgi"]],
+        value: GeventUWSGThread | None,
+    ) -> None: ...
+    @overload
+    def __set__(
+        self,
+        instance: InstrumentedServer[Literal["gevent"]],
+        value: GeventThread | None,
+    ) -> None: ...
+    @overload
+    def __set__(
+        self,
+        instance: InstrumentedServer[Literal["threading"]],
+        value: DaemonThread | None,
+    ) -> None: ...
+    @overload
+    def __set__(
+        self,
+        instance: InstrumentedServer[Any],
+        value: EventletThread | GeventUWSGThread | GeventThread | DaemonThread | None,
+    ) -> None: ...
+    def __delete__(self, instance: InstrumentedServer[Any]) -> None: ...

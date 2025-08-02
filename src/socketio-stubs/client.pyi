@@ -1,8 +1,10 @@
+import logging
 from collections.abc import Callable
 from threading import Thread
-from typing import ParamSpec, TypeVar
+from typing import Any, ParamSpec, TypeVar
 
 import engineio
+import requests
 from _typeshed import Incomplete
 from socketio import base_client
 from socketio._types import DataType, TransportType
@@ -19,6 +21,27 @@ class Client(base_client.BaseClient[engineio.Client]):
     socketio_path: str  # pyright: ignore[reportIncompatibleVariableOverride]
     namespaces: dict[str, str | None]
     connected: bool
+
+    def __init__(
+        self,
+        reconnection: bool = ...,
+        reconnection_attempts: int = ...,
+        reconnection_delay: int = ...,
+        reconnection_delay_max: int = ...,
+        randomization_factor: float = ...,
+        logger: logging.Logger | bool = ...,
+        serializer: str = ...,
+        json: Incomplete | None = ...,
+        handle_sigint: bool = ...,
+        # engineio options
+        *,
+        request_timeout: int = ...,
+        http_session: requests.Session | None = ...,
+        ssl_verify: bool = ...,
+        websocket_extra_options: dict[str, Any] | None = ...,
+        engineio_logger: logging.Logger | bool = ...,
+        **kwargs: Incomplete,
+    ) -> None: ...
     def connect(
         self,
         url: str,

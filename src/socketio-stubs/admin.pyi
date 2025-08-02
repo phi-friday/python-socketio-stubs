@@ -1,11 +1,20 @@
 from collections.abc import Mapping, Sequence
-from threading import Event as ThreadingEvent
-from typing import Any
+from typing import Any, Generic
 
 from _typeshed import Incomplete
-from gevent.event import Event as GeventEvent
-from socketio._types import BufferItem, DataType, SerializedSocket, SocketIOModeType
+from socketio._types import (
+    AsyncModeType,
+    BufferItem,
+    DataType,
+    SerializedSocket,
+    SocketIOModeType,
+    StatsTaskDescriptor,
+    StopStateEventDescriptor,
+)
 from socketio.server import Server
+from typing_extensions import TypeVar
+
+_A = TypeVar("_A", bound=AsyncModeType, default=Any)
 
 HOSTNAME: str
 PID: int
@@ -16,8 +25,8 @@ class EventBuffer:
     def push(self, type: str, count: int = ...) -> None: ...
     def get_and_clear(self) -> list[BufferItem]: ...
 
-class InstrumentedServer:
-    sio: Server
+class InstrumentedServer(Generic[_A]):
+    sio: Server[_A]
     auth: Incomplete
     admin_namespace: str
     read_only: bool
@@ -25,11 +34,11 @@ class InstrumentedServer:
     mode: SocketIOModeType
     server_stats_interval: int
     event_buffer: EventBuffer
-    stop_stats_event: ThreadingEvent | GeventEvent | None
-    stats_task: Incomplete
+    stop_stats_event: StopStateEventDescriptor
+    stats_task: StatsTaskDescriptor
     def __init__(
         self,
-        sio: Incomplete,
+        sio: Server[_A],
         auth: Incomplete | None = ...,
         mode: SocketIOModeType = ...,
         read_only: bool = ...,

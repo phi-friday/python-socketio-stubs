@@ -1,21 +1,55 @@
 import logging
 from collections.abc import Callable, Mapping
 from threading import Thread
-from typing import NoReturn, ParamSpec, TypeAlias, TypeVar, overload
+from typing import Any, Generic, NoReturn, ParamSpec, TypeAlias, overload
 
 import engineio
 from _typeshed import Incomplete
 from socketio import base_server
-from socketio._types import SessionContextManager, SocketIOModeType
+from socketio._types import (
+    AsyncModeType,
+    SessionContextManager,
+    SocketIOModeType,
+    TransportType,
+)
 from socketio.admin import InstrumentedServer
+from socketio.manager import Manager
+from typing_extensions import TypeVar
 
 DataType: TypeAlias = str | bytes | list[Incomplete] | dict[Incomplete, Incomplete]
+_A = TypeVar("_A", bound=AsyncModeType, default=Any)
 _P = ParamSpec("_P")
 _T = TypeVar("_T")
 
 default_logger: logging.Logger
 
-class Server(base_server.BaseServer[engineio.Server]):
+class Server(base_server.BaseServer[engineio.Server], Generic[_A]):
+    def __init__(
+        self,
+        client_manager: Manager | None = ...,
+        logger: logging.Logger | bool = ...,
+        serializer: str = ...,
+        json: Incomplete | None = ...,
+        async_handlers: bool = ...,
+        always_connect: bool = ...,
+        namespaces: list[str] | None = ...,
+        # engineio options
+        *,
+        async_mode: _A = ...,
+        ping_interval: int = ...,
+        ping_timeout: int = ...,
+        max_http_buffer_size: int = ...,
+        allow_upgrades: bool = ...,
+        http_compression: bool = ...,
+        compression_threshold: int = ...,
+        cookie: str | dict[str, str] | Callable[[], str] | bool | None = ...,
+        cors_allowed_origins: str | list[str] | None = ...,
+        cors_credentials: bool = ...,
+        monitor_clients: bool = ...,
+        transport: TransportType | None = ...,
+        engineio_logger: logging.Logger | bool = ...,
+        **kwargs: Incomplete,
+    ) -> None: ...
     def emit(
         self,
         event: str,
