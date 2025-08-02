@@ -16,7 +16,7 @@ class Client(base_client.BaseClient[Literal[False], engineio.Client]):
     connection_url: str  # pyright: ignore[reportIncompatibleVariableOverride]
     connection_headers: dict[Incomplete, Incomplete]  # pyright: ignore[reportIncompatibleVariableOverride]
     connection_auth: Incomplete | None
-    connection_transports: TransportType | None
+    connection_transports: list[TransportType] | None
     connection_namespaces: list[str]
     socketio_path: str  # pyright: ignore[reportIncompatibleVariableOverride]
     namespaces: dict[str, str | None]
@@ -47,7 +47,7 @@ class Client(base_client.BaseClient[Literal[False], engineio.Client]):
         url: str,
         headers: dict[Incomplete, Incomplete] = ...,
         auth: Incomplete | None = ...,
-        transports: TransportType | None = ...,
+        transports: list[TransportType] | None = ...,
         namespaces: str | list[str] | None = ...,
         socketio_path: str = ...,
         wait: bool = ...,

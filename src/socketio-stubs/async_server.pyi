@@ -52,7 +52,7 @@ class AsyncServer(
         cors_allowed_origins: str | list[str] | None = ...,
         cors_credentials: bool = ...,
         monitor_clients: bool = ...,
-        transport: TransportType | None = ...,
+        transport: list[TransportType] | None = ...,
         engineio_logger: logging.Logger | bool = ...,
         **kwargs: Incomplete,
     ) -> None: ...

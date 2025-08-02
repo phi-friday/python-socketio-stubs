@@ -24,7 +24,7 @@ class AsyncSimpleClient:
         url: str,
         headers: dict[Incomplete, Incomplete] = ...,
         auth: Incomplete | None = ...,
-        transports: TransportType | None = ...,
+        transports: list[TransportType] | None = ...,
         namespace: str = ...,
         socketio_path: str = ...,
         wait_timeout: int = ...,
