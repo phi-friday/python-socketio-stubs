@@ -5,19 +5,22 @@ from typing import Any, Generic, Literal, NoReturn, ParamSpec, overload
 
 import engineio
 from _typeshed import Incomplete
+from aiohttp.web import Application as AiohttpApplication
+from engineio.async_drivers.asgi import ASGIApp
+from sanic import Sanic
 from socketio import base_server as base_server
 from socketio import exceptions as exceptions
 from socketio import packet as packet
 from socketio._types import (
     AsyncAsyncModeType,
     AsyncSessionContextManager,
-    AttachDescriptor,
     DataType,
     SocketIOModeType,
     TransportType,
 )
 from socketio.async_admin import InstrumentedAsyncServer
 from socketio.async_manager import AsyncManager
+from tornado.web import Application as TornadoApplication
 from typing_extensions import TypeVar
 
 _A = TypeVar("_A", bound=AsyncAsyncModeType, default=Any)
@@ -52,7 +55,34 @@ class AsyncServer(
         engineio_logger: logging.Logger | bool = ...,
         **kwargs: Incomplete,
     ) -> None: ...
-    attach: AttachDescriptor
+    @overload
+    def attach(
+        self: AsyncServer[Literal["aiohttp"]],
+        app: AiohttpApplication,
+        socketio_path: str = ...,
+    ) -> None: ...
+    @overload
+    def attach(
+        self: AsyncServer[Literal["sanic"]],
+        app: Sanic[Any, Any],
+        socketio_path: str = ...,
+    ) -> None: ...
+    @overload
+    def attach(
+        self: AsyncServer[Literal["asgi"]], app: ASGIApp, socketio_path: str = ...
+    ) -> None: ...
+    @overload
+    def attach(
+        self: AsyncServer[Literal["tornado"]],
+        app: TornadoApplication,
+        socketio_path: str = ...,
+    ) -> None: ...
+    @overload
+    def attach(
+        self,
+        app: AiohttpApplication | Sanic[Any, Any] | ASGIApp | TornadoApplication,
+        socketio_path: str = ...,
+    ) -> None: ...
     async def emit(
         self,
         event: str,
