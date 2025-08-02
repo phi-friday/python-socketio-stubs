@@ -16,7 +16,9 @@ from typing_extensions import NotRequired, Required, TypedDict
 DataType: TypeAlias = str | bytes | list[Incomplete] | dict[Incomplete, Incomplete]
 TransportType: TypeAlias = Literal["websocket", "polling"]
 SocketIOModeType: TypeAlias = Literal["development", "production"]
-AsyncModeType: TypeAlias = Literal["eventlet", "gevent_uwsgi", "gevent", "threading"]
+SyncAsyncModeType: TypeAlias = Literal[
+    "eventlet", "gevent_uwsgi", "gevent", "threading"
+]
 
 class SessionContextManager(AbstractContextManager[Socket]):
     server: Server[Any]

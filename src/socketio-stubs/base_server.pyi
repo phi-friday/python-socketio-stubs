@@ -6,7 +6,7 @@ import engineio
 from _typeshed import Incomplete
 from engineio import AsyncServer, Server
 from socketio import base_namespace
-from socketio._types import AsyncModeType, TransportType
+from socketio._types import SyncAsyncModeType, TransportType
 from socketio.manager import Manager
 from typing_extensions import TypeVar
 
@@ -30,7 +30,7 @@ class BaseServer(Generic[_T_co]):
     async_handlers: bool
     always_connect: bool
     namespaces: list[str]
-    async_mode: AsyncModeType
+    async_mode: SyncAsyncModeType
     def __init__(
         self,
         client_manager: Manager | None = ...,

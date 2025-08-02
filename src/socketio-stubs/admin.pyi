@@ -3,18 +3,18 @@ from typing import Any, Generic
 
 from _typeshed import Incomplete
 from socketio._types import (
-    AsyncModeType,
     BufferItem,
     DataType,
     SerializedSocket,
     SocketIOModeType,
     StatsTaskDescriptor,
     StopStateEventDescriptor,
+    SyncAsyncModeType,
 )
 from socketio.server import Server
 from typing_extensions import TypeVar
 
-_A = TypeVar("_A", bound=AsyncModeType, default=Any)
+_A = TypeVar("_A", bound=SyncAsyncModeType, default=Any)
 
 HOSTNAME: str
 PID: int

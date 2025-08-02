@@ -7,9 +7,9 @@ import engineio
 from _typeshed import Incomplete
 from socketio import base_server
 from socketio._types import (
-    AsyncModeType,
     SessionContextManager,
     SocketIOModeType,
+    SyncAsyncModeType,
     TransportType,
 )
 from socketio.admin import InstrumentedServer
@@ -17,7 +17,7 @@ from socketio.manager import Manager
 from typing_extensions import TypeVar
 
 DataType: TypeAlias = str | bytes | list[Incomplete] | dict[Incomplete, Incomplete]
-_A = TypeVar("_A", bound=AsyncModeType, default=Any)
+_A = TypeVar("_A", bound=SyncAsyncModeType, default=Any)
 _P = ParamSpec("_P")
 _T = TypeVar("_T")
 

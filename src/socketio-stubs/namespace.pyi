@@ -3,12 +3,12 @@ from typing import Any, Generic, NoReturn, overload
 
 from _typeshed import Incomplete
 from socketio import base_namespace
-from socketio._types import AsyncModeType, DataType, SessionContextManager
+from socketio._types import DataType, SessionContextManager, SyncAsyncModeType
 from socketio.client import Client
 from socketio.server import Server
 from typing_extensions import TypeVar
 
-_A = TypeVar("_A", bound=AsyncModeType, default=Any)
+_A = TypeVar("_A", bound=SyncAsyncModeType, default=Any)
 
 class Namespace(base_namespace.BaseServerNamespace, Generic[_A]):
     server: Server[_A]  # pyright: ignore[reportIncompatibleVariableOverride]
