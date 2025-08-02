@@ -1,7 +1,7 @@
 import logging
 from collections.abc import Callable, Mapping
 from threading import Thread
-from typing import Any, Generic, NoReturn, ParamSpec, TypeAlias, overload
+from typing import Any, Generic, Literal, NoReturn, ParamSpec, TypeAlias, overload
 
 import engineio
 from _typeshed import Incomplete
@@ -23,7 +23,7 @@ _T = TypeVar("_T")
 
 default_logger: logging.Logger
 
-class Server(base_server.BaseServer[engineio.Server], Generic[_A]):
+class Server(base_server.BaseServer[Literal[False], engineio.Server], Generic[_A]):
     def __init__(
         self,
         client_manager: Manager | None = ...,

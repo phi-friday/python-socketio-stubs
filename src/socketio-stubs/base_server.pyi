@@ -12,10 +12,11 @@ from typing_extensions import TypeVar
 
 _T_co = TypeVar("_T_co", bound=Server | AsyncServer, covariant=True, default=Any)
 _F = TypeVar("_F", bound=Callable[..., Any])
+_Async = TypeVar("_Async", bound=bool, default=Any)
 
 default_logger: logging.Logger
 
-class BaseServer(Generic[_T_co]):
+class BaseServer(Generic[_Async, _T_co]):
     reserved_events: ClassVar[list[str]]
     reason: ClassVar[type[engineio.Client.reason]]
     packet_class: Incomplete
@@ -42,7 +43,7 @@ class BaseServer(Generic[_T_co]):
         namespaces: list[str] | None = ...,
         **kwargs: Any,
     ) -> None: ...
-    def is_asyncio_based(self) -> bool: ...
+    def is_asyncio_based(self) -> _Async: ...
     @overload
     def on(
         self,
@@ -75,7 +76,7 @@ class BaseServer(Generic[_T_co]):
         self, handler: Callable[..., Incomplete], namespace: str | None = ...
     ) -> Callable[[_F], _F] | None: ...
     def register_namespace(
-        self, namespace_handler: base_namespace.BaseClientNamespace
+        self, namespace_handler: base_namespace.BaseClientNamespace[_Async]
     ) -> None: ...
     def rooms(self, sid: str, namespace: str | None = ...) -> str | list[str]: ...
     def transport(self, sid: str, namespace: str | None = ...) -> TransportType: ...

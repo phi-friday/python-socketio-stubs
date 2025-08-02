@@ -1,17 +1,32 @@
+from collections.abc import Callable
 from contextlib import AbstractContextManager
 from threading import Event as ThreadingEvent
-from typing import Any, Literal, TypeAlias, overload
+from typing import (
+    Any,
+    Generic,
+    Literal,
+    NoReturn,
+    Protocol,
+    TypeAlias,
+    TypeVar,
+    overload,
+)
 
 from _typeshed import Incomplete
+from aiohttp.web import Application as AiohttpApplication
 from engineio.async_drivers.eventlet import EventletThread
 from engineio.async_drivers.gevent import Thread as GeventThread
 from engineio.async_drivers.gevent_uwsgi import Thread as GeventUWSGThread
 from engineio.async_drivers.threading import DaemonThread
 from engineio.socket import Socket
 from gevent.event import Event as GeventEvent
+from sanic import Sanic
 from socketio.admin import InstrumentedServer
+from socketio.async_server import AsyncServer
 from socketio.server import Server
 from typing_extensions import NotRequired, Required, TypedDict
+
+_T_contra = TypeVar("_T_contra", contravariant=True)
 
 DataType: TypeAlias = str | bytes | list[Incomplete] | dict[Incomplete, Incomplete]
 TransportType: TypeAlias = Literal["websocket", "polling"]
@@ -19,6 +34,7 @@ SocketIOModeType: TypeAlias = Literal["development", "production"]
 SyncAsyncModeType: TypeAlias = Literal[
     "eventlet", "gevent_uwsgi", "gevent", "threading"
 ]
+AsyncAsyncModeType: TypeAlias = Literal["aiohttp", "sanic", "tornado", "asgi"]
 
 class SessionContextManager(AbstractContextManager[Socket]):
     server: Server[Any]
@@ -28,6 +44,15 @@ class SessionContextManager(AbstractContextManager[Socket]):
 
     def __enter__(self) -> Socket: ...
     def __exit__(self, *args: object, **kwargs: Any) -> None: ...
+
+class AsyncSessionContextManager(AbstractContextManager[Socket]):
+    server: Server[Any]
+    sid: str
+    namespace: str | None
+    session: Socket | None
+
+    async def __aenter__(self) -> Socket: ...
+    async def __aexit__(self, *args: object, **kwargs: Any) -> None: ...
 
 class BufferItem(TypedDict, total=True):
     timestamp: int
@@ -180,3 +205,26 @@ class StatsTaskDescriptor:
         value: EventletThread | GeventUWSGThread | GeventThread | DaemonThread | None,
     ) -> None: ...
     def __delete__(self, instance: InstrumentedServer[Any]) -> None: ...
+
+class AttachFunction(Protocol, Generic[_T_contra]):
+    def __call__(self, app: _T_contra, socketio_path: str = ...) -> None: ...
+
+class AttachDescriptor:
+    @overload
+    def __get__(
+        self,
+        instance: AsyncServer[Literal["tornado", "asgi"]],
+        owner: type[AsyncServer[Any]],
+    ) -> Callable[..., NoReturn]: ...
+    @overload
+    def __get__(
+        self, instance: AsyncServer[Literal["aiohttp"]], owner: type[AsyncServer[Any]]
+    ) -> AttachFunction[AiohttpApplication]: ...
+    @overload
+    def __get__(
+        self, instance: AsyncServer[Literal["sanic"]], owner: type[AsyncServer[Any]]
+    ) -> AttachFunction[Sanic[Any, Any]]: ...
+    @overload
+    def __get__(
+        self, instance: AsyncServer[Any], owner: type[AsyncServer[Any]]
+    ) -> AttachFunction[Any]: ...

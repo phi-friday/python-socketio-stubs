@@ -1,5 +1,5 @@
 from collections.abc import Callable
-from typing import Any, Generic, NoReturn, overload
+from typing import Any, Generic, Literal, NoReturn, overload
 
 from _typeshed import Incomplete
 from socketio import base_namespace
@@ -10,7 +10,7 @@ from typing_extensions import TypeVar
 
 _A = TypeVar("_A", bound=SyncAsyncModeType, default=Any)
 
-class Namespace(base_namespace.BaseServerNamespace, Generic[_A]):
+class Namespace(base_namespace.BaseServerNamespace[Literal[False]], Generic[_A]):
     server: Server[_A]  # pyright: ignore[reportIncompatibleVariableOverride]
     def trigger_event(self, event: str, *args: Any) -> Any: ...
     def emit(
@@ -73,7 +73,7 @@ class Namespace(base_namespace.BaseServerNamespace, Generic[_A]):
     ) -> SessionContextManager: ...
     def disconnect(self, sid: str, namespace: str | None = ...) -> None: ...
 
-class ClientNamespace(base_namespace.BaseClientNamespace):
+class ClientNamespace(base_namespace.BaseClientNamespace[Literal[False]]):
     client: Client  # pyright: ignore[reportIncompatibleVariableOverride]
     def trigger_event(self, event: str, *args: Any) -> Any: ...
     def emit(
