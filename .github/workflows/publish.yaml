@@ -1,0 +1,33 @@
+name: Publish Package
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    name: "Publish library"
+    environment: publish
+    permissions: 
+      id-token: write
+
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+        with:
+          token: "${{ secrets.GITHUB_TOKEN }}"
+          fetch-depth: 0
+
+      - name: Set up uv
+        run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
+      - name: Build package
+        run: |
+          VERSION=$(uvx dunamai from any --no-metadata --style pep440).$(date +"%Y%m%d")
+          echo $VERSION
+          uvx --from=toml-cli toml set --toml-path=pyproject.toml project.version $VERSION
+          uv build
+      
+      - name: Publish package
+        run: uv publish
