@@ -1,9 +1,22 @@
-from .async_pubsub_manager import AsyncPubSubManager as AsyncPubSubManager
-from .redis_manager import parse_redis_sentinel_url as parse_redis_sentinel_url
-from _typeshed import Incomplete
+import logging
+from typing import Any
+
+from socketio._types import RedisArgs
+from socketio.async_pubsub_manager import AsyncPubSubManager
+
+def parse_redis_sentinel_url(
+    url: str,
+) -> tuple[list[tuple[str, int]], str | None, RedisArgs]: ...
 
 class AsyncRedisManager(AsyncPubSubManager):
     name: str
-    redis_url: Incomplete
-    redis_options: Incomplete
-    def __init__(self, url: str = 'redis://localhost:6379/0', channel: str = 'socketio', write_only: bool = False, logger=None, redis_options=None) -> None: ...
+    redis_url: str
+    redis_options: dict[str, Any]
+    def __init__(
+        self,
+        url: str = ...,
+        channel: str = ...,
+        write_only: bool = ...,
+        logger: logging.Logger | None = ...,
+        redis_options: dict[str, Any] | None = ...,
+    ) -> None: ...

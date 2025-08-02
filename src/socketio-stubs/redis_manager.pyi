@@ -1,11 +1,10 @@
 import logging
 from typing import Any
 
-from _typeshed import Incomplete
 from socketio._types import RedisArgs
 from socketio.pubsub_manager import PubSubManager
 
-logger: Incomplete
+logger: logging.Logger
 
 def parse_redis_sentinel_url(
     url: str,
@@ -14,7 +13,7 @@ def parse_redis_sentinel_url(
 class RedisManager(PubSubManager):
     name: str
     redis_url: str
-    redis_options: Incomplete
+    redis_options: dict[str, Any]
     def __init__(
         self,
         url: str = ...,
