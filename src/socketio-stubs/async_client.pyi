@@ -6,17 +6,15 @@ from typing import Any, Literal, ParamSpec, TypeVar
 import engineio
 import requests
 from _typeshed import Incomplete
-from socketio import base_client as base_client
-from socketio import exceptions as exceptions
-from socketio import packet as packet
 from socketio._types import DataType, TransportType
+from socketio.base_client import BaseClient
 
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
 
 default_logger: logging.Logger
 
-class AsyncClient(base_client.BaseClient[Literal[True], engineio.AsyncClient]):
+class AsyncClient(BaseClient[Literal[True], engineio.AsyncClient]):
     connection_url: str  # pyright: ignore[reportIncompatibleVariableOverride]
     connection_headers: dict[Incomplete, Incomplete]  # pyright: ignore[reportIncompatibleVariableOverride]
     connection_auth: Incomplete | None

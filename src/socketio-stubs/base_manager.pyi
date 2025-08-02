@@ -1,19 +1,16 @@
 import logging
 from collections.abc import Callable, Generator, KeysView, Sequence
-from typing import Any, Generic
+from typing import Any
 
 from _typeshed import Incomplete
 from bidict import bidict
 from socketio.base_server import BaseServer
-from typing_extensions import TypeVar
-
-_Async = TypeVar("_Async", bound=bool, default=Any)
 
 default_logger: logging.Logger
 
-class BaseManager(Generic[_Async]):
+class BaseManager:
     logger: logging.Logger | None
-    server: BaseServer[_Async, Any]
+    server: BaseServer[Any, Any]
     rooms: dict[  # self.rooms[namespace][room][sio_sid] = eio_sid
         str, dict[str | None, bidict[str, str]]
     ]
@@ -21,7 +18,7 @@ class BaseManager(Generic[_Async]):
     callbacks: dict[str, dict[int, Callable[..., Incomplete]]]
     pending_disconnect: dict[str, list[str]]
     def __init__(self) -> None: ...
-    def set_server(self, server: BaseServer[_Async, Any]) -> None: ...
+    def set_server(self, server: BaseServer[Any, Any]) -> None: ...
     def initialize(self) -> None: ...
     def get_namespaces(self) -> KeysView[dict[str, Any]]: ...
     def get_participants(

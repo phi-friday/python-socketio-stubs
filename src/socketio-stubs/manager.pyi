@@ -3,12 +3,12 @@ from collections.abc import Callable, Sequence
 from typing import Any
 
 from _typeshed import Incomplete
-from socketio import base_manager
 from socketio._types import DataType
+from socketio.base_manager import BaseManager
 
 default_logger: logging.Logger
 
-class Manager(base_manager.BaseManager):
+class Manager(BaseManager):
     def can_disconnect(self, sid: str, namespace: str) -> bool: ...
     def emit(
         self,

@@ -1,7 +1,7 @@
 import logging
 from collections.abc import Callable
 from types import FrameType
-from typing import Any, ClassVar, Generic, overload
+from typing import Any, ClassVar, Generic, Literal, overload
 
 import engineio
 from _typeshed import Incomplete
@@ -11,7 +11,7 @@ from socketio._types import TransportType
 from typing_extensions import TypeVar
 
 _T_co = TypeVar("_T_co", bound=Client | AsyncClient, covariant=True, default=Any)
-_Async = TypeVar("_Async", bound=bool, default=Any)
+_IsAsyncio = TypeVar("_IsAsyncio", bound=bool, default=Literal[False])
 _F = TypeVar("_F", bound=Callable[..., Any])
 
 default_logger: logging.Logger
@@ -21,7 +21,7 @@ def signal_handler(sig: int, frame: FrameType | None) -> Any: ...
 
 original_signal_handler: Callable[[int, FrameType | None], Any] | None
 
-class BaseClient(Generic[_Async, _T_co]):
+class BaseClient(Generic[_IsAsyncio, _T_co]):
     reserved_events: ClassVar[list[str]]
     reason: ClassVar[type[engineio.Client.reason]]
     reconnection: bool
@@ -58,7 +58,7 @@ class BaseClient(Generic[_Async, _T_co]):
         handle_sigint: bool = ...,
         **kwargs: Any,
     ) -> None: ...
-    def is_asyncio_based(self) -> _Async: ...
+    def is_asyncio_based(self) -> _IsAsyncio: ...
     @overload
     def on(
         self,
