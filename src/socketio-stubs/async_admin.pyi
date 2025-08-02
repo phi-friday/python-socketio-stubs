@@ -1,29 +1,80 @@
-from .admin import EventBuffer as EventBuffer
-from .exceptions import ConnectionRefusedError as ConnectionRefusedError
+import asyncio
+from collections.abc import Mapping, Sequence
+from typing import Any, Generic
+
 from _typeshed import Incomplete
+from socketio._types import (
+    AsyncAsyncModeType,
+    DataType,
+    SerializedSocket,
+    SocketIOModeType,
+)
+from socketio.admin import EventBuffer as EventBuffer
+from socketio.async_server import AsyncServer
+from typing_extensions import TypeVar
 
-HOSTNAME: Incomplete
-PID: Incomplete
+_A = TypeVar("_A", bound=AsyncAsyncModeType, default=Any)
 
-class InstrumentedAsyncServer:
-    sio: Incomplete
+HOSTNAME: str
+PID: int
+
+class InstrumentedAsyncServer(Generic[_A]):
+    sio: AsyncServer[_A]
     auth: Incomplete
-    admin_namespace: Incomplete
-    read_only: Incomplete
-    server_id: Incomplete
-    mode: Incomplete
-    server_stats_interval: Incomplete
-    admin_queue: Incomplete
-    event_buffer: Incomplete
-    stop_stats_event: Incomplete
-    stats_task: Incomplete
-    def __init__(self, sio, auth=None, namespace: str = '/admin', read_only: bool = False, server_id=None, mode: str = 'development', server_stats_interval: int = 2) -> None: ...
+    admin_namespace: str
+    read_only: bool
+    server_id: str
+    mode: SocketIOModeType
+    server_stats_interval: int
+    admin_queue: list[Incomplete]
+    event_buffer: EventBuffer
+    stop_stats_event: asyncio.Event | None
+    stats_task: asyncio.Task[Any] | None
+    def __init__(
+        self,
+        sio: AsyncServer[_A],
+        auth: Incomplete | None = ...,
+        namespace: str = ...,
+        read_only: bool = ...,
+        server_id: str | None = ...,
+        mode: SocketIOModeType = ...,
+        server_stats_interval: int = ...,
+    ) -> None: ...
     def instrument(self) -> None: ...
     def uninstrument(self) -> None: ...
-    async def admin_connect(self, sid, environ, client_auth) -> None: ...
-    async def admin_emit(self, _, namespace, room_filter, event, *data) -> None: ...
-    async def admin_enter_room(self, _, namespace, room, room_filter=None) -> None: ...
-    async def admin_leave_room(self, _, namespace, room, room_filter=None) -> None: ...
-    async def admin_disconnect(self, _, namespace, close, room_filter=None) -> None: ...
+    async def admin_connect(
+        self, sid: str, environ: Mapping[str, Incomplete], client_auth: Incomplete
+    ) -> None: ...
+    async def admin_emit(
+        self,
+        _: Any,
+        namespace: str | None,
+        room_filter: str | None,
+        event: str,
+        *data: DataType,
+    ) -> None: ...
+    async def admin_enter_room(
+        self,
+        _: Any,
+        namespace: str | None,
+        room: str,
+        room_filter: str | Sequence[str] | None = ...,
+    ) -> None: ...
+    async def admin_leave_room(
+        self,
+        _: Any,
+        namespace: str | None,
+        room: str,
+        room_filter: str | Sequence[str] | None = ...,
+    ) -> None: ...
+    async def admin_disconnect(
+        self,
+        _: Any,
+        namespace: str | None,
+        close: Any,
+        room_filter: str | Sequence[str] | None = ...,
+    ) -> None: ...
     async def shutdown(self) -> None: ...
-    def serialize_socket(self, sid, namespace, eio_sid=None): ...
+    def serialize_socket(
+        self, sid: str, namespace: str, eio_sid: str | None = ...
+    ) -> SerializedSocket: ...
