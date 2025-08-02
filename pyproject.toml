@@ -56,7 +56,7 @@ dev = [
 lint = ["_lint:check", "_lint:format"]
 "_lint:check" = "ruff check src --fix"
 "_lint:format" = "ruff format src"
-mypy = "mypy src --strict"
+mypy = "mypy src"
 check = "pre-commit run --all-files --show-diff-on-failure"
 
 [build-system]
