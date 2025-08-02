@@ -1,7 +1,7 @@
 import logging
 from collections.abc import Callable
 from threading import Thread
-from typing import Any, ParamSpec, TypeVar
+from typing import Any, Literal, ParamSpec, TypeVar
 
 import engineio
 import requests
@@ -12,7 +12,7 @@ from socketio._types import DataType, TransportType
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
 
-class Client(base_client.BaseClient[engineio.Client]):
+class Client(base_client.BaseClient[Literal[False], engineio.Client]):
     connection_url: str  # pyright: ignore[reportIncompatibleVariableOverride]
     connection_headers: dict[Incomplete, Incomplete]  # pyright: ignore[reportIncompatibleVariableOverride]
     connection_auth: Incomplete | None

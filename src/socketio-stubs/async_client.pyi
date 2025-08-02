@@ -1,24 +1,87 @@
-from . import base_client as base_client, exceptions as exceptions, packet as packet
+import logging
+from collections.abc import Callable
+from threading import Thread
+from typing import Any, Literal, ParamSpec, TypeVar
+
+import engineio
+import requests
 from _typeshed import Incomplete
+from socketio import base_client as base_client
+from socketio import exceptions as exceptions
+from socketio import packet as packet
+from socketio._types import DataType, TransportType
 
-default_logger: Incomplete
+_T = TypeVar("_T")
+_P = ParamSpec("_P")
 
-class AsyncClient(base_client.BaseClient):
-    def is_asyncio_based(self): ...
-    connection_url: Incomplete
-    connection_headers: Incomplete
-    connection_auth: Incomplete
-    connection_transports: Incomplete
-    connection_namespaces: Incomplete
-    socketio_path: Incomplete
-    namespaces: Incomplete
+default_logger: logging.Logger
+
+class AsyncClient(base_client.BaseClient[Literal[True], engineio.AsyncClient]):
+    connection_url: str  # pyright: ignore[reportIncompatibleVariableOverride]
+    connection_headers: dict[Incomplete, Incomplete]  # pyright: ignore[reportIncompatibleVariableOverride]
+    connection_auth: Incomplete | None
+    connection_transports: TransportType | None
+    connection_namespaces: list[str]
+    socketio_path: str  # pyright: ignore[reportIncompatibleVariableOverride]
+    namespaces: dict[str, str | None]
     connected: bool
-    async def connect(self, url, headers={}, auth=None, transports=None, namespaces=None, socketio_path: str = 'socket.io', wait: bool = True, wait_timeout: int = 1, retry: bool = False) -> None: ...
+
+    def __init__(
+        self,
+        reconnection: bool = ...,
+        reconnection_attempts: int = ...,
+        reconnection_delay: int = ...,
+        reconnection_delay_max: int = ...,
+        randomization_factor: float = ...,
+        logger: logging.Logger | bool = ...,
+        serializer: str = ...,
+        json: Incomplete | None = ...,
+        handle_sigint: bool = ...,
+        # engineio options
+        *,
+        request_timeout: int = ...,
+        http_session: requests.Session | None = ...,
+        ssl_verify: bool = ...,
+        websocket_extra_options: dict[str, Any] | None = ...,
+        engineio_logger: logging.Logger | bool = ...,
+        **kwargs: Incomplete,
+    ) -> None: ...
+    async def connect(
+        self,
+        url: str,
+        headers: dict[Incomplete, Incomplete] = ...,
+        auth: Incomplete | None = ...,
+        transports: TransportType | None = ...,
+        namespaces: str | list[str] | None = ...,
+        socketio_path: str = ...,
+        wait: bool = ...,
+        wait_timeout: int = ...,
+        retry: bool = ...,
+    ) -> None: ...
     async def wait(self) -> None: ...
-    async def emit(self, event, data=None, namespace=None, callback=None) -> None: ...
-    async def send(self, data, namespace=None, callback=None) -> None: ...
-    async def call(self, event, data=None, namespace=None, timeout: int = 60): ...
+    async def emit(
+        self,
+        event: str,
+        data: DataType | tuple[DataType, ...] | None = ...,
+        namespace: str | None = ...,
+        callback: Callable[..., Incomplete] = ...,
+    ) -> None: ...
+    async def send(
+        self,
+        data: DataType | tuple[DataType, ...] | None,
+        namespace: str | None = ...,
+        callback: Callable[..., Incomplete] = ...,
+    ) -> None: ...
+    async def call(
+        self,
+        event: str,
+        data: DataType | tuple[DataType, ...] | None = ...,
+        namespace: str | None = ...,
+        timeout: int = ...,
+    ) -> Incomplete | None: ...
     async def disconnect(self) -> None: ...
     async def shutdown(self) -> None: ...
-    def start_background_task(self, target, *args, **kwargs): ...
-    async def sleep(self, seconds: int = 0): ...
+    def start_background_task(
+        self, target: Callable[_P, _T], *args: _P.args, **kwargs: _P.kwargs
+    ) -> Thread: ...
+    async def sleep(self, seconds: int = ...) -> None: ...
