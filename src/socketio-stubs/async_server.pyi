@@ -8,9 +8,6 @@ from _typeshed import Incomplete
 from aiohttp.web import Application as AiohttpApplication
 from engineio.async_drivers.asgi import ASGIApp as EngineIOASGIApp
 from sanic import Sanic
-from socketio import base_server as base_server
-from socketio import exceptions as exceptions
-from socketio import packet as packet
 from socketio._types import (
     AsyncAsyncModeType,
     AsyncSessionContextManager,
@@ -21,6 +18,7 @@ from socketio._types import (
 from socketio.asgi import ASGIApp as SocketIOASGIApp
 from socketio.async_admin import InstrumentedAsyncServer
 from socketio.async_manager import AsyncManager
+from socketio.base_server import BaseServer
 from tornado.web import Application as TornadoApplication
 from typing_extensions import TypeVar
 
@@ -30,15 +28,15 @@ _T = TypeVar("_T")
 
 task_reference_holder: set[Any]
 
-class AsyncServer(
-    base_server.BaseServer[Literal[True], engineio.AsyncServer], Generic[_A]
-):
+class AsyncServer(BaseServer[Literal[True], engineio.AsyncServer], Generic[_A]):
     def __init__(
         self,
         client_manager: AsyncManager | None = ...,
         logger: logging.Logger | bool = ...,
+        serializer: str = ...,
         json: Incomplete | None = ...,
         async_handlers: bool = ...,
+        always_connect: bool = ...,
         namespaces: list[str] | None = ...,
         *,
         async_mode: _A = ...,
