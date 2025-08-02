@@ -1,18 +1,43 @@
-from .async_manager import AsyncManager as AsyncManager
+import asyncio
+import logging
+from collections.abc import Callable
+from typing import Any
+
 from _typeshed import Incomplete
+from socketio._types import DataType
+from socketio.async_manager import AsyncManager
 
 class AsyncPubSubManager(AsyncManager):
     name: str
-    channel: Incomplete
-    write_only: Incomplete
-    host_id: Incomplete
-    logger: Incomplete
-    def __init__(self, channel: str = 'socketio', write_only: bool = False, logger=None) -> None: ...
-    thread: Incomplete
+    channel: str
+    write_only: bool
+    host_id: str
+    logger: logging.Logger | None
+    def __init__(
+        self,
+        channel: str = ...,
+        write_only: bool = ...,
+        logger: logging.Logger | None = ...,
+    ) -> None: ...
+    thread: asyncio.Task[Any]
     def initialize(self) -> None: ...
-    async def emit(self, event, data, namespace=None, room=None, skip_sid=None, callback=None, to=None, **kwargs): ...
-    async def can_disconnect(self, sid, namespace): ...
-    async def disconnect(self, sid, namespace, **kwargs): ...
-    async def enter_room(self, sid, namespace, room, eio_sid=None): ...
-    async def leave_room(self, sid, namespace, room): ...
-    async def close_room(self, room, namespace=None) -> None: ...
+    async def emit(
+        self,
+        event: str,
+        data: DataType | tuple[DataType, ...] | None,
+        namespace: str | None = ...,
+        room: str | None = ...,
+        skip_sid: str | list[str] | None = ...,
+        callback: Callable[..., Incomplete] | None = ...,
+        to: str | None = ...,
+        **kwargs: Any,
+    ) -> None: ...
+    async def can_disconnect(self, sid: str, namespace: str) -> bool: ...
+    async def disconnect(
+        self, sid: str, namespace: str | None = ..., **kwargs: Any
+    ) -> None: ...
+    async def enter_room(
+        self, sid: str, namespace: str, room: str, eio_sid: str | None = ...
+    ) -> None: ...
+    async def leave_room(self, sid: str, namespace: str, room: str) -> None: ...
+    async def close_room(self, room: str, namespace: str | None = ...) -> None: ...

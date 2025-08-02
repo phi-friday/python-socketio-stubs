@@ -1,5 +1,6 @@
 import logging
 from collections.abc import Callable
+from threading import Thread
 from typing import Any
 
 from _typeshed import Incomplete
@@ -18,7 +19,7 @@ class PubSubManager(Manager):
         write_only: bool = ...,
         logger: logging.Logger | None = ...,
     ) -> None: ...
-    thread: Incomplete
+    thread: Thread
     def initialize(self) -> None: ...
     def emit(
         self,

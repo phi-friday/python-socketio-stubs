@@ -6,7 +6,7 @@ from typing import Any, Generic, Literal, NoReturn, ParamSpec, overload
 import engineio
 from _typeshed import Incomplete
 from aiohttp.web import Application as AiohttpApplication
-from engineio.async_drivers.asgi import ASGIApp
+from engineio.async_drivers.asgi import ASGIApp as EngineIOASGIApp
 from sanic import Sanic
 from socketio import base_server as base_server
 from socketio import exceptions as exceptions
@@ -18,6 +18,7 @@ from socketio._types import (
     SocketIOModeType,
     TransportType,
 )
+from socketio.asgi import ASGIApp as SocketIOASGIApp
 from socketio.async_admin import InstrumentedAsyncServer
 from socketio.async_manager import AsyncManager
 from tornado.web import Application as TornadoApplication
@@ -69,7 +70,9 @@ class AsyncServer(
     ) -> None: ...
     @overload
     def attach(
-        self: AsyncServer[Literal["asgi"]], app: ASGIApp, socketio_path: str = ...
+        self: AsyncServer[Literal["asgi"]],
+        app: EngineIOASGIApp | SocketIOASGIApp,
+        socketio_path: str = ...,
     ) -> None: ...
     @overload
     def attach(
@@ -80,7 +83,11 @@ class AsyncServer(
     @overload
     def attach(
         self,
-        app: AiohttpApplication | Sanic[Any, Any] | ASGIApp | TornadoApplication,
+        app: AiohttpApplication
+        | Sanic[Any, Any]
+        | EngineIOASGIApp
+        | TornadoApplication
+        | SocketIOASGIApp,
         socketio_path: str = ...,
     ) -> None: ...
     async def emit(
