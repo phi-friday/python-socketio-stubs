@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "**.py"
+      - "**.pyi"
       - ".github/workflows/lint.yaml"
       - "pyproject.toml"
       - "ruff.toml"
