@@ -1,6 +1,6 @@
+import asyncio
 import logging
-from collections.abc import Callable
-from threading import Thread
+from collections.abc import Awaitable, Callable
 from typing import Any, Literal, ParamSpec, TypeVar
 
 import engineio
@@ -80,6 +80,6 @@ class AsyncClient(BaseClient[Literal[True], engineio.AsyncClient]):
     async def disconnect(self) -> None: ...
     async def shutdown(self) -> None: ...
     def start_background_task(
-        self, target: Callable[_P, _T], *args: _P.args, **kwargs: _P.kwargs
-    ) -> Thread: ...
+        self, target: Callable[_P, Awaitable[_T]], *args: _P.args, **kwargs: _P.kwargs
+    ) -> asyncio.Task[_T]: ...
     async def sleep(self, seconds: int = ...) -> None: ...

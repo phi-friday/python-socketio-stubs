@@ -2,7 +2,6 @@ from collections.abc import Callable, Sequence
 from typing import Any
 
 from _typeshed import Incomplete
-from socketio import packet as packet
 from socketio._types import DataType
 from socketio.base_manager import BaseManager
 

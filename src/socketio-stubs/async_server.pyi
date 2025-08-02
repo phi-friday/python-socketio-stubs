@@ -1,6 +1,6 @@
 import asyncio
 import logging
-from collections.abc import Callable, Mapping
+from collections.abc import Awaitable, Callable, Mapping
 from typing import Any, Generic, Literal, NoReturn, ParamSpec, overload
 
 import engineio
@@ -155,7 +155,7 @@ class AsyncServer(
         start_response: Callable[[str, str], Incomplete],
     ) -> list[str | list[tuple[str, str]] | bytes]: ...
     def start_background_task(
-        self, target: Callable[_P, _T], *args: _P.args, **kwargs: _P.kwargs
+        self, target: Callable[_P, Awaitable[_T]], *args: _P.args, **kwargs: _P.kwargs
     ) -> asyncio.Task[_T]: ...
     async def sleep(self, seconds: int = ...) -> None: ...
     def instrument(
