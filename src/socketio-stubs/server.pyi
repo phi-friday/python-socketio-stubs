@@ -59,7 +59,7 @@ class Server(BaseServer[Literal[False], engineio.Server], Generic[_A]):
         room: str | None = ...,
         skip_sid: str | list[str] | None = ...,
         namespace: str | None = ...,
-        callback: Callable[..., Incomplete] | None = ...,
+        callback: Callable[..., Any] | None = ...,
         ignore_queue: bool = ...,
     ) -> None: ...
     def send(
@@ -69,7 +69,7 @@ class Server(BaseServer[Literal[False], engineio.Server], Generic[_A]):
         room: str | None = ...,
         skip_sid: str | list[str] | None = ...,
         namespace: str | None = ...,
-        callback: Callable[..., Incomplete] | None = ...,
+        callback: Callable[..., Any] | None = ...,
         ignore_queue: bool = ...,
     ) -> None: ...
     @overload

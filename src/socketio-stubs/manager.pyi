@@ -17,7 +17,7 @@ class Manager(BaseManager):
         namespace: str,
         room: str | None = ...,
         skip_sid: str | list[str] | None = ...,
-        callback: Callable[..., Incomplete] | None = ...,
+        callback: Callable[..., Any] | None = ...,
         to: str | None = ...,
         **kwargs: Any,
     ) -> None: ...

@@ -3,7 +3,6 @@ import logging
 from collections.abc import Callable
 from typing import Any
 
-from _typeshed import Incomplete
 from socketio._types import DataType
 from socketio.async_manager import AsyncManager
 
@@ -28,7 +27,7 @@ class AsyncPubSubManager(AsyncManager):
         namespace: str | None = ...,
         room: str | None = ...,
         skip_sid: str | list[str] | None = ...,
-        callback: Callable[..., Incomplete] | None = ...,
+        callback: Callable[..., Any] | None = ...,
         to: str | None = ...,
         **kwargs: Any,
     ) -> None: ...

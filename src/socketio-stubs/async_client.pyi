@@ -5,7 +5,6 @@ from typing import Any, Literal, ParamSpec, TypeVar
 
 import engineio
 import requests
-from _typeshed import Incomplete
 from socketio._types import DataType, JsonModule, TransportType
 from socketio.base_client import BaseClient
 
@@ -62,13 +61,13 @@ class AsyncClient(BaseClient[Literal[True], engineio.AsyncClient]):
         event: str,
         data: DataType | tuple[DataType, ...] | None = ...,
         namespace: str | None = ...,
-        callback: Callable[..., Incomplete] = ...,
+        callback: Callable[..., Any] = ...,
     ) -> None: ...
     async def send(
         self,
         data: DataType | tuple[DataType, ...] | None,
         namespace: str | None = ...,
-        callback: Callable[..., Incomplete] = ...,
+        callback: Callable[..., Any] = ...,
     ) -> None: ...
     async def call(
         self,

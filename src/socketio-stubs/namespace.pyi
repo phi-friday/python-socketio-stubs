@@ -1,7 +1,6 @@
 from collections.abc import Callable
 from typing import Any, Generic, Literal, NoReturn, overload
 
-from _typeshed import Incomplete
 from socketio._types import DataType, SessionContextManager, SyncAsyncModeType
 from socketio.base_namespace import BaseClientNamespace, BaseServerNamespace
 from socketio.client import Client
@@ -21,7 +20,7 @@ class Namespace(BaseServerNamespace[Literal[False]], Generic[_A]):
         room: str | None = ...,
         skip_sid: str | list[str] | None = ...,
         namespace: str | None = ...,
-        callback: Callable[..., Incomplete] | None = ...,
+        callback: Callable[..., Any] | None = ...,
         ignore_queue: bool = ...,
     ) -> None: ...
     def send(
@@ -31,7 +30,7 @@ class Namespace(BaseServerNamespace[Literal[False]], Generic[_A]):
         room: str | None = ...,
         skip_sid: str | list[str] | None = ...,
         namespace: str | None = ...,
-        callback: Callable[..., Incomplete] | None = ...,
+        callback: Callable[..., Any] | None = ...,
         ignore_queue: bool = ...,
     ) -> None: ...
     @overload
@@ -76,13 +75,13 @@ class ClientNamespace(BaseClientNamespace[Literal[False]]):
         event: str,
         data: DataType | tuple[DataType, ...] | None = ...,
         namespace: str | None = ...,
-        callback: Callable[..., Incomplete] = ...,
+        callback: Callable[..., Any] = ...,
     ) -> None: ...
     def send(
         self,
         data: DataType | tuple[DataType, ...] | None,
         namespace: str | None = ...,
-        callback: Callable[..., Incomplete] = ...,
+        callback: Callable[..., Any] = ...,
     ) -> None: ...
     def call(
         self,

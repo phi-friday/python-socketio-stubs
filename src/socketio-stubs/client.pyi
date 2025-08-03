@@ -5,7 +5,6 @@ from typing import Any, Literal, ParamSpec, TypeVar
 
 import engineio
 import requests
-from _typeshed import Incomplete
 from socketio._types import DataType, JsonModule, TransportType
 from socketio.base_client import BaseClient
 
@@ -60,13 +59,13 @@ class Client(BaseClient[Literal[False], engineio.Client]):
         event: str,
         data: DataType | tuple[DataType, ...] | None = ...,
         namespace: str | None = ...,
-        callback: Callable[..., Incomplete] = ...,
+        callback: Callable[..., Any] = ...,
     ) -> None: ...
     def send(
         self,
         data: DataType | tuple[DataType, ...] | None,
         namespace: str | None = ...,
-        callback: Callable[..., Incomplete] = ...,
+        callback: Callable[..., Any] = ...,
     ) -> None: ...
     def call(
         self,

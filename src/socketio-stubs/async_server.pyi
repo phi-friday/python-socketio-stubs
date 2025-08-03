@@ -97,7 +97,7 @@ class AsyncServer(BaseServer[Literal[True], engineio.AsyncServer], Generic[_A]):
         room: str | None = ...,
         skip_sid: str | list[str] | None = ...,
         namespace: str | None = ...,
-        callback: Callable[..., Incomplete] | None = ...,
+        callback: Callable[..., Any] | None = ...,
         ignore_queue: bool = ...,
     ) -> None: ...
     async def send(
@@ -107,7 +107,7 @@ class AsyncServer(BaseServer[Literal[True], engineio.AsyncServer], Generic[_A]):
         room: str | None = ...,
         skip_sid: str | list[str] | None = ...,
         namespace: str | None = ...,
-        callback: Callable[..., Incomplete] | None = ...,
+        callback: Callable[..., Any] | None = ...,
         ignore_queue: bool = ...,
     ) -> None: ...
     @overload
