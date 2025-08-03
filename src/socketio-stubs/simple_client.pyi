@@ -3,8 +3,8 @@ from threading import Event
 from typing import Any, ClassVar, Literal
 
 from _typeshed import Incomplete
-from socketio import Client
 from socketio._types import DataType, TransportType
+from socketio.client import Client
 from typing_extensions import Self
 
 class SimpleClient:

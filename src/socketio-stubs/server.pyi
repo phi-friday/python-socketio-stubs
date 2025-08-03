@@ -5,7 +5,6 @@ from typing import Any, Generic, Literal, NoReturn, ParamSpec, TypeAlias, overlo
 
 import engineio
 from _typeshed import Incomplete
-from socketio import base_server
 from socketio._types import (
     SessionContextManager,
     SocketIOModeType,
@@ -13,6 +12,7 @@ from socketio._types import (
     TransportType,
 )
 from socketio.admin import InstrumentedServer
+from socketio.base_server import BaseServer
 from socketio.manager import Manager
 from typing_extensions import TypeVar
 
@@ -23,7 +23,7 @@ _T = TypeVar("_T")
 
 default_logger: logging.Logger
 
-class Server(base_server.BaseServer[Literal[False], engineio.Server], Generic[_A]):
+class Server(BaseServer[Literal[False], engineio.Server], Generic[_A]):
     def __init__(
         self,
         client_manager: Manager | None = ...,

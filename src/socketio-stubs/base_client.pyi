@@ -5,9 +5,10 @@ from typing import Any, ClassVar, Generic, Literal, overload
 
 import engineio
 from _typeshed import Incomplete
-from engineio import AsyncClient, Client
-from socketio import base_namespace
+from engineio.async_client import AsyncClient
+from engineio.client import Client
 from socketio._types import TransportType
+from socketio.base_namespace import BaseClientNamespace
 from typing_extensions import TypeVar
 
 _T_co = TypeVar("_T_co", bound=Client | AsyncClient, covariant=True, default=Any)
@@ -90,9 +91,7 @@ class BaseClient(Generic[_IsAsyncio, _T_co]):
     def event(
         self, handler: Callable[..., Incomplete], namespace: str | None = ...
     ) -> Callable[[_F], _F] | None: ...
-    def register_namespace(
-        self, namespace_handler: base_namespace.BaseClientNamespace
-    ) -> None: ...
+    def register_namespace(self, namespace_handler: BaseClientNamespace) -> None: ...
     def get_sid(self, namespace: str | None = ...) -> str | None: ...
     def transport(self) -> TransportType: ...
     def _engineio_client_class(self) -> type[_T_co]: ...

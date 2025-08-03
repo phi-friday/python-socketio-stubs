@@ -4,9 +4,10 @@ from typing import Any, ClassVar, Generic, Literal, overload
 
 import engineio
 from _typeshed import Incomplete
-from engineio import AsyncServer, Server
-from socketio import base_namespace
+from engineio.async_server import AsyncServer
+from engineio.server import Server
 from socketio._types import SyncAsyncModeType, TransportType
+from socketio.base_namespace import BaseClientNamespace
 from socketio.manager import Manager
 from typing_extensions import TypeVar
 
@@ -69,7 +70,7 @@ class BaseServer(Generic[_IsAsyncio, _T_co]):
     @overload
     def event(self, namespace: str | None) -> Callable[[_F], _F]: ...
     def register_namespace(
-        self, namespace_handler: base_namespace.BaseClientNamespace[_IsAsyncio]
+        self, namespace_handler: BaseClientNamespace[_IsAsyncio]
     ) -> None: ...
     def rooms(self, sid: str, namespace: str | None = ...) -> str | list[str]: ...
     def transport(self, sid: str, namespace: str | None = ...) -> TransportType: ...

@@ -3,9 +3,9 @@ import types
 from typing import Any, ClassVar, Literal
 
 from _typeshed import Incomplete
-from socketio import Client
 from socketio._types import DataType, TransportType
 from socketio.async_client import AsyncClient
+from socketio.client import Client
 from typing_extensions import Self
 
 class AsyncSimpleClient:

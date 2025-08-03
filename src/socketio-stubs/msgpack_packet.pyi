@@ -1,8 +1,8 @@
 from _typeshed import Incomplete
-from socketio import packet
+from socketio.packet import Packet
 from typing_extensions import Buffer
 
-class MsgPackPacket(packet.Packet):
+class MsgPackPacket(Packet):
     uses_binary_events: bool
     def encode(self) -> bytes: ...
     packet_type: Incomplete

@@ -6,13 +6,13 @@ from typing import Any, Literal, ParamSpec, TypeVar
 import engineio
 import requests
 from _typeshed import Incomplete
-from socketio import base_client
 from socketio._types import DataType, TransportType
+from socketio.base_client import BaseClient
 
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
 
-class Client(base_client.BaseClient[Literal[False], engineio.Client]):
+class Client(BaseClient[Literal[False], engineio.Client]):
     connection_url: str  # pyright: ignore[reportIncompatibleVariableOverride]
     connection_headers: dict[Incomplete, Incomplete]  # pyright: ignore[reportIncompatibleVariableOverride]
     connection_auth: Incomplete | None
