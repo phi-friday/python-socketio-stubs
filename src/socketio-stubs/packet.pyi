@@ -1,6 +1,5 @@
 from typing import Literal
 
-from _typeshed import Incomplete
 from socketio._types import DataType, JsonModule
 from typing_extensions import Buffer
 
@@ -38,7 +37,7 @@ class Packet:
         data: list[DataType] | None = ...,
         namespace: str | None = ...,
         id: str | None = ...,
-        binary: Incomplete | None = ...,
+        binary: bool | None = ...,
         encoded_packet: Buffer | None = ...,
     ) -> None: ...
     def encode(self) -> DataType: ...
