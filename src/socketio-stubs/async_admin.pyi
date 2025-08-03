@@ -2,7 +2,6 @@ import asyncio
 from collections.abc import Callable, Mapping, Sequence
 from typing import Any, Generic
 
-from _typeshed import Incomplete
 from socketio._types import (
     AsyncAsyncModeType,
     DataType,
@@ -26,7 +25,7 @@ class InstrumentedAsyncServer(Generic[_A]):
     server_id: str
     mode: SocketIOModeType
     server_stats_interval: int
-    admin_queue: list[Incomplete]
+    admin_queue: list[tuple[str, tuple[str, str, str, str]]]
     event_buffer: EventBuffer
     stop_stats_event: asyncio.Event | None
     stats_task: asyncio.Task[Any] | None
