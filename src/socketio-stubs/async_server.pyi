@@ -55,7 +55,7 @@ class AsyncServer(BaseServer[Literal[True], engineio.AsyncServer], Generic[_A]):
         cors_allowed_origins: str | list[str] | None = ...,
         cors_credentials: bool = ...,
         monitor_clients: bool = ...,
-        transport: list[TransportType] | None = ...,
+        transports: list[TransportType] | None = ...,
         engineio_logger: logging.Logger | bool = ...,
         **kwargs: Any,
     ) -> None: ...
