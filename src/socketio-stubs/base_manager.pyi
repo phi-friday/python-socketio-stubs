@@ -2,7 +2,6 @@ import logging
 from collections.abc import Callable, Generator, KeysView, Sequence
 from typing import Any
 
-from _typeshed import Incomplete
 from bidict import bidict
 from socketio.base_server import BaseServer
 
@@ -15,7 +14,7 @@ class BaseManager:
         str, dict[str | None, bidict[str, str]]
     ]
     eio_to_sid: dict[str, str]
-    callbacks: dict[str, dict[int, Callable[..., Incomplete]]]
+    callbacks: dict[str, dict[int, Callable[..., Any]]]
     pending_disconnect: dict[str, list[str]]
     def __init__(self) -> None: ...
     def set_server(self, server: BaseServer[Any, Any]) -> None: ...

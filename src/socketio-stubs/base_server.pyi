@@ -21,7 +21,7 @@ default_logger: logging.Logger
 class BaseServer(Generic[_IsAsyncio, _T_co]):
     reserved_events: ClassVar[list[str]]
     reason: ClassVar[type[engineio.Client.reason]]
-    packet_class: Incomplete
+    packet_class: type[Packet]
     eio: _T_co
     environ: Mapping[str, Any]
     handlers: Callable[..., Incomplete]
