@@ -1,7 +1,6 @@
 from collections.abc import Callable, Sequence
 from typing import Any
 
-from _typeshed import Incomplete
 from socketio._types import DataType
 from socketio.base_manager import BaseManager
 
@@ -26,5 +25,5 @@ class AsyncManager(BaseManager):
     async def leave_room(self, sid: str, namespace: str, room: str) -> None: ...
     async def close_room(self, room: str, namespace: str) -> None: ...
     async def trigger_callback(
-        self, sid: str, id: str, data: Sequence[Incomplete]
+        self, sid: str, id: str, data: Sequence[Any]
     ) -> None: ...
