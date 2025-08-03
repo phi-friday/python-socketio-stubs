@@ -1,4 +1,4 @@
-from collections.abc import Callable, Mapping, Sequence
+from collections.abc import Awaitable, Callable, Mapping, Sequence
 from contextlib import AbstractAsyncContextManager, AbstractContextManager
 from threading import Event as ThreadingEvent
 from types import ModuleType
@@ -219,4 +219,10 @@ ClientDisconnectHandler: TypeAlias = Callable[[engineio.Client.reason], Any]
 ClientDisconnectLegacyHandler: TypeAlias = Callable[[], Any]
 ClientConnectErrorHandler: TypeAlias = Callable[[Any], Any]
 CatchAllHandler: TypeAlias = Callable[[str, str, Any], Any]
-EventHandler: TypeAlias = Callable[[str, Any], DataType | tuple[DataType, ...] | None]
+SyncEventHandler: TypeAlias = Callable[
+    [str, Any], DataType | tuple[DataType, ...] | None
+]
+AsyncEventHandler: TypeAlias = Callable[
+    [str, Any], Awaitable[DataType | tuple[DataType, ...] | None]
+]
+EventHandler: TypeAlias = SyncEventHandler | AsyncEventHandler
