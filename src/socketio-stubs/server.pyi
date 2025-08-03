@@ -48,7 +48,7 @@ class Server(BaseServer[Literal[False], engineio.Server], Generic[_A]):
         monitor_clients: bool = ...,
         transport: list[TransportType] | None = ...,
         engineio_logger: logging.Logger | bool = ...,
-        **kwargs: Incomplete,
+        **kwargs: Any,
     ) -> None: ...
     def emit(
         self,

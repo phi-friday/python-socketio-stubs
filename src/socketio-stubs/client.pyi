@@ -40,7 +40,7 @@ class Client(BaseClient[Literal[False], engineio.Client]):
         ssl_verify: bool = ...,
         websocket_extra_options: dict[str, Any] | None = ...,
         engineio_logger: logging.Logger | bool = ...,
-        **kwargs: Incomplete,
+        **kwargs: Any,
     ) -> None: ...
     def connect(
         self,

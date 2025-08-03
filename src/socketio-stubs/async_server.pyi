@@ -52,7 +52,7 @@ class AsyncServer(BaseServer[Literal[True], engineio.AsyncServer], Generic[_A]):
         monitor_clients: bool = ...,
         transport: list[TransportType] | None = ...,
         engineio_logger: logging.Logger | bool = ...,
-        **kwargs: Incomplete,
+        **kwargs: Any,
     ) -> None: ...
     @overload
     def attach(
