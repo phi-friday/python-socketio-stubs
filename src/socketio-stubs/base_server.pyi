@@ -3,7 +3,6 @@ from collections.abc import Callable, Mapping
 from typing import Any, ClassVar, Generic, Literal, overload
 
 import engineio
-from _typeshed import Incomplete
 from engineio.async_server import AsyncServer
 from engineio.server import Server
 from socketio._types import JsonModule, SerializerType, SyncAsyncModeType, TransportType
@@ -77,4 +76,4 @@ class BaseServer(Generic[_IsAsyncio, _T_co]):
     def transport(self, sid: str, namespace: str | None = ...) -> TransportType: ...
     def get_environ(
         self, sid: str, namespace: str | None = ...
-    ) -> Incomplete | None: ...
+    ) -> Mapping[str, Any] | None: ...
