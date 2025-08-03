@@ -21,6 +21,7 @@ SyncAsyncModeType: TypeAlias = Literal[
     "eventlet", "gevent_uwsgi", "gevent", "threading"
 ]
 AsyncAsyncModeType: TypeAlias = Literal["aiohttp", "sanic", "tornado", "asgi"]
+SerializerType: TypeAlias = Literal["default", "msgpack"]
 
 class SessionContextManager(AbstractContextManager[Socket]):
     server: Server[Any]

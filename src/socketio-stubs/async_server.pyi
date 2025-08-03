@@ -15,6 +15,7 @@ from socketio._types import (
     AsyncSessionContextManager,
     DataType,
     JsonModule,
+    SerializerType,
     SocketIOModeType,
     TransportType,
 )
@@ -22,6 +23,7 @@ from socketio.asgi import ASGIApp as SocketIOASGIApp
 from socketio.async_admin import InstrumentedAsyncServer
 from socketio.async_manager import AsyncManager
 from socketio.base_server import BaseServer
+from socketio.packet import Packet
 from tornado.web import Application as TornadoApplication
 from typing_extensions import TypeVar
 
@@ -36,7 +38,7 @@ class AsyncServer(BaseServer[Literal[True], engineio.AsyncServer], Generic[_A]):
         self,
         client_manager: AsyncManager | None = ...,
         logger: logging.Logger | bool = ...,
-        serializer: str = ...,
+        serializer: SerializerType | type[Packet] = ...,
         json: JsonModule | None = ...,
         async_handlers: bool = ...,
         always_connect: bool = ...,

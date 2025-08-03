@@ -1,12 +1,13 @@
 import logging
 from collections.abc import Callable, Mapping
 from threading import Thread
-from typing import Any, Generic, Literal, NoReturn, ParamSpec, TypeAlias, overload
+from typing import Any, Generic, Literal, NoReturn, ParamSpec, overload
 
 import engineio
-from _typeshed import Incomplete
 from socketio._types import (
+    DataType,
     JsonModule,
+    SerializerType,
     SessionContextManager,
     SocketIOModeType,
     SyncAsyncModeType,
@@ -15,9 +16,9 @@ from socketio._types import (
 from socketio.admin import InstrumentedServer
 from socketio.base_server import BaseServer
 from socketio.manager import Manager
+from socketio.packet import Packet
 from typing_extensions import TypeVar
 
-DataType: TypeAlias = str | bytes | list[Incomplete] | dict[Incomplete, Incomplete]
 _A = TypeVar("_A", bound=SyncAsyncModeType, default=Any)
 _P = ParamSpec("_P")
 _T = TypeVar("_T")
@@ -29,7 +30,7 @@ class Server(BaseServer[Literal[False], engineio.Server], Generic[_A]):
         self,
         client_manager: Manager | None = ...,
         logger: logging.Logger | bool = ...,
-        serializer: str = ...,
+        serializer: SerializerType | type[Packet] = ...,
         json: JsonModule | None = ...,
         async_handlers: bool = ...,
         always_connect: bool = ...,

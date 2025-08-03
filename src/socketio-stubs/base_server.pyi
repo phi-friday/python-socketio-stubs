@@ -6,9 +6,10 @@ import engineio
 from _typeshed import Incomplete
 from engineio.async_server import AsyncServer
 from engineio.server import Server
-from socketio._types import JsonModule, SyncAsyncModeType, TransportType
+from socketio._types import JsonModule, SerializerType, SyncAsyncModeType, TransportType
 from socketio.base_namespace import BaseClientNamespace
 from socketio.manager import Manager
+from socketio.packet import Packet
 from typing_extensions import TypeVar
 
 _T_co = TypeVar("_T_co", bound=Server | AsyncServer, covariant=True, default=Any)
@@ -37,7 +38,7 @@ class BaseServer(Generic[_IsAsyncio, _T_co]):
         self,
         client_manager: Manager | None = ...,
         logger: logging.Logger | bool = ...,
-        serializer: str = ...,
+        serializer: SerializerType | type[Packet] = ...,
         json: JsonModule | None = ...,
         async_handlers: bool = ...,
         always_connect: bool = ...,

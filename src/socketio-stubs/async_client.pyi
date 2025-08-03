@@ -5,8 +5,9 @@ from typing import Any, Literal, ParamSpec, TypeVar
 
 import engineio
 import requests
-from socketio._types import DataType, JsonModule, TransportType
+from socketio._types import DataType, JsonModule, SerializerType, TransportType
 from socketio.base_client import BaseClient
+from socketio.packet import Packet
 
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
@@ -31,7 +32,7 @@ class AsyncClient(BaseClient[Literal[True], engineio.AsyncClient]):
         reconnection_delay_max: int = ...,
         randomization_factor: float = ...,
         logger: logging.Logger | bool = ...,
-        serializer: str = ...,
+        serializer: SerializerType | type[Packet] = ...,
         json: JsonModule | None = ...,
         handle_sigint: bool = ...,
         # engineio options
