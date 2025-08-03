@@ -2,8 +2,9 @@ from collections.abc import Mapping, Sequence
 from contextlib import AbstractAsyncContextManager, AbstractContextManager
 from threading import Event as ThreadingEvent
 from types import ModuleType
-from typing import Any, Literal, TypeAlias, overload
+from typing import Any, Literal, Protocol, TypeAlias, overload
 
+import engineio
 from _typeshed import Incomplete
 from engineio.async_drivers.eventlet import EventletThread
 from engineio.async_drivers.gevent import Thread as GeventThread
@@ -206,3 +207,35 @@ class JsonModule(ModuleType):
     def dumps(obj: Any, **kwargs: Any) -> str: ...
     @staticmethod
     def loads(s: str | bytes | bytearray, **kwargs: Any) -> Any: ...
+
+## handlers
+
+class ServerConnectHandler(Protocol):
+    def __call__(self, sid: str, environ: Mapping[str, Any]) -> Any: ...
+
+class ServerConnectHandlerWithData(Protocol):
+    def __call__(self, sid: str, environ: Mapping[str, Any], data: Any) -> Any: ...
+
+class ServerDisconnectHandler(Protocol):
+    def __call__(self, sid: str, reason: engineio.Server.reason) -> Any: ...
+
+class ServerDisconnectLegacyHandler(Protocol):
+    def __call__(self, sid: str) -> Any: ...
+
+class ClientConnectHandler(Protocol):
+    def __call__(self) -> Any: ...
+
+class ClientDisconnectHandler(Protocol):
+    def __call__(self, reason: engineio.Client.reason) -> Any: ...
+
+class ClientDisconnectLegacyHandler(Protocol):
+    def __call__(self) -> Any: ...
+
+class ClientConnectErrorHandler(Protocol):
+    def __call__(self, data: Any) -> Any: ...
+
+class CatchAllHandler(Protocol):
+    def __call__(self, event: str, sid: str, data: Any) -> Any: ...
+
+class EventHandler(Protocol):
+    def __call__(self, sid: str, data: Any) -> Any: ...
