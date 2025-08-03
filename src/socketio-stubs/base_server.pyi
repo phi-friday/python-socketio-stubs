@@ -24,8 +24,8 @@ class BaseServer(Generic[_IsAsyncio, _T_co]):
     packet_class: type[Packet]
     eio: _T_co
     environ: Mapping[str, Any]
-    handlers: Callable[..., Incomplete]
-    namespace_handlers: dict[str, Callable[..., Incomplete]]
+    handlers: Callable[..., Any]
+    namespace_handlers: dict[str, Callable[..., Any]]
     not_handled: object
     logger: logging.Logger
     manager: Manager
@@ -53,20 +53,20 @@ class BaseServer(Generic[_IsAsyncio, _T_co]):
     @overload
     def on(
         self,
-        event: Callable[..., Incomplete],
+        event: Callable[..., Any],
         handler: None = ...,
         namespace: str | None = ...,
     ) -> None: ...
     @overload
     def on(
         self,
-        event: str | Callable[..., Incomplete],
-        handler: Callable[..., Incomplete] | None = ...,
+        event: str | Callable[..., Any],
+        handler: Callable[..., Any] | None = ...,
         namespace: str | None = ...,
     ) -> Callable[[_F], _F] | None: ...
     @overload
     def event(
-        self, handler: Callable[..., Incomplete], namespace: str | None = ...
+        self, handler: Callable[..., Any], namespace: str | None = ...
     ) -> None: ...
     @overload
     def event(self, namespace: str | None) -> Callable[[_F], _F]: ...

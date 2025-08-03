@@ -4,7 +4,6 @@ from types import FrameType
 from typing import Any, ClassVar, Generic, Literal, overload
 
 import engineio
-from _typeshed import Incomplete
 from engineio.async_client import AsyncClient
 from engineio.client import Client
 from socketio._types import JsonModule, SerializerType, TransportType
@@ -44,9 +43,9 @@ class BaseClient(Generic[_IsAsyncio, _T_co]):
     sid: str | None
     connected: bool
     namespaces: dict[str, str | None]
-    handlers: dict[str, Callable[..., Incomplete]]
-    namespace_handlers: dict[str, Callable[..., Incomplete]]
-    callbacks: dict[str, dict[int, Callable[..., Incomplete]]]
+    handlers: dict[str, Callable[..., Any]]
+    namespace_handlers: dict[str, Callable[..., Any]]
+    callbacks: dict[str, dict[int, Callable[..., Any]]]
     def __init__(
         self,
         reconnection: bool = ...,
@@ -63,34 +62,28 @@ class BaseClient(Generic[_IsAsyncio, _T_co]):
     def is_asyncio_based(self) -> _IsAsyncio: ...
     @overload
     def on(
-        self,
-        event: Callable[..., Incomplete],
-        handler: None = ...,
-        namespace: None = ...,
+        self, event: Callable[..., Any], handler: None = ..., namespace: None = ...
     ) -> None: ...
     @overload
     def on(
-        self,
-        event: str,
-        handler: Callable[..., Incomplete],
-        namespace: str | None = ...,
+        self, event: str, handler: Callable[..., Any], namespace: str | None = ...
     ) -> Callable[[_F], _F] | None: ...
     @overload
     def on(
         self,
-        event: str | Callable[..., Incomplete],
-        handler: Callable[..., Incomplete] | None = ...,
+        event: str | Callable[..., Any],
+        handler: Callable[..., Any] | None = ...,
         namespace: str | None = ...,
     ) -> Callable[[_F], _F] | None: ...
     @overload
-    def event(self, handler: Callable[..., Incomplete]) -> None: ...
+    def event(self, handler: Callable[..., Any]) -> None: ...
     @overload
     def event(
-        self, handler: Callable[..., Incomplete], namespace: str | None
+        self, handler: Callable[..., Any], namespace: str | None
     ) -> Callable[[_F], _F]: ...
     @overload
     def event(
-        self, handler: Callable[..., Incomplete], namespace: str | None = ...
+        self, handler: Callable[..., Any], namespace: str | None = ...
     ) -> Callable[[_F], _F] | None: ...
     def register_namespace(self, namespace_handler: BaseClientNamespace) -> None: ...
     def get_sid(self, namespace: str | None = ...) -> str | None: ...
