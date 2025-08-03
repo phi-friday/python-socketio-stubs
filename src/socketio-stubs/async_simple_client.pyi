@@ -2,7 +2,6 @@ import asyncio
 import types
 from typing import Any, ClassVar, Literal
 
-from _typeshed import Incomplete
 from socketio._types import DataType, TransportType
 from socketio.async_client import AsyncClient
 from socketio.client import Client
@@ -41,7 +40,7 @@ class AsyncSimpleClient:
         event: str,
         data: DataType | tuple[DataType, ...] | None = ...,
         timeout: int = ...,
-    ) -> Incomplete | None: ...
+    ) -> tuple[Any, ...] | None: ...
     async def receive(self, timeout: float | None = ...) -> list[Any]: ...
     async def disconnect(self) -> None: ...
     async def __aenter__(self) -> Self: ...

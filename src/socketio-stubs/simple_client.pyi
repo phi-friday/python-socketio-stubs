@@ -2,7 +2,6 @@ import types
 from threading import Event
 from typing import Any, ClassVar, Literal
 
-from _typeshed import Incomplete
 from socketio._types import DataType, TransportType
 from socketio.client import Client
 from typing_extensions import Self
@@ -40,7 +39,7 @@ class SimpleClient:
         event: str,
         data: DataType | tuple[DataType, ...] | None = ...,
         timeout: int = ...,
-    ) -> Incomplete | None: ...
+    ) -> tuple[Any, ...] | None: ...
     def receive(self, timeout: float | None = ...) -> list[Any]: ...
     def disconnect(self) -> None: ...
     def __enter__(self) -> Self: ...
