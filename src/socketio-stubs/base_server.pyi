@@ -22,7 +22,7 @@ class BaseServer(Generic[_IsAsyncio, _T_co]):
     reason: ClassVar[type[engineio.Client.reason]]
     packet_class: Incomplete
     eio: _T_co
-    environ: Mapping[str, Incomplete]
+    environ: Mapping[str, Any]
     handlers: Callable[..., Incomplete]
     namespace_handlers: dict[str, Callable[..., Incomplete]]
     not_handled: object

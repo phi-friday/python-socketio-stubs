@@ -1,7 +1,6 @@
 from collections.abc import Callable, Mapping, Sequence
 from typing import Any, Generic
 
-from _typeshed import Incomplete
 from socketio._types import (
     BufferItem,
     DataType,
@@ -49,7 +48,7 @@ class InstrumentedServer(Generic[_A]):
     def instrument(self) -> None: ...
     def uninstrument(self) -> None: ...
     def admin_connect(
-        self, sid: str, environ: Mapping[str, Incomplete], client_auth: Any
+        self, sid: str, environ: Mapping[str, Any], client_auth: Any
     ) -> None: ...
     def admin_emit(
         self,

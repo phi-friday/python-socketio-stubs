@@ -114,7 +114,7 @@ class Server(BaseServer[Literal[False], engineio.Server], Generic[_A]):
     def shutdown(self) -> None: ...
     def handle_request(
         self,
-        environ: Mapping[str, Incomplete],
+        environ: Mapping[str, Any],
         start_response: Callable[[str, str], Incomplete],
     ) -> list[str | list[tuple[str, str]] | bytes]: ...
     def start_background_task(

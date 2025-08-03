@@ -156,7 +156,7 @@ class AsyncServer(BaseServer[Literal[True], engineio.AsyncServer], Generic[_A]):
     async def shutdown(self) -> None: ...
     async def handle_request(
         self,
-        environ: Mapping[str, Incomplete],
+        environ: Mapping[str, Any],
         start_response: Callable[[str, str], Incomplete],
     ) -> list[str | list[tuple[str, str]] | bytes]: ...
     def start_background_task(
