@@ -12,6 +12,7 @@ from socketio._types import (
     AsyncAsyncModeType,
     AsyncSessionContextManager,
     DataType,
+    JsonModule,
     SocketIOModeType,
     TransportType,
 )
@@ -34,7 +35,7 @@ class AsyncServer(BaseServer[Literal[True], engineio.AsyncServer], Generic[_A]):
         client_manager: AsyncManager | None = ...,
         logger: logging.Logger | bool = ...,
         serializer: str = ...,
-        json: Incomplete | None = ...,
+        json: JsonModule | None = ...,
         async_handlers: bool = ...,
         always_connect: bool = ...,
         namespaces: list[str] | None = ...,

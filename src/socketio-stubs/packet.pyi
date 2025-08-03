@@ -1,8 +1,7 @@
-from types import ModuleType
 from typing import Literal
 
 from _typeshed import Incomplete
-from socketio._types import DataType
+from socketio._types import DataType, JsonModule
 from typing_extensions import Buffer
 
 CONNECT: Literal[0]
@@ -26,7 +25,7 @@ packet_names: list[
 
 class Packet:
     uses_binary_events: bool
-    json: ModuleType
+    json: JsonModule
     packet_type: Literal[0, 1, 2, 3, 4, 5, 6]
     data: list[DataType] | None
     namespace: str | None

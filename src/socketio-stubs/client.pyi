@@ -6,7 +6,7 @@ from typing import Any, Literal, ParamSpec, TypeVar
 import engineio
 import requests
 from _typeshed import Incomplete
-from socketio._types import DataType, TransportType
+from socketio._types import DataType, JsonModule, TransportType
 from socketio.base_client import BaseClient
 
 _T = TypeVar("_T")
@@ -31,7 +31,7 @@ class Client(BaseClient[Literal[False], engineio.Client]):
         randomization_factor: float = ...,
         logger: logging.Logger | bool = ...,
         serializer: str = ...,
-        json: Incomplete | None = ...,
+        json: JsonModule | None = ...,
         handle_sigint: bool = ...,
         # engineio options
         *,

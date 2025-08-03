@@ -7,7 +7,7 @@ import engineio
 from _typeshed import Incomplete
 from engineio.async_client import AsyncClient
 from engineio.client import Client
-from socketio._types import TransportType
+from socketio._types import JsonModule, TransportType
 from socketio.base_namespace import BaseClientNamespace
 from typing_extensions import TypeVar
 
@@ -55,7 +55,7 @@ class BaseClient(Generic[_IsAsyncio, _T_co]):
         randomization_factor: float = ...,
         logger: logging.Logger | bool = ...,
         serializer: str = ...,
-        json: Incomplete | None = ...,
+        json: JsonModule | None = ...,
         handle_sigint: bool = ...,
         **kwargs: Any,
     ) -> None: ...

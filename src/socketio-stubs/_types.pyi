@@ -1,5 +1,6 @@
 from contextlib import AbstractAsyncContextManager, AbstractContextManager
 from threading import Event as ThreadingEvent
+from types import ModuleType
 from typing import Any, Literal, TypeAlias, overload
 
 from _typeshed import Incomplete
@@ -194,3 +195,9 @@ class StatsTaskDescriptor:
         value: EventletThread | GeventUWSGThread | GeventThread | DaemonThread | None,
     ) -> None: ...
     def __delete__(self, instance: InstrumentedServer[Any]) -> None: ...
+
+class JsonModule(ModuleType):
+    @staticmethod
+    def dumps(obj: Any, **kwargs: Any) -> str: ...
+    @staticmethod
+    def loads(s: str | bytes | bytearray, **kwargs: Any) -> Any: ...

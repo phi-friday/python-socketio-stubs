@@ -6,6 +6,7 @@ from typing import Any, Generic, Literal, NoReturn, ParamSpec, TypeAlias, overlo
 import engineio
 from _typeshed import Incomplete
 from socketio._types import (
+    JsonModule,
     SessionContextManager,
     SocketIOModeType,
     SyncAsyncModeType,
@@ -29,7 +30,7 @@ class Server(BaseServer[Literal[False], engineio.Server], Generic[_A]):
         client_manager: Manager | None = ...,
         logger: logging.Logger | bool = ...,
         serializer: str = ...,
-        json: Incomplete | None = ...,
+        json: JsonModule | None = ...,
         async_handlers: bool = ...,
         always_connect: bool = ...,
         namespaces: list[str] | None = ...,
