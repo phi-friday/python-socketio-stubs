@@ -1,3 +1,4 @@
+from collections.abc import Mapping, Sequence
 from contextlib import AbstractAsyncContextManager, AbstractContextManager
 from threading import Event as ThreadingEvent
 from types import ModuleType
@@ -15,9 +16,9 @@ from socketio.server import Server
 from typing_extensions import NotRequired, Required, TypedDict
 
 JsonType: TypeAlias = (
-    str | int | float | bool | None | list[JsonType] | dict[str, JsonType]
+    str | int | float | bool | None | Sequence[JsonType] | Mapping[str, JsonType]
 )
-DataType: TypeAlias = str | bytes | list[JsonType] | dict[JsonType, JsonType]
+DataType: TypeAlias = str | bytes | Sequence[JsonType] | Mapping[JsonType, JsonType]
 TransportType: TypeAlias = Literal["websocket", "polling"]
 SocketIOModeType: TypeAlias = Literal["development", "production"]
 SyncAsyncModeType: TypeAlias = Literal[
