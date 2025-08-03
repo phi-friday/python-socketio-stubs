@@ -36,7 +36,7 @@ class BaseClient(Generic[_IsAsyncio, _T_co]):
     logger: logging.Logger
     connection_url: str | None
     connection_headers: dict[Incomplete, Incomplete] | None
-    connection_auth: Incomplete | None
+    connection_auth: Any
     connection_transports: list[TransportType] | None
     connection_namespaces: list[str]
     socketio_path: str | None

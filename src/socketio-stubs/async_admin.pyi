@@ -1,5 +1,5 @@
 import asyncio
-from collections.abc import Mapping, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from typing import Any, Generic
 
 from _typeshed import Incomplete
@@ -20,7 +20,7 @@ PID: int
 
 class InstrumentedAsyncServer(Generic[_A]):
     sio: AsyncServer[_A]
-    auth: Incomplete
+    auth: dict[Any, Any] | list[Any] | Callable[[Any], bool]
     admin_namespace: str
     read_only: bool
     server_id: str
@@ -33,7 +33,7 @@ class InstrumentedAsyncServer(Generic[_A]):
     def __init__(
         self,
         sio: AsyncServer[_A],
-        auth: Incomplete | None = ...,
+        auth: dict[Any, Any] | list[Any] | Callable[[Any], bool] = ...,
         namespace: str = ...,
         read_only: bool = ...,
         server_id: str | None = ...,
@@ -43,7 +43,7 @@ class InstrumentedAsyncServer(Generic[_A]):
     def instrument(self) -> None: ...
     def uninstrument(self) -> None: ...
     async def admin_connect(
-        self, sid: str, environ: Mapping[str, Incomplete], client_auth: Incomplete
+        self, sid: str, environ: Mapping[str, Incomplete], client_auth: Any
     ) -> None: ...
     async def admin_emit(
         self,

@@ -123,7 +123,7 @@ class Server(BaseServer[Literal[False], engineio.Server], Generic[_A]):
     def sleep(self, seconds: int = ...) -> None: ...
     def instrument(
         self,
-        auth: Incomplete | None = ...,
+        auth: dict[Any, Any] | list[Any] | Callable[[Any], bool] | None = ...,
         mode: SocketIOModeType = ...,
         read_only: bool = ...,
         server_id: str | None = ...,

@@ -17,7 +17,7 @@ default_logger: logging.Logger
 class AsyncClient(BaseClient[Literal[True], engineio.AsyncClient]):
     connection_url: str  # pyright: ignore[reportIncompatibleVariableOverride]
     connection_headers: dict[Incomplete, Incomplete]  # pyright: ignore[reportIncompatibleVariableOverride]
-    connection_auth: Incomplete | None
+    connection_auth: Any
     connection_transports: list[TransportType] | None
     connection_namespaces: list[str]
     socketio_path: str  # pyright: ignore[reportIncompatibleVariableOverride]
@@ -48,7 +48,7 @@ class AsyncClient(BaseClient[Literal[True], engineio.AsyncClient]):
         self,
         url: str,
         headers: dict[Incomplete, Incomplete] = ...,
-        auth: Incomplete | None = ...,
+        auth: Any = ...,
         transports: list[TransportType] | None = ...,
         namespaces: str | list[str] | None = ...,
         socketio_path: str = ...,

@@ -15,7 +15,7 @@ _P = ParamSpec("_P")
 class Client(BaseClient[Literal[False], engineio.Client]):
     connection_url: str  # pyright: ignore[reportIncompatibleVariableOverride]
     connection_headers: dict[Incomplete, Incomplete]  # pyright: ignore[reportIncompatibleVariableOverride]
-    connection_auth: Incomplete | None
+    connection_auth: Any
     connection_transports: list[TransportType] | None
     connection_namespaces: list[str]
     socketio_path: str  # pyright: ignore[reportIncompatibleVariableOverride]
@@ -46,7 +46,7 @@ class Client(BaseClient[Literal[False], engineio.Client]):
         self,
         url: str,
         headers: dict[Incomplete, Incomplete] = ...,
-        auth: Incomplete | None = ...,
+        auth: Any = ...,
         transports: list[TransportType] | None = ...,
         namespaces: str | list[str] | None = ...,
         socketio_path: str = ...,

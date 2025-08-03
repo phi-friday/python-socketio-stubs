@@ -1,4 +1,4 @@
-from collections.abc import Mapping, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from typing import Any, Generic
 
 from _typeshed import Incomplete
@@ -27,7 +27,7 @@ class EventBuffer:
 
 class InstrumentedServer(Generic[_A]):
     sio: Server[_A]
-    auth: Incomplete
+    auth: dict[Any, Any] | list[Any] | Callable[[Any], bool]
     admin_namespace: str
     read_only: bool
     server_id: str
@@ -39,7 +39,7 @@ class InstrumentedServer(Generic[_A]):
     def __init__(
         self,
         sio: Server[_A],
-        auth: Incomplete | None = ...,
+        auth: dict[Any, Any] | list[Any] | Callable[[Any], bool] = ...,
         mode: SocketIOModeType = ...,
         read_only: bool = ...,
         server_id: str | None = ...,
@@ -49,7 +49,7 @@ class InstrumentedServer(Generic[_A]):
     def instrument(self) -> None: ...
     def uninstrument(self) -> None: ...
     def admin_connect(
-        self, sid: str, environ: Mapping[str, Incomplete], client_auth: Incomplete
+        self, sid: str, environ: Mapping[str, Incomplete], client_auth: Any
     ) -> None: ...
     def admin_emit(
         self,

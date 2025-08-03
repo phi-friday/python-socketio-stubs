@@ -23,7 +23,7 @@ class AsyncSimpleClient:
         self,
         url: str,
         headers: dict[Incomplete, Incomplete] = ...,
-        auth: Incomplete | None = ...,
+        auth: Any = ...,
         transports: list[TransportType] | None = ...,
         namespace: str = ...,
         socketio_path: str = ...,

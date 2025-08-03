@@ -165,7 +165,7 @@ class AsyncServer(BaseServer[Literal[True], engineio.AsyncServer], Generic[_A]):
     async def sleep(self, seconds: int = ...) -> None: ...
     def instrument(
         self,
-        auth: Incomplete | None = ...,
+        auth: dict[Any, Any] | list[Any] | Callable[[Any], bool] = ...,
         mode: SocketIOModeType = ...,
         read_only: bool = ...,
         server_id: str | None = ...,
