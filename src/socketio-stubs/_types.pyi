@@ -1,8 +1,8 @@
-from collections.abc import Mapping, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from contextlib import AbstractAsyncContextManager, AbstractContextManager
 from threading import Event as ThreadingEvent
 from types import ModuleType
-from typing import Any, Literal, Protocol, TypeAlias, overload
+from typing import Any, Literal, TypeAlias, overload
 
 import engineio
 from _typeshed import Incomplete
@@ -19,7 +19,7 @@ from typing_extensions import NotRequired, Required, TypedDict
 JsonType: TypeAlias = (
     str | int | float | bool | None | Sequence[JsonType] | Mapping[str, JsonType]
 )
-DataType: TypeAlias = str | bytes | Sequence[JsonType] | Mapping[JsonType, JsonType]
+DataType: TypeAlias = str | bytes | Sequence[JsonType] | Mapping[str, JsonType]
 TransportType: TypeAlias = Literal["websocket", "polling"]
 SocketIOModeType: TypeAlias = Literal["development", "production"]
 SyncAsyncModeType: TypeAlias = Literal[
@@ -210,32 +210,13 @@ class JsonModule(ModuleType):
 
 ## handlers
 
-class ServerConnectHandler(Protocol):
-    def __call__(self, sid: str, environ: Mapping[str, Any]) -> Any: ...
-
-class ServerConnectHandlerWithData(Protocol):
-    def __call__(self, sid: str, environ: Mapping[str, Any], data: Any) -> Any: ...
-
-class ServerDisconnectHandler(Protocol):
-    def __call__(self, sid: str, reason: engineio.Server.reason) -> Any: ...
-
-class ServerDisconnectLegacyHandler(Protocol):
-    def __call__(self, sid: str) -> Any: ...
-
-class ClientConnectHandler(Protocol):
-    def __call__(self) -> Any: ...
-
-class ClientDisconnectHandler(Protocol):
-    def __call__(self, reason: engineio.Client.reason) -> Any: ...
-
-class ClientDisconnectLegacyHandler(Protocol):
-    def __call__(self) -> Any: ...
-
-class ClientConnectErrorHandler(Protocol):
-    def __call__(self, data: Any) -> Any: ...
-
-class CatchAllHandler(Protocol):
-    def __call__(self, event: str, sid: str, data: Any) -> Any: ...
-
-class EventHandler(Protocol):
-    def __call__(self, sid: str, data: Any) -> Any: ...
+ServerConnectHandler: TypeAlias = Callable[[str, dict[str, Any]], Any]
+ServerConnectHandlerWithData: TypeAlias = Callable[[str, dict[str, Any], Any], Any]
+ServerDisconnectHandler: TypeAlias = Callable[[str, engineio.Server.reason], Any]
+ServerDisconnectLegacyHandler: TypeAlias = Callable[[str], Any]
+ClientConnectHandler: TypeAlias = Callable[[], Any]
+ClientDisconnectHandler: TypeAlias = Callable[[engineio.Client.reason], Any]
+ClientDisconnectLegacyHandler: TypeAlias = Callable[[], Any]
+ClientConnectErrorHandler: TypeAlias = Callable[[Any], Any]
+CatchAllHandler: TypeAlias = Callable[[str, str, Any], Any]
+EventHandler: TypeAlias = Callable[[str, Any], DataType | tuple[DataType, ...] | None]
