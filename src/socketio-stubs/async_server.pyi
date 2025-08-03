@@ -1,13 +1,15 @@
 import asyncio
 import logging
-from collections.abc import Awaitable, Callable, Mapping
+from collections.abc import Awaitable, Callable, Iterable, Mapping, Sequence
 from typing import Any, Generic, Literal, NoReturn, ParamSpec, overload
 
 import engineio
-from _typeshed import Incomplete
+from aiohttp.typedefs import LooseHeaders as AiohttpLooseHeaders
 from aiohttp.web import Application as AiohttpApplication
+from aiohttp.web import Response as AiohttpResponse
 from engineio.async_drivers.asgi import ASGIApp as EngineIOASGIApp
 from sanic import Sanic
+from sanic.response import HTTPResponse as SanicHTTPResponse
 from socketio._types import (
     AsyncAsyncModeType,
     AsyncSessionContextManager,
@@ -152,11 +154,42 @@ class AsyncServer(BaseServer[Literal[True], engineio.AsyncServer], Generic[_A]):
         self, sid: str, namespace: str | None = ..., ignore_queue: bool = ...
     ) -> None: ...
     async def shutdown(self) -> None: ...
+    @overload
     async def handle_request(
-        self,
-        environ: Mapping[str, Any],
-        start_response: Callable[[str, str], Incomplete],
-    ) -> list[str | list[tuple[str, str]] | bytes]: ...
+        self: AsyncServer[Literal["aiohttp"]],
+        status: str = ...,
+        headers: AiohttpLooseHeaders | None = ...,
+        payload: Any = ...,
+        environ: Mapping[str, Any] = ...,
+    ) -> AiohttpResponse: ...
+    @overload
+    async def handle_request(
+        self: AsyncServer[Literal["asgi"]],
+        state: str = ...,
+        headers: Iterable[Sequence[str]] = ...,
+        playload: Any = ...,
+        environ: Mapping[str, Any] = ...,
+    ) -> None: ...
+    @overload
+    async def handle_request(
+        self: AsyncServer[Literal["sanic"]],
+        state: str = ...,
+        headers: Iterable[Sequence[str]] = ...,
+        playload: Any = ...,
+        environ: Mapping[str, Any] = ...,
+    ) -> SanicHTTPResponse: ...
+    @overload
+    async def handle_request(
+        self: AsyncServer[Literal["tornado"]],
+        state: str = ...,
+        headers: Iterable[Sequence[str]] = ...,
+        playload: Any = ...,
+        environ: Mapping[str, Any] = ...,
+    ) -> None: ...
+    @overload
+    async def handle_request(
+        self, *args: Any, **kwargs: Any
+    ) -> AiohttpResponse | SanicHTTPResponse | None: ...
     def start_background_task(
         self, target: Callable[_P, Awaitable[_T]], *args: _P.args, **kwargs: _P.kwargs
     ) -> asyncio.Task[_T]: ...
