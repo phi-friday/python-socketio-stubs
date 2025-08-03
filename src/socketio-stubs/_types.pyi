@@ -14,7 +14,10 @@ from socketio.admin import InstrumentedServer
 from socketio.server import Server
 from typing_extensions import NotRequired, Required, TypedDict
 
-DataType: TypeAlias = str | bytes | list[Incomplete] | dict[Incomplete, Incomplete]
+JsonType: TypeAlias = (
+    str | int | float | bool | None | list[JsonType] | dict[str, JsonType]
+)
+DataType: TypeAlias = str | bytes | list[JsonType] | dict[JsonType, JsonType]
 TransportType: TypeAlias = Literal["websocket", "polling"]
 SocketIOModeType: TypeAlias = Literal["development", "production"]
 SyncAsyncModeType: TypeAlias = Literal[
