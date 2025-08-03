@@ -22,7 +22,7 @@ class AsyncSimpleClient:
     async def connect(
         self,
         url: str,
-        headers: dict[Incomplete, Incomplete] = ...,
+        headers: dict[str, str] = ...,
         auth: Any = ...,
         transports: list[TransportType] | None = ...,
         namespace: str = ...,

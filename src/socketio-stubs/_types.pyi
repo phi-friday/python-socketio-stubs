@@ -46,7 +46,7 @@ class BufferItem(TypedDict, total=True):
 
 class SerializedSocketHandshake(TypedDict, total=True):
     address: str
-    headers: dict[str, Incomplete]
+    headers: dict[str, str]
     query: dict[str, str]
     secure: bool
     url: str
