@@ -6,6 +6,7 @@ from typing import Any, Literal, ParamSpec, TypeVar
 import engineio
 import requests
 from socketio._types import DataType, JsonModule, SerializerType, TransportType
+from socketio.async_namespace import AsyncClientNamespace
 from socketio.base_client import BaseClient
 from socketio.packet import Packet
 
@@ -83,3 +84,4 @@ class AsyncClient(BaseClient[Literal[True], engineio.AsyncClient]):
         self, target: Callable[_P, Awaitable[_T]], *args: _P.args, **kwargs: _P.kwargs
     ) -> asyncio.Task[_T]: ...
     async def sleep(self, seconds: int = ...) -> None: ...
+    def register_namespace(self, namespace_handler: AsyncClientNamespace) -> None: ...  # pyright: ignore[reportIncompatibleMethodOverride]

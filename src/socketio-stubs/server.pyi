@@ -16,6 +16,7 @@ from socketio._types import (
 from socketio.admin import InstrumentedServer
 from socketio.base_server import BaseServer
 from socketio.manager import Manager
+from socketio.namespace import Namespace
 from socketio.packet import Packet
 from typing_extensions import TypeVar
 
@@ -125,3 +126,4 @@ class Server(BaseServer[Literal[False], engineio.Server], Generic[_A]):
         namespace: str = ...,
         server_stats_interval: int = ...,
     ) -> InstrumentedServer: ...
+    def register_namespace(self, namespace_handler: Namespace) -> None: ...  # pyright: ignore[reportIncompatibleMethodOverride]

@@ -22,6 +22,7 @@ from socketio._types import (
 from socketio.asgi import ASGIApp as SocketIOASGIApp
 from socketio.async_admin import InstrumentedAsyncServer
 from socketio.async_manager import AsyncManager
+from socketio.async_namespace import AsyncNamespace
 from socketio.base_server import BaseServer
 from socketio.packet import Packet
 from tornado.web import Application as TornadoApplication
@@ -205,3 +206,4 @@ class AsyncServer(BaseServer[Literal[True], engineio.AsyncServer], Generic[_A]):
         namespace: str = ...,
         server_stats_interval: int = ...,
     ) -> InstrumentedAsyncServer: ...
+    def register_namespace(self, namespace_handler: AsyncNamespace) -> None: ...  # pyright: ignore[reportIncompatibleMethodOverride]
