@@ -17,8 +17,8 @@ from socketio._types import (
     SyncAsyncModeType,
     TransportType,
 )
+from socketio.base_manager import BaseManager
 from socketio.base_namespace import BaseClientNamespace
-from socketio.manager import Manager
 from socketio.packet import Packet
 from typing_extensions import TypeVar
 
@@ -46,7 +46,7 @@ class BaseServer(Generic[_IsAsyncio, _T_co]):
     namespace_handlers: dict[str, Callable[..., Any]]
     not_handled: object
     logger: logging.Logger
-    manager: Manager
+    manager: BaseManager
     manager_initialized: bool
     async_handlers: bool
     always_connect: bool
@@ -54,7 +54,7 @@ class BaseServer(Generic[_IsAsyncio, _T_co]):
     async_mode: SyncAsyncModeType
     def __init__(
         self,
-        client_manager: Manager | None = ...,
+        client_manager: BaseManager | None = ...,
         logger: logging.Logger | bool = ...,
         serializer: SerializerType | type[Packet] = ...,
         json: JsonModule | None = ...,

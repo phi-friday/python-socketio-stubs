@@ -35,6 +35,7 @@ _T = TypeVar("_T")
 task_reference_holder: set[Any]
 
 class AsyncServer(BaseServer[Literal[True], engineio.AsyncServer], Generic[_A]):
+    manager: AsyncManager  # pyright: ignore[reportIncompatibleVariableOverride]
     def __init__(
         self,
         client_manager: AsyncManager | None = ...,

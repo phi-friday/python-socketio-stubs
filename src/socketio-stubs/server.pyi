@@ -27,6 +27,7 @@ _T = TypeVar("_T")
 default_logger: logging.Logger
 
 class Server(BaseServer[Literal[False], engineio.Server], Generic[_A]):
+    manager: Manager  # pyright: ignore[reportIncompatibleVariableOverride]
     def __init__(
         self,
         client_manager: Manager | None = ...,
