@@ -2,7 +2,7 @@ from collections.abc import Awaitable, Callable, Mapping, Sequence
 from contextlib import AbstractAsyncContextManager, AbstractContextManager
 from threading import Event as ThreadingEvent
 from types import ModuleType
-from typing import Any, Literal, TypeAlias, overload
+from typing import Any, Concatenate, Literal, TypeAlias, overload
 
 import engineio
 from _typeshed import Incomplete
@@ -220,9 +220,9 @@ ClientDisconnectLegacyHandler: TypeAlias = Callable[[], Any]
 ClientConnectErrorHandler: TypeAlias = Callable[[Any], Any]
 CatchAllHandler: TypeAlias = Callable[[str, str, Any], Any]
 SyncEventHandler: TypeAlias = Callable[
-    [str, Any], DataType | tuple[DataType, ...] | None
+    Concatenate[str, ...], DataType | tuple[DataType, ...] | None
 ]
 AsyncEventHandler: TypeAlias = Callable[
-    [str, Any], Awaitable[DataType | tuple[DataType, ...] | None]
+    Concatenate[str, ...], Awaitable[DataType | tuple[DataType, ...] | None]
 ]
 EventHandler: TypeAlias = SyncEventHandler | AsyncEventHandler
