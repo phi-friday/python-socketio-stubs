@@ -42,7 +42,7 @@ class BaseServer(Generic[_IsAsyncio, _T_co]):
     packet_class: type[Packet]
     eio: _T_co
     environ: Mapping[str, Any]
-    handlers: Callable[..., Any]
+    handlers: dict[str, Callable[..., Any]]
     namespace_handlers: dict[str, Callable[..., Any]]
     not_handled: object
     logger: logging.Logger
