@@ -219,10 +219,18 @@ ClientDisconnectHandler: TypeAlias = Callable[[engineio.Client.reason], Any]
 ClientDisconnectLegacyHandler: TypeAlias = Callable[[], Any]
 ClientConnectErrorHandler: TypeAlias = Callable[[Any], Any]
 CatchAllHandler: TypeAlias = Callable[[str, str, Any], Any]
-SyncEventHandler: TypeAlias = Callable[
+SyncEventHandlerWithSid: TypeAlias = Callable[
     Concatenate[str, ...], DataType | tuple[DataType, ...] | None
 ]
-AsyncEventHandler: TypeAlias = Callable[
+SyncEventHandlerWithoutSid: TypeAlias = Callable[
+    [], DataType | tuple[DataType, ...] | None
+]
+SyncEventHandler: TypeAlias = SyncEventHandlerWithSid | SyncEventHandlerWithoutSid
+AsyncEventHandlerWithSid: TypeAlias = Callable[
     Concatenate[str, ...], Awaitable[DataType | tuple[DataType, ...] | None]
 ]
+AsyncEventHandlerWithoutSid: TypeAlias = Callable[
+    [], Awaitable[DataType | tuple[DataType, ...] | None]
+]
+AsyncEventHandler: TypeAlias = AsyncEventHandlerWithSid | AsyncEventHandlerWithoutSid
 EventHandler: TypeAlias = SyncEventHandler | AsyncEventHandler
