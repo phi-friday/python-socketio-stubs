@@ -59,6 +59,7 @@ class BaseClient(Generic[_IsAsyncio, _T_co]):
     socketio_path: str | None
     sid: str | None
     connected: bool
+    failed_namespaces: list[str | None]
     namespaces: dict[str, str | None]
     handlers: dict[str, Callable[..., Any]]
     namespace_handlers: dict[str, Callable[..., Any]]
