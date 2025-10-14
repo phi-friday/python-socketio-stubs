@@ -26,10 +26,10 @@ Repository = "https://github.com/phi-friday/python-socketio-stubs"
 
 [project.optional-dependencies]
 mypy = [
-    "mypy>=1.17.1",
+    "mypy>=1.18.2",
 ]
 mypy-strict = [
-    "mypy==1.17.1",
+    "mypy==1.18.2",
     "python-socketio-stubs[mypy]",
 ]
 
@@ -47,7 +47,7 @@ python-socketio-dependencies = [
 ]
 dev = [
     { include-group = "python-socketio-dependencies" },
-    "ruff==0.12.7",
+    "ruff==0.14.0",
     "pre-commit>=4.2.0",
     "poethepoet>=0.36.0",
     "python-socketio-stubs[mypy-strict]",

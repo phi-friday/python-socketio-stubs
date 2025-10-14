@@ -16,14 +16,14 @@ repos:
         name: ruff-format
         args: [--check]
     repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.12.7
+    rev: v0.14.0
 
   - hooks:
       - id: mypy
         name: mypy
         args: [--config-file=pyproject.toml]
     repo: https://github.com/pre-commit/mirrors-mypy
-    rev: v1.17.1
+    rev: v1.18.2
 
   - hooks:
       - id: pyright
@@ -33,4 +33,4 @@ repos:
         args:
           - "--pythonpath=.venv/bin/python"
     repo: https://github.com/RobertCraigie/pyright-python
-    rev: v1.1.403
+    rev: v1.1.405
