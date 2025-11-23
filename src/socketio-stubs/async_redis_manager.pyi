@@ -1,8 +1,12 @@
 import logging
 from typing import Any
 
+from redis.asyncio import Redis
+from redis.asyncio.client import PubSub as RedisPubSub
 from socketio._types import RedisArgs
 from socketio.async_pubsub_manager import AsyncPubSubManager
+from valkey.asyncio import Valkey
+from valkey.asyncio.client import PubSub as ValkeyPubSub
 
 def parse_redis_sentinel_url(
     url: str,
@@ -12,6 +16,9 @@ class AsyncRedisManager(AsyncPubSubManager):
     name: str
     redis_url: str
     redis_options: dict[str, Any]
+    connected: bool
+    redis: Redis | Valkey | None
+    pubsub: RedisPubSub | ValkeyPubSub | None
     def __init__(
         self,
         url: str = ...,

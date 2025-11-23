@@ -2,7 +2,7 @@ from collections.abc import Awaitable, Callable, Mapping, Sequence
 from contextlib import AbstractAsyncContextManager, AbstractContextManager
 from threading import Event as ThreadingEvent
 from types import ModuleType
-from typing import Any, Concatenate, Literal, TypeAlias, overload
+from typing import Any, ClassVar, Concatenate, Literal, TypeAlias, overload
 
 import engineio
 from _typeshed import Incomplete
@@ -13,6 +13,7 @@ from engineio.async_drivers.threading import DaemonThread
 from engineio.socket import Socket
 from gevent.event import Event as GeventEvent
 from socketio.admin import InstrumentedServer
+from socketio.msgpack_packet import MsgPackPacket
 from socketio.server import Server
 from typing_extensions import NotRequired, Required, TypedDict
 
@@ -207,6 +208,10 @@ class JsonModule(ModuleType):
     def dumps(obj: Any, **kwargs: Any) -> str: ...
     @staticmethod
     def loads(s: str | bytes | bytearray, **kwargs: Any) -> Any: ...
+
+class CustomMsgPackPacket(MsgPackPacket):
+    dumps_default: ClassVar[Callable[[Any], Any] | None]
+    ext_hook: ClassVar[Callable[[int, bytes], Any]]
 
 ## handlers
 

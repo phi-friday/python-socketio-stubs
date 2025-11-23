@@ -1,8 +1,12 @@
 import logging
 from typing import Any
 
+from redis import Redis
+from redis.client import PubSub as RedisPubSub
 from socketio._types import RedisArgs
 from socketio.pubsub_manager import PubSubManager
+from valkey import Valkey
+from valkey.client import PubSub as ValkeyPubSub
 
 logger: logging.Logger
 
@@ -14,6 +18,9 @@ class RedisManager(PubSubManager):
     name: str
     redis_url: str
     redis_options: dict[str, Any]
+    connected: bool
+    redis: Redis | Valkey | None
+    pubsub: RedisPubSub | ValkeyPubSub | None
     def __init__(
         self,
         url: str = ...,
