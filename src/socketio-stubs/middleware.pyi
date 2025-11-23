@@ -1,6 +1,7 @@
 from typing import Any
 
 import engineio
+
 from socketio.base_server import BaseServer
 
 class WSGIApp(engineio.WSGIApp):

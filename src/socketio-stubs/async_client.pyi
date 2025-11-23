@@ -5,6 +5,7 @@ from typing import Any, Literal, ParamSpec, TypeVar
 
 import engineio
 import requests
+
 from socketio._types import DataType, JsonModule, SerializerType, TransportType
 from socketio.async_namespace import AsyncClientNamespace
 from socketio.base_client import BaseClient

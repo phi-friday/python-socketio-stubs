@@ -1,6 +1,7 @@
 import logging
 
 import kafka
+
 from socketio.pubsub_manager import PubSubManager
 
 logger: logging.Logger

@@ -2,10 +2,11 @@ import asyncio
 import types
 from typing import Any, ClassVar, Literal
 
+from typing_extensions import Self
+
 from socketio._types import DataType, TransportType
 from socketio.async_client import AsyncClient
 from socketio.client import Client
-from typing_extensions import Self
 
 class AsyncSimpleClient:
     client_class: ClassVar[type[AsyncClient]]

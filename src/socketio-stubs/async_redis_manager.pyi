@@ -3,10 +3,11 @@ from typing import Any
 
 from redis.asyncio import Redis
 from redis.asyncio.client import PubSub as RedisPubSub
-from socketio._types import RedisArgs
-from socketio.async_pubsub_manager import AsyncPubSubManager
 from valkey.asyncio import Valkey
 from valkey.asyncio.client import PubSub as ValkeyPubSub
+
+from socketio._types import RedisArgs
+from socketio.async_pubsub_manager import AsyncPubSubManager
 
 def parse_redis_sentinel_url(
     url: str,

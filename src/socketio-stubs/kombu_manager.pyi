@@ -2,6 +2,7 @@ import logging
 from typing import Any
 
 import kombu
+
 from socketio.pubsub_manager import PubSubManager
 
 class KombuManager(PubSubManager):

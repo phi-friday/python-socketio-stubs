@@ -2,9 +2,10 @@ import types
 from threading import Event
 from typing import Any, ClassVar, Literal
 
+from typing_extensions import Self
+
 from socketio._types import DataType, TransportType
 from socketio.client import Client
-from typing_extensions import Self
 
 class SimpleClient:
     client_class: ClassVar[type[Client]]

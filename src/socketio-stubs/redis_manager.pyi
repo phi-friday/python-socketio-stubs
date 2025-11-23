@@ -3,10 +3,11 @@ from typing import Any
 
 from redis import Redis
 from redis.client import PubSub as RedisPubSub
-from socketio._types import RedisArgs
-from socketio.pubsub_manager import PubSubManager
 from valkey import Valkey
 from valkey.client import PubSub as ValkeyPubSub
+
+from socketio._types import RedisArgs
+from socketio.pubsub_manager import PubSubManager
 
 logger: logging.Logger
 

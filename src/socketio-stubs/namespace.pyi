@@ -1,11 +1,12 @@
 from collections.abc import Callable
 from typing import Any, Generic, Literal, NoReturn, overload
 
+from typing_extensions import TypeVar
+
 from socketio._types import DataType, SessionContextManager, SyncAsyncModeType
 from socketio.base_namespace import BaseClientNamespace, BaseServerNamespace
 from socketio.client import Client
 from socketio.server import Server
-from typing_extensions import TypeVar
 
 _A = TypeVar("_A", bound=SyncAsyncModeType, default=Any)
 

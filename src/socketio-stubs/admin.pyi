@@ -1,6 +1,8 @@
 from collections.abc import Callable, Mapping, Sequence
 from typing import Any, Generic
 
+from typing_extensions import TypeVar
+
 from socketio._types import (
     BufferItem,
     DataType,
@@ -11,7 +13,6 @@ from socketio._types import (
     SyncAsyncModeType,
 )
 from socketio.server import Server
-from typing_extensions import TypeVar
 
 _A = TypeVar("_A", bound=SyncAsyncModeType, default=Any)
 

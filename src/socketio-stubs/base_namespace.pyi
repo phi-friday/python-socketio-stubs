@@ -1,8 +1,9 @@
 from typing import Any, Generic, Literal
 
+from typing_extensions import TypeVar
+
 from socketio.base_client import BaseClient
 from socketio.base_server import BaseServer
-from typing_extensions import TypeVar
 
 _IsAsyncio = TypeVar("_IsAsyncio", bound=bool, default=Literal[False])
 

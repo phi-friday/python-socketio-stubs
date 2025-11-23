@@ -4,6 +4,8 @@ from threading import Thread
 from typing import Any, Generic, Literal, NoReturn, ParamSpec, overload
 
 import engineio
+from typing_extensions import TypeVar
+
 from socketio._types import (
     DataType,
     JsonModule,
@@ -18,7 +20,6 @@ from socketio.base_server import BaseServer
 from socketio.manager import Manager
 from socketio.namespace import Namespace
 from socketio.packet import Packet
-from typing_extensions import TypeVar
 
 _A = TypeVar("_A", bound=SyncAsyncModeType, default=Any)
 _P = ParamSpec("_P")

@@ -12,10 +12,11 @@ from engineio.async_drivers.gevent_uwsgi import Thread as GeventUWSGThread
 from engineio.async_drivers.threading import DaemonThread
 from engineio.socket import Socket
 from gevent.event import Event as GeventEvent
+from typing_extensions import NotRequired, Required, TypedDict
+
 from socketio.admin import InstrumentedServer
 from socketio.msgpack_packet import MsgPackPacket
 from socketio.server import Server
-from typing_extensions import NotRequired, Required, TypedDict
 
 JsonType: TypeAlias = (
     str | int | float | bool | None | Sequence[JsonType] | Mapping[str, JsonType]

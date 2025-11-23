@@ -2,6 +2,8 @@ import asyncio
 from collections.abc import Callable, Mapping, Sequence
 from typing import Any, Generic
 
+from typing_extensions import TypeVar
+
 from socketio._types import (
     AsyncAsyncModeType,
     DataType,
@@ -10,7 +12,6 @@ from socketio._types import (
 )
 from socketio.admin import EventBuffer as EventBuffer
 from socketio.async_server import AsyncServer
-from typing_extensions import TypeVar
 
 _A = TypeVar("_A", bound=AsyncAsyncModeType, default=Any)
 

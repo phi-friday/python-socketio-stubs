@@ -6,6 +6,8 @@ from typing import Any, ClassVar, Generic, Literal, overload
 import engineio
 from engineio.async_client import AsyncClient
 from engineio.client import Client
+from typing_extensions import TypeVar
+
 from socketio._types import (
     CatchAllHandler,
     ClientConnectErrorHandler,
@@ -19,7 +21,6 @@ from socketio._types import (
 )
 from socketio.base_namespace import BaseClientNamespace
 from socketio.packet import Packet
-from typing_extensions import TypeVar
 
 _T_co = TypeVar("_T_co", bound=Client | AsyncClient, covariant=True, default=Any)
 _IsAsyncio = TypeVar("_IsAsyncio", bound=bool, default=Literal[False])

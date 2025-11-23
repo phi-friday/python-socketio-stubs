@@ -5,6 +5,7 @@ from aio_pika.abc import (
     AbstractRobustConnection,
     AbstractRobustExchange,
 )
+
 from socketio.async_pubsub_manager import AsyncPubSubManager
 
 class AsyncAioPikaManager(AsyncPubSubManager):

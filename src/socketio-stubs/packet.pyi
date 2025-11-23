@@ -1,7 +1,8 @@
 from typing import Any, Literal
 
-from socketio._types import DataType, JsonModule
 from typing_extensions import Buffer
+
+from socketio._types import DataType, JsonModule
 
 CONNECT: Literal[0]
 DISCONNECT: Literal[1]

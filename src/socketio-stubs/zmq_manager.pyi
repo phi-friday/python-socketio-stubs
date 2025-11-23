@@ -2,6 +2,7 @@ import logging
 from collections.abc import Generator
 
 from eventlet.green.zmq import Socket, _Socket_recv
+
 from socketio.pubsub_manager import PubSubManager
 
 class ZmqManager(PubSubManager):

@@ -10,6 +10,9 @@ from aiohttp.web import Response as AiohttpResponse
 from engineio.async_drivers.asgi import ASGIApp as EngineIOASGIApp
 from sanic import Sanic
 from sanic.response import HTTPResponse as SanicHTTPResponse
+from tornado.web import Application as TornadoApplication
+from typing_extensions import TypeVar
+
 from socketio._types import (
     AsyncAsyncModeType,
     AsyncSessionContextManager,
@@ -25,8 +28,6 @@ from socketio.async_manager import AsyncManager
 from socketio.async_namespace import AsyncNamespace
 from socketio.base_server import BaseServer
 from socketio.packet import Packet
-from tornado.web import Application as TornadoApplication
-from typing_extensions import TypeVar
 
 _A = TypeVar("_A", bound=AsyncAsyncModeType, default=Any)
 _P = ParamSpec("_P")

@@ -5,6 +5,8 @@ from typing import Any, ClassVar, Generic, Literal, overload
 import engineio
 from engineio.async_server import AsyncServer
 from engineio.server import Server
+from typing_extensions import TypeVar
+
 from socketio._types import (
     CatchAllHandler,
     EventHandler,
@@ -20,7 +22,6 @@ from socketio._types import (
 from socketio.base_manager import BaseManager
 from socketio.base_namespace import BaseClientNamespace
 from socketio.packet import Packet
-from typing_extensions import TypeVar
 
 _T_co = TypeVar("_T_co", bound=Server | AsyncServer, covariant=True, default=Any)
 _F = TypeVar("_F", bound=Callable[..., Any])

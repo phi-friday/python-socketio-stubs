@@ -2,6 +2,7 @@ from collections.abc import Callable
 from typing import Any
 
 import engineio
+
 from socketio.async_server import AsyncServer
 
 class ASGIApp(engineio.ASGIApp):

@@ -1,9 +1,10 @@
 from collections.abc import Callable
 from typing import Any
 
+from typing_extensions import Buffer
+
 from socketio._types import CustomMsgPackPacket
 from socketio.packet import Packet
-from typing_extensions import Buffer
 
 class MsgPackPacket(Packet):
     uses_binary_events: bool

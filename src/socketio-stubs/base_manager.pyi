@@ -3,6 +3,7 @@ from collections.abc import Callable, Generator, KeysView, Sequence
 from typing import Any
 
 from bidict import bidict
+
 from socketio.base_server import BaseServer
 
 default_logger: logging.Logger
