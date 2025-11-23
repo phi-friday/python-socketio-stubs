@@ -85,6 +85,7 @@ required-imports = ["from __future__ import annotations"]
 force-single-line = false
 force-wrap-aliases = false
 split-on-trailing-comma = false
+known-local-folder = ["socketio_stubs", "socketio"]
 
 [lint.flake8-type-checking]
 exempt-modules = ["typing", "typing_extensions"]
