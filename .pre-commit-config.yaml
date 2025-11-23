@@ -16,7 +16,7 @@ repos:
         name: ruff-format
         args: [--check]
     repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.14.0
+    rev: v0.14.6
 
   - hooks:
       - id: mypy
@@ -33,4 +33,4 @@ repos:
         args:
           - "--pythonpath=.venv/bin/python"
     repo: https://github.com/RobertCraigie/pyright-python
-    rev: v1.1.405
+    rev: v1.1.407
