@@ -45,6 +45,8 @@ python-socketio-dependencies = [
     "gevent>=25.5.1",
     "sanic>=25.3.0",
     "aio-pika>=9.5.5",
+    "redis>=7.1.0",
+    "valkey>=6.1.1",
 ]
 dev = [
     { include-group = "python-socketio-dependencies" },
