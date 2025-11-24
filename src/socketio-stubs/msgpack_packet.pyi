@@ -13,6 +13,6 @@ class MsgPackPacket(Packet):
     @classmethod
     def configure(
         cls,
-        dump_default: Callable[[Any], Any] | None = ...,
+        dumps_default: Callable[[Any], Any] | None = ...,
         ext_hook: Callable[[int, bytes], Any] = ...,
     ) -> type[CustomMsgPackPacket]: ...
