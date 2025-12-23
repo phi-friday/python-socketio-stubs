@@ -50,9 +50,9 @@ python-socketio-dependencies = [
 dev = [
     { include-group = "python-socketio-dependencies" },
     "ruff==0.14.10",
-    "pre-commit>=4.5.0",
     "poethepoet>=0.37.0",
     "python-socketio-stubs[mypy-strict]",
+    "prek>=0.2.24",
 ]
 
 [tool.poe.tasks]
@@ -60,7 +60,7 @@ lint = ["_lint:check", "_lint:format"]
 "_lint:check" = "ruff check src --fix"
 "_lint:format" = "ruff format src"
 mypy = "mypy src"
-check = "pre-commit run --all-files --show-diff-on-failure"
+check = "prek run --all-files --show-diff-on-failure"
 
 [build-system]
 requires = ["hatchling"]
