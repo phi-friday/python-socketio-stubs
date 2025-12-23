@@ -1,8 +1,6 @@
 import types
 from threading import Event
-from typing import Any, ClassVar, Literal
-
-from typing_extensions import Self
+from typing import Any, ClassVar, Literal, Self
 
 from socketio._types import DataType, TransportType
 from socketio.client import Client

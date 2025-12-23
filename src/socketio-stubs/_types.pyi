@@ -2,7 +2,16 @@ from collections.abc import Awaitable, Callable, Mapping, Sequence
 from contextlib import AbstractAsyncContextManager, AbstractContextManager
 from threading import Event as ThreadingEvent
 from types import ModuleType
-from typing import Any, ClassVar, Concatenate, Literal, TypeAlias, overload
+from typing import (
+    Any,
+    ClassVar,
+    Concatenate,
+    Literal,
+    NotRequired,
+    Required,
+    TypeAlias,
+    overload,
+)
 
 import engineio
 from _typeshed import Incomplete
@@ -12,7 +21,7 @@ from engineio.async_drivers.gevent_uwsgi import Thread as GeventUWSGThread
 from engineio.async_drivers.threading import DaemonThread
 from engineio.socket import Socket
 from gevent.event import Event as GeventEvent
-from typing_extensions import NotRequired, Required, TypedDict
+from typing_extensions import TypedDict
 
 from socketio.admin import InstrumentedServer
 from socketio.msgpack_packet import MsgPackPacket

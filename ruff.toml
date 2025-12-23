@@ -52,6 +52,7 @@ ignore = [
     # python-socketio
     "A001",
     "A002",
+    "ASYNC109",
 ]
 fixable = [
     "UP",
