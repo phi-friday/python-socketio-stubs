@@ -33,6 +33,8 @@ src/
 4. Define internal types in `_types.pyi`
 5. Avoid `Incomplete` - use concrete types
 
+**⚠️ Updating Stubs**: For stub updates or new module additions, use the `socketio-stub-updater` skill located in `.github/skills/socketio-stub-updater/SKILL.md`
+
 ```python
 def func(param: str, optional: int = ...) -> bool: ...
 
@@ -85,7 +87,7 @@ uv run python -c "import inspect; from socketio.mod import X; print(inspect.sign
 uv run poe lint
 uv run poe mypy
 uv run poe pyright
-uv run pytest tests/test_<module>.py -v
+uv run pytest src/tests/test_<module>.py -v
 ```
 
 ### Test File Template
