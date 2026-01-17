@@ -25,8 +25,11 @@ This skill helps maintain type stubs for python-socketio by detecting API change
 First, determine what versions we're working with:
 
 ```bash
-# Check currently stubbed version (from pyproject.toml or installed)
-uv run python -c "import socketio; print(socketio.__version__)"
+# Check currently installed version
+uv run python -c "from importlib.metadata import version; print(version('python-socketio'))"
+
+# Or check installed packages
+uv pip list | grep python-socketio
 
 # Check latest available version from PyPI
 curl -s https://pypi.org/pypi/python-socketio/json | uv run python -c "import sys, json; print(json.load(sys.stdin)['info']['version'])"
@@ -97,8 +100,8 @@ For each identified change, update the corresponding `.pyi` file:
 
 ### Adding New Function
 
-```pythonsocketio
-# In src/joblib-stubs/<module>.pyi
+```python
+# In src/socketio-stubs/<module>.pyi
 def new_function(
     param1: str,
     param2: int = ...,
@@ -120,7 +123,7 @@ class NewClass:
 ### Modifying Signatures
 
 When a function signature changes:
-1. Check the new signature in joblib source
+1. Check the new signature in python-socketio source
 2. Update parameter types and return type
 3. Add overloads if the function has multiple valid signatures
 
