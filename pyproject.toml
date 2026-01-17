@@ -53,6 +53,7 @@ dev = [
     "poethepoet>=0.37.0",
     "python-socketio-stubs[mypy-strict]",
     "prek>=0.2.24",
+    "pyright==1.1.408",
 ]
 
 [tool.poe.tasks]
