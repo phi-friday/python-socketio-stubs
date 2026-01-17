@@ -1,3 +1,4 @@
+# pyright: reportUnnecessaryTypeIgnoreComment=false
 from collections.abc import Callable
 from typing import Any
 
@@ -5,7 +6,7 @@ import engineio
 
 from socketio.async_server import AsyncServer
 
-class ASGIApp(engineio.ASGIApp):
+class ASGIApp(engineio.ASGIApp):  # type: ignore[misc]
     def __init__(
         self,
         socketio_server: AsyncServer,

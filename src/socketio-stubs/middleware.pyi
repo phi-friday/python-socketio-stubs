@@ -1,10 +1,11 @@
+# pyright: reportUnnecessaryTypeIgnoreComment=false
 from typing import Any
 
 import engineio
 
 from socketio.base_server import BaseServer
 
-class WSGIApp(engineio.WSGIApp):
+class WSGIApp(engineio.WSGIApp):  # type: ignore[misc]
     def __init__(
         self,
         socketio_app: BaseServer[Any, Any],
