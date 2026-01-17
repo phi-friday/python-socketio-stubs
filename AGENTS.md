@@ -131,6 +131,46 @@ class TestClassName:
         assert isinstance(obj.attr, int)  # runtime check SECOND
 ```
 
+#### Signature Verification
+
+**⚠️ Critical**: Signature tests must verify that stub parameters **exactly match** runtime parameters. This catches:
+- Missing parameters in stubs
+- Extra parameters in stubs that don't exist at runtime
+- Wrong parameter order
+
+```python
+def test_init_signature(self) -> None:
+    sig = inspect.signature(mod.ClassName.__init__)
+    params = list(sig.parameters.keys())
+    # EXACT match - catches stub/runtime mismatches
+    assert params == ["self", "param1", "param2", "kwargs"]
+
+def test_method_signature(self) -> None:
+    sig = inspect.signature(mod.ClassName.method_name)
+    params = list(sig.parameters.keys())
+    assert params == ["self", "arg1", "arg2"]
+```
+
+#### Instance Attribute Verification
+
+Test instance attributes to ensure stub types match runtime types:
+
+```python
+def test_instance_attributes(self) -> None:
+    obj = mod.ClassName(...)
+    # Test each attribute declared in the stub
+    assert hasattr(obj, "attr_name")
+    assert_type(obj.attr_name, ExpectedType)  # stub check
+    # Runtime type check (when value is not None)
+    if obj.attr_name is not None:
+        assert isinstance(obj.attr_name, ExpectedType)
+
+def test_optional_attribute(self) -> None:
+    obj = mod.ClassName(...)
+    # For Optional[X] or X | None types
+    assert_type(obj.optional_attr, ExpectedType | None)
+```
+
 ---
 
 ### Testing Functions
@@ -146,12 +186,33 @@ class TestFunctionName:
     def test_signature(self) -> None:
         sig = inspect.signature(mod.function_name)
         params = list(sig.parameters.keys())
-        assert "param1" in params
+        # EXACT match required
+        assert params == ["param1", "param2", "kwargs"]
 
     def test_return_type(self) -> None:
         result = mod.function_name(...)
         assert_type(result, ExpectedType)       # stub check FIRST
         assert isinstance(result, ExpectedType)  # runtime check SECOND
+```
+
+#### Method Signature Testing
+
+For class methods, verify signatures match runtime exactly:
+
+```python
+def test_method_signature(self) -> None:
+    sig = inspect.signature(mod.ClassName.method_name)
+    params = list(sig.parameters.keys())
+    # Verify exact parameter list
+    assert params == ["self", "event", "data", "namespace", "timeout"]
+
+def test_method_has_parameter(self) -> None:
+    sig = inspect.signature(mod.ClassName.method_name)
+    # Check specific parameter exists
+    assert "timeout" in sig.parameters
+    # Check parameter default if relevant
+    param = sig.parameters["timeout"]
+    assert param.default is None  # Verify default matches stub
 ```
 
 ---
@@ -235,9 +296,28 @@ class TestFactory:
 |------|-------------|
 | **assert_type first** | Always before isinstance (narrowing hides errors) |
 | **Dual validation** | `assert_type` (stub) + `isinstance` (runtime) for values |
+| **Exact signature match** | Signature tests must use `== ["param1", "param2"]`, not `in params` |
 | **Runtime-only** | `hasattr`, `issubclass`, `inspect.isclass` (boolean results) |
 | **Single import** | `import socketio.x as mod`, access via `mod.Y` |
 | **Test all fields** | NamedTuples: test each field's type individually |
+| **Test instance attrs** | Verify all stub-declared instance attributes exist and have correct types |
+
+#### ⚠️ Common Testing Mistakes
+
+```python
+# ❌ WRONG - "in" doesn't catch extra/missing params
+assert "param1" in params
+
+# ✅ CORRECT - exact match catches stub/runtime mismatches  
+assert params == ["self", "param1", "param2"]
+
+# ❌ WRONG - doesn't verify attribute exists at runtime
+assert_type(obj.attr, int)
+
+# ✅ CORRECT - verify both existence and type
+assert hasattr(obj, "attr")
+assert_type(obj.attr, int)
+```
 
 ---
 
