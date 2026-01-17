@@ -47,6 +47,10 @@ python-socketio-dependencies = [
     "redis>=7.1.0",
     "valkey>=6.1.1",
 ]
+test = [
+    { include-group = "python-socketio-dependencies" },
+    "pytest>=9.0.2",
+]
 dev = [
     { include-group = "python-socketio-dependencies" },
     "ruff==0.14.13",
@@ -54,6 +58,10 @@ dev = [
     "poethepoet>=0.40.0",
     "python-socketio-stubs[mypy-strict]",
 ]
+
+[tool.uv]
+managed = true
+default-groups = ["dev", "test"]
 
 [tool.poe.tasks]
 lint = ["_lint:check", "_lint:format"]
