@@ -35,7 +35,7 @@ mypy-strict = [
 
 [dependency-groups]
 python-socketio-dependencies = [
-    "python-socketio[client,asyncio_client]>=5.15.1",
+    "python-socketio[client,asyncio_client]>=5.16.0",
     "msgpack-types>=0.5.0",
     "eventlet>=0.40.2",
     "tornado>=6.5.1",
