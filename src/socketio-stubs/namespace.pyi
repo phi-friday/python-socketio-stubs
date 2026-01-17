@@ -42,7 +42,7 @@ class Namespace(BaseServerNamespace[Literal[False]], Generic[_A]):
         to: None = ...,
         sid: None = ...,
         namespace: str | None = ...,
-        timeout: int = ...,
+        timeout: int | None = ...,
         ignore_queue: bool = ...,
     ) -> NoReturn: ...
     @overload
@@ -53,7 +53,7 @@ class Namespace(BaseServerNamespace[Literal[False]], Generic[_A]):
         to: str | None = ...,
         sid: str | None = ...,
         namespace: str | None = ...,
-        timeout: int = ...,
+        timeout: int | None = ...,
         ignore_queue: bool = ...,
     ) -> tuple[Any, ...] | None: ...
     def enter_room(self, sid: str, room: str, namespace: str | None = ...) -> None: ...
@@ -81,6 +81,7 @@ class ClientNamespace(BaseClientNamespace[Literal[False]]):
     def send(
         self,
         data: DataType | tuple[DataType, ...] | None,
+        room: str | None = ...,
         namespace: str | None = ...,
         callback: Callable[..., Any] = ...,
     ) -> None: ...
@@ -89,6 +90,6 @@ class ClientNamespace(BaseClientNamespace[Literal[False]]):
         event: str,
         data: DataType | tuple[DataType, ...] | None = ...,
         namespace: str | None = ...,
-        timeout: int = ...,
+        timeout: int | None = ...,
     ) -> tuple[Any, ...] | None: ...
     def disconnect(self) -> None: ...

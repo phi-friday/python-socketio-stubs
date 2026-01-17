@@ -4,13 +4,12 @@ from typing import Any, ClassVar, Literal, Self
 
 from socketio._types import DataType, TransportType
 from socketio.async_client import AsyncClient
-from socketio.client import Client
 
 class AsyncSimpleClient:
     client_class: ClassVar[type[AsyncClient]]
     client_args: tuple[Any, ...]
     client_kwargs: dict[str, Any]
-    client: Client | None
+    client: AsyncClient | None
     namespace: str
     connected_event: asyncio.Event
     connected: bool

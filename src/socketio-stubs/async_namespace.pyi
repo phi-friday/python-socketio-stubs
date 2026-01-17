@@ -42,7 +42,7 @@ class AsyncNamespace(BaseServerNamespace[Literal[True]], Generic[_A]):
         to: None = ...,
         sid: None = ...,
         namespace: str | None = ...,
-        timeout: int = ...,
+        timeout: int | None = ...,
         ignore_queue: bool = ...,
     ) -> NoReturn: ...
     @overload
@@ -53,7 +53,7 @@ class AsyncNamespace(BaseServerNamespace[Literal[True]], Generic[_A]):
         to: str | None = ...,
         sid: str | None = ...,
         namespace: str | None = ...,
-        timeout: int = ...,
+        timeout: int | None = ...,
         ignore_queue: bool = ...,
     ) -> tuple[Any, ...] | None: ...
     async def enter_room(
@@ -95,6 +95,6 @@ class AsyncClientNamespace(BaseClientNamespace[Literal[True]]):
         event: str,
         data: DataType | tuple[DataType, ...] | None = ...,
         namespace: str | None = ...,
-        timeout: int = ...,
+        timeout: int | None = ...,
     ) -> tuple[Any, ...] | None: ...
     async def disconnect(self) -> None: ...

@@ -18,7 +18,6 @@ from socketio._types import (
     AsyncSessionContextManager,
     DataType,
     JsonModule,
-    SerializerType,
     SocketIOModeType,
     TransportType,
 )
@@ -27,7 +26,6 @@ from socketio.async_admin import InstrumentedAsyncServer
 from socketio.async_manager import AsyncManager
 from socketio.async_namespace import AsyncNamespace
 from socketio.base_server import BaseServer
-from socketio.packet import Packet
 
 _A = TypeVar("_A", bound=AsyncAsyncModeType, default=Any)
 _P = ParamSpec("_P")
@@ -41,10 +39,8 @@ class AsyncServer(BaseServer[Literal[True], engineio.AsyncServer], Generic[_A]):
         self,
         client_manager: AsyncManager | None = ...,
         logger: logging.Logger | bool = ...,
-        serializer: SerializerType | type[Packet] = ...,
         json: JsonModule | None = ...,
         async_handlers: bool = ...,
-        always_connect: bool = ...,
         namespaces: list[str] | None = ...,
         *,
         async_mode: _A = ...,
