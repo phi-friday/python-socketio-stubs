@@ -26,22 +26,52 @@ class TestAsyncNamespace:
         assert hasattr(mod.AsyncNamespace, "emit")
         sig = inspect.signature(mod.AsyncNamespace.emit)
         params = list(sig.parameters.keys())
-        assert "event" in params
-        assert "data" in params
-        assert "to" in params
-        assert "room" in params
-        assert "skip_sid" in params
-        assert "namespace" in params
-        assert "callback" in params
-        assert "ignore_queue" in params
+        # Exact match to catch stub/runtime mismatches
+        assert params == [
+            "self",
+            "event",
+            "data",
+            "to",
+            "room",
+            "skip_sid",
+            "namespace",
+            "callback",
+            "ignore_queue",
+        ]
 
     def test_send_method(self) -> None:
         assert hasattr(mod.AsyncNamespace, "send")
-        assert callable(mod.AsyncNamespace.send)
+        sig = inspect.signature(mod.AsyncNamespace.send)
+        params = list(sig.parameters.keys())
+        # Exact match to catch stub/runtime mismatches
+        assert params == [
+            "self",
+            "data",
+            "to",
+            "room",
+            "skip_sid",
+            "namespace",
+            "callback",
+            "ignore_queue",
+        ]
 
     def test_call_method(self) -> None:
         assert hasattr(mod.AsyncNamespace, "call")
-        assert callable(mod.AsyncNamespace.call)
+        sig = inspect.signature(mod.AsyncNamespace.call)
+        params = list(sig.parameters.keys())
+        # Exact match to catch stub/runtime mismatches
+        assert params == [
+            "self",
+            "event",
+            "data",
+            "to",
+            "sid",
+            "namespace",
+            "timeout",
+            "ignore_queue",
+        ]
+        # Verify timeout default is None (not int)
+        assert sig.parameters["timeout"].default is None
 
     def test_enter_room_method(self) -> None:
         assert hasattr(mod.AsyncNamespace, "enter_room")
@@ -90,18 +120,24 @@ class TestAsyncClientNamespace:
         assert hasattr(mod.AsyncClientNamespace, "emit")
         sig = inspect.signature(mod.AsyncClientNamespace.emit)
         params = list(sig.parameters.keys())
-        assert "event" in params
-        assert "data" in params
-        assert "namespace" in params
-        assert "callback" in params
+        # Exact match to catch stub/runtime mismatches
+        assert params == ["self", "event", "data", "namespace", "callback"]
 
     def test_send_method(self) -> None:
         assert hasattr(mod.AsyncClientNamespace, "send")
-        assert callable(mod.AsyncClientNamespace.send)
+        sig = inspect.signature(mod.AsyncClientNamespace.send)
+        params = list(sig.parameters.keys())
+        # Exact match to catch stub/runtime mismatches
+        assert params == ["self", "data", "namespace", "callback"]
 
     def test_call_method(self) -> None:
         assert hasattr(mod.AsyncClientNamespace, "call")
-        assert callable(mod.AsyncClientNamespace.call)
+        sig = inspect.signature(mod.AsyncClientNamespace.call)
+        params = list(sig.parameters.keys())
+        # Exact match to catch stub/runtime mismatches
+        assert params == ["self", "event", "data", "namespace", "timeout"]
+        # Verify timeout default is None (not int)
+        assert sig.parameters["timeout"].default is None
 
     def test_disconnect_method(self) -> None:
         assert hasattr(mod.AsyncClientNamespace, "disconnect")

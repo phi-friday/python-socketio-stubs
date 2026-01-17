@@ -21,10 +21,8 @@ class TestAsyncPubSubManager:
     def test_init_signature(self) -> None:
         sig = inspect.signature(mod.AsyncPubSubManager.__init__)
         params = list(sig.parameters.keys())
-        assert "self" in params
-        assert "channel" in params
-        assert "write_only" in params
-        assert "logger" in params
+        # Exact match to catch stub/runtime mismatches
+        assert params == ["self", "channel", "write_only", "logger"]
 
     def test_name_attribute(self) -> None:
         assert hasattr(mod.AsyncPubSubManager, "name")
@@ -47,21 +45,35 @@ class TestAsyncPubSubManager:
         assert hasattr(mod.AsyncPubSubManager, "emit")
         sig = inspect.signature(mod.AsyncPubSubManager.emit)
         params = list(sig.parameters.keys())
-        assert "event" in params
-        assert "data" in params
-        assert "namespace" in params
-        assert "room" in params
-        assert "skip_sid" in params
-        assert "callback" in params
-        assert "to" in params
+        # Exact match to catch stub/runtime mismatches
+        assert params == [
+            "self",
+            "event",
+            "data",
+            "namespace",
+            "room",
+            "skip_sid",
+            "callback",
+            "to",
+            "kwargs",
+        ]
 
     def test_can_disconnect_method(self) -> None:
         assert hasattr(mod.AsyncPubSubManager, "can_disconnect")
-        assert callable(mod.AsyncPubSubManager.can_disconnect)
+        sig = inspect.signature(mod.AsyncPubSubManager.can_disconnect)
+        params = list(sig.parameters.keys())
+        # Exact match to catch stub/runtime mismatches
+        assert params == ["self", "sid", "namespace"]
 
     def test_disconnect_method(self) -> None:
         assert hasattr(mod.AsyncPubSubManager, "disconnect")
-        assert callable(mod.AsyncPubSubManager.disconnect)
+        sig = inspect.signature(mod.AsyncPubSubManager.disconnect)
+        params = list(sig.parameters.keys())
+        # Exact match to catch stub/runtime mismatches
+        # namespace is required (no default), not optional
+        assert params == ["self", "sid", "namespace", "kwargs"]
+        # Verify namespace has no default (is required)
+        assert sig.parameters["namespace"].default is inspect.Parameter.empty
 
     def test_enter_room_method(self) -> None:
         assert hasattr(mod.AsyncPubSubManager, "enter_room")

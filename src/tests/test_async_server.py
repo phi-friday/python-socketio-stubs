@@ -33,16 +33,16 @@ class TestAsyncServer:
     def test_init_signature(self) -> None:
         sig = inspect.signature(mod.AsyncServer.__init__)
         params = list(sig.parameters.keys())
-        assert "self" in params
-        assert "client_manager" in params
-        assert "logger" in params
-        assert "json" in params
-        assert "async_handlers" in params
-        assert "namespaces" in params
-        # serializer, always_connect, async_mode and engineio options may be in kwargs
-        assert "kwargs" in params or any(
-            sig.parameters[p].kind == inspect.Parameter.VAR_KEYWORD for p in params
-        )
+        # Exact match to catch stub/runtime mismatches
+        assert params == [
+            "self",
+            "client_manager",
+            "logger",
+            "json",
+            "async_handlers",
+            "namespaces",
+            "kwargs",
+        ]
 
     def test_attach_method(self) -> None:
         assert hasattr(mod.AsyncServer, "attach")
@@ -52,14 +52,18 @@ class TestAsyncServer:
         assert hasattr(mod.AsyncServer, "emit")
         sig = inspect.signature(mod.AsyncServer.emit)
         params = list(sig.parameters.keys())
-        assert "event" in params
-        assert "data" in params
-        assert "to" in params
-        assert "room" in params
-        assert "skip_sid" in params
-        assert "namespace" in params
-        assert "callback" in params
-        assert "ignore_queue" in params
+        # Exact match to catch stub/runtime mismatches
+        assert params == [
+            "self",
+            "event",
+            "data",
+            "to",
+            "room",
+            "skip_sid",
+            "namespace",
+            "callback",
+            "ignore_queue",
+        ]
 
     def test_send_method(self) -> None:
         assert hasattr(mod.AsyncServer, "send")

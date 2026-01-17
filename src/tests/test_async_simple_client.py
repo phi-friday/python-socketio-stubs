@@ -24,21 +24,32 @@ class TestAsyncSimpleClient:
     def test_init_accepts_any_args(self) -> None:
         sig = inspect.signature(mod.AsyncSimpleClient.__init__)
         params = list(sig.parameters.keys())
-        assert "self" in params
-        assert "args" in params
-        assert "kwargs" in params
+        # Exact match to catch stub/runtime mismatches
+        assert params == ["self", "args", "kwargs"]
+
+    def test_client_attribute_type(self) -> None:
+        """Verify client attribute is AsyncClient | None, not Client | None."""
+        client = mod.AsyncSimpleClient()
+        assert hasattr(client, "client")
+        # Should be None initially (before connect)
+        assert_type(client.client, async_client_mod.AsyncClient | None)
+        assert client.client is None
 
     def test_connect_method(self) -> None:
         assert hasattr(mod.AsyncSimpleClient, "connect")
         sig = inspect.signature(mod.AsyncSimpleClient.connect)
         params = list(sig.parameters.keys())
-        assert "url" in params
-        assert "headers" in params
-        assert "auth" in params
-        assert "transports" in params
-        assert "namespace" in params
-        assert "socketio_path" in params
-        assert "wait_timeout" in params
+        # Exact match to catch stub/runtime mismatches
+        assert params == [
+            "self",
+            "url",
+            "headers",
+            "auth",
+            "transports",
+            "namespace",
+            "socketio_path",
+            "wait_timeout",
+        ]
 
     def test_sid_property(self) -> None:
         assert hasattr(mod.AsyncSimpleClient, "sid")
@@ -50,22 +61,22 @@ class TestAsyncSimpleClient:
         assert hasattr(mod.AsyncSimpleClient, "emit")
         sig = inspect.signature(mod.AsyncSimpleClient.emit)
         params = list(sig.parameters.keys())
-        assert "event" in params
-        assert "data" in params
+        # Exact match to catch stub/runtime mismatches
+        assert params == ["self", "event", "data"]
 
     def test_call_method(self) -> None:
         assert hasattr(mod.AsyncSimpleClient, "call")
         sig = inspect.signature(mod.AsyncSimpleClient.call)
         params = list(sig.parameters.keys())
-        assert "event" in params
-        assert "data" in params
-        assert "timeout" in params
+        # Exact match to catch stub/runtime mismatches
+        assert params == ["self", "event", "data", "timeout"]
 
     def test_receive_method(self) -> None:
         assert hasattr(mod.AsyncSimpleClient, "receive")
         sig = inspect.signature(mod.AsyncSimpleClient.receive)
         params = list(sig.parameters.keys())
-        assert "timeout" in params
+        # Exact match to catch stub/runtime mismatches
+        assert params == ["self", "timeout"]
 
     def test_disconnect_method(self) -> None:
         assert hasattr(mod.AsyncSimpleClient, "disconnect")
