@@ -49,10 +49,10 @@ python-socketio-dependencies = [
 ]
 dev = [
     { include-group = "python-socketio-dependencies" },
-    "ruff==0.14.10",
-    "poethepoet>=0.37.0",
-    "python-socketio-stubs[mypy-strict]",
+    "ruff==0.14.13",
     "pyright==1.1.408",
+    "poethepoet>=0.40.0",
+    "python-socketio-stubs[mypy-strict]",
 ]
 
 [tool.poe.tasks]
