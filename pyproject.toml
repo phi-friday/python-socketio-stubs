@@ -52,7 +52,6 @@ dev = [
     "ruff==0.14.10",
     "poethepoet>=0.37.0",
     "python-socketio-stubs[mypy-strict]",
-    "prek>=0.2.24",
     "pyright==1.1.408",
 ]
 
@@ -60,8 +59,9 @@ dev = [
 lint = ["_lint:check", "_lint:format"]
 "_lint:check" = "ruff check src --fix"
 "_lint:format" = "ruff format src"
-mypy = "mypy src"
-check = "prek run --all-files --show-diff-on-failure"
+mypy = "mypy src --strict"
+pyright = "pyright src"
+check = ["lint", "mypy", "pyright"]
 
 [build-system]
 requires = ["hatchling"]
