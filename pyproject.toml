@@ -4,6 +4,7 @@ version = "0.0.0"
 description = "python-socketio stubs"
 authors = [{ name = "phi", email = "phi.friday@gmail.com" }]
 dependencies = [
+    "python-socketio==5.16.1",
     "typing-extensions>=4.4.0",
 ]
 readme = "README.md"
