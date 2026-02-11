@@ -3,7 +3,7 @@ from collections.abc import Callable
 from threading import Thread
 from typing import Any
 
-from socketio._types import DataType
+from socketio._types import DataType, JsonModule
 from socketio.manager import Manager
 
 class PubSubManager(Manager):
@@ -17,6 +17,7 @@ class PubSubManager(Manager):
         channel: str = ...,
         write_only: bool = ...,
         logger: logging.Logger | None = ...,
+        json: JsonModule | None = ...,
     ) -> None: ...
     thread: Thread
     def initialize(self) -> None: ...

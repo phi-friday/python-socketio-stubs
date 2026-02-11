@@ -6,6 +6,7 @@ from aio_pika.abc import (
     AbstractRobustExchange,
 )
 
+from socketio._types import JsonModule
 from socketio.async_pubsub_manager import AsyncPubSubManager
 
 class AsyncAioPikaManager(AsyncPubSubManager):
@@ -20,4 +21,5 @@ class AsyncAioPikaManager(AsyncPubSubManager):
         channel: str = ...,
         write_only: bool = ...,
         logger: logging.Logger | None = ...,
+        json: JsonModule | None = ...,
     ) -> None: ...

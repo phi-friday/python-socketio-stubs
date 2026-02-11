@@ -3,7 +3,7 @@ import logging
 from collections.abc import Callable
 from typing import Any
 
-from socketio._types import DataType
+from socketio._types import DataType, JsonModule
 from socketio.async_manager import AsyncManager
 
 class AsyncPubSubManager(AsyncManager):
@@ -17,6 +17,7 @@ class AsyncPubSubManager(AsyncManager):
         channel: str = ...,
         write_only: bool = ...,
         logger: logging.Logger | None = ...,
+        json: JsonModule | None = ...,
     ) -> None: ...
     thread: asyncio.Task[Any]
     def initialize(self) -> None: ...

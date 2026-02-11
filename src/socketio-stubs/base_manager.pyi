@@ -4,6 +4,7 @@ from typing import Any
 
 from bidict import bidict
 
+from socketio._types import JsonModule
 from socketio.base_server import BaseServer
 
 default_logger: logging.Logger
@@ -17,6 +18,7 @@ class BaseManager:
     eio_to_sid: dict[str, str]
     callbacks: dict[str, dict[int, Callable[..., Any]]]
     pending_disconnect: dict[str, list[str]]
+    json: JsonModule
     def __init__(self) -> None: ...
     def set_server(self, server: BaseServer[Any, Any]) -> None: ...
     def initialize(self) -> None: ...

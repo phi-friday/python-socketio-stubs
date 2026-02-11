@@ -3,6 +3,7 @@ from typing import Any
 
 import kombu
 
+from socketio._types import JsonModule
 from socketio.pubsub_manager import PubSubManager
 
 class KombuManager(PubSubManager):
@@ -19,6 +20,7 @@ class KombuManager(PubSubManager):
         channel: str = ...,
         write_only: bool = ...,
         logger: logging.Logger | None = ...,
+        json: JsonModule | None = ...,
         connection_options: dict[str, Any] | None = ...,
         exchange_options: dict[str, Any] | None = ...,
         queue_options: dict[str, Any] | None = ...,

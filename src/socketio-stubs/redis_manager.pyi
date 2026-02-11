@@ -6,7 +6,7 @@ from redis.client import PubSub as RedisPubSub
 from valkey import Valkey
 from valkey.client import PubSub as ValkeyPubSub
 
-from socketio._types import RedisArgs
+from socketio._types import JsonModule, RedisArgs
 from socketio.pubsub_manager import PubSubManager
 
 logger: logging.Logger
@@ -28,6 +28,7 @@ class RedisManager(PubSubManager):
         channel: str = ...,
         write_only: bool = ...,
         logger: logging.Logger | None = ...,
+        json: JsonModule | None = ...,
         redis_options: dict[str, Any] | None = ...,
     ) -> None: ...
     def initialize(self) -> None: ...
