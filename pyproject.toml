@@ -54,7 +54,7 @@ test = [
 ]
 dev = [
     { include-group = "python-socketio-dependencies" },
-    "ruff==0.14.13",
+    "ruff==0.15.0",
     "pyright==1.1.408",
     "poethepoet>=0.40.0",
     "python-socketio-stubs[mypy-strict]",
