@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import inspect
+import json
 import logging
 from typing import assert_type
 
@@ -91,3 +92,10 @@ class TestBaseManager:
     def test_get_logger_method(self) -> None:
         assert hasattr(mod.BaseManager, "_get_logger")
         assert callable(mod.BaseManager._get_logger)  # noqa: SLF001
+
+    def test_json_attribute(self) -> None:
+        """Test json attribute exists and is a module."""
+        manager = mod.BaseManager()
+        assert hasattr(manager, "json")
+        # The json attribute should be the json module
+        assert manager.json is json

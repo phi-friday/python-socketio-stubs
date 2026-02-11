@@ -34,10 +34,7 @@ class TestKafkaManager:
     def test_init_signature(self) -> None:
         sig = inspect.signature(mod.KafkaManager.__init__)
         params = list(sig.parameters.keys())
-        assert "self" in params
-        assert "url" in params
-        assert "channel" in params
-        assert "write_only" in params
+        assert params == ["self", "url", "channel", "write_only", "logger", "json"]
 
     def test_name_attribute(self) -> None:
         assert hasattr(mod.KafkaManager, "name")

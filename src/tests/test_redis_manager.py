@@ -47,12 +47,15 @@ class TestRedisManager:
     def test_init_signature(self) -> None:
         sig = inspect.signature(mod.RedisManager.__init__)
         params = list(sig.parameters.keys())
-        assert "self" in params
-        assert "url" in params
-        assert "channel" in params
-        assert "write_only" in params
-        assert "logger" in params
-        assert "redis_options" in params
+        assert params == [
+            "self",
+            "url",
+            "channel",
+            "write_only",
+            "logger",
+            "json",
+            "redis_options",
+        ]
 
     def test_name_attribute(self) -> None:
         assert hasattr(mod.RedisManager, "name")

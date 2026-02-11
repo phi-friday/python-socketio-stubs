@@ -21,10 +21,7 @@ class TestPubSubManager:
     def test_init_signature(self) -> None:
         sig = inspect.signature(mod.PubSubManager.__init__)
         params = list(sig.parameters.keys())
-        assert "self" in params
-        assert "channel" in params
-        assert "write_only" in params
-        assert "logger" in params
+        assert params == ["self", "channel", "write_only", "logger", "json"]
 
     def test_name_attribute(self) -> None:
         assert hasattr(mod.PubSubManager, "name")

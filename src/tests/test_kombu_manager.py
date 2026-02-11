@@ -21,15 +21,18 @@ class TestKombuManager:
     def test_init_signature(self) -> None:
         sig = inspect.signature(mod.KombuManager.__init__)
         params = list(sig.parameters.keys())
-        assert "self" in params
-        assert "url" in params
-        assert "channel" in params
-        assert "write_only" in params
-        assert "logger" in params
-        assert "connection_options" in params
-        assert "exchange_options" in params
-        assert "queue_options" in params
-        assert "producer_options" in params
+        assert params == [
+            "self",
+            "url",
+            "channel",
+            "write_only",
+            "logger",
+            "json",
+            "connection_options",
+            "exchange_options",
+            "queue_options",
+            "producer_options",
+        ]
 
     def test_name_attribute(self) -> None:
         assert hasattr(mod.KombuManager, "name")

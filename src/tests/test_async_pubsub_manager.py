@@ -22,7 +22,7 @@ class TestAsyncPubSubManager:
         sig = inspect.signature(mod.AsyncPubSubManager.__init__)
         params = list(sig.parameters.keys())
         # Exact match to catch stub/runtime mismatches
-        assert params == ["self", "channel", "write_only", "logger"]
+        assert params == ["self", "channel", "write_only", "logger", "json"]
 
     def test_name_attribute(self) -> None:
         assert hasattr(mod.AsyncPubSubManager, "name")
