@@ -75,7 +75,7 @@ class AsyncNamespace(BaseServerNamespace[Literal[True]], Generic[_A]):
     async def disconnect(self, sid: str, namespace: str | None = ...) -> None: ...
 
 class AsyncClientNamespace(BaseClientNamespace[Literal[True]]):
-    client: AsyncClient  # pyright: ignore[reportIncompatibleVariableOverride]
+    client: AsyncClient  # type: ignore[assignment]
     async def trigger_event(self, event: str, *args: Any) -> Any: ...
     async def emit(
         self,

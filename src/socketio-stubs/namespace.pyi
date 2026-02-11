@@ -69,7 +69,7 @@ class Namespace(BaseServerNamespace[Literal[False]], Generic[_A]):
     def disconnect(self, sid: str, namespace: str | None = ...) -> None: ...
 
 class ClientNamespace(BaseClientNamespace[Literal[False]]):
-    client: Client  # pyright: ignore[reportIncompatibleVariableOverride]
+    client: Client  # type: ignore[assignment]
     def trigger_event(self, event: str, *args: Any) -> Any: ...
     def emit(
         self,

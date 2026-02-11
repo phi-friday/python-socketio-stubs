@@ -23,6 +23,9 @@ from socketio.base_namespace import BaseClientNamespace
 from socketio.packet import Packet
 
 _T_co = TypeVar("_T_co", bound=Client | AsyncClient, covariant=True, default=Any)
+_T_namespace = TypeVar(
+    "_T_namespace", bound=BaseClientNamespace[Any], default=BaseClientNamespace[Any]
+)
 _IsAsyncio = TypeVar("_IsAsyncio", bound=bool, default=Literal[False])
 _F = TypeVar("_F", bound=Callable[..., Any])
 _F_event = TypeVar("_F_event", bound=EventHandler)
@@ -40,7 +43,7 @@ def signal_handler(sig: int, frame: FrameType | None) -> Any: ...
 
 original_signal_handler: Callable[[int, FrameType | None], Any] | None
 
-class BaseClient(Generic[_IsAsyncio, _T_co]):
+class BaseClient(Generic[_IsAsyncio, _T_co, _T_namespace]):
     reserved_events: ClassVar[list[str]]
     reason: ClassVar[type[engineio.Client.reason]]
     reconnection: bool
@@ -126,7 +129,7 @@ class BaseClient(Generic[_IsAsyncio, _T_co]):
     def event(self, handler: EventHandler) -> None: ...
     @overload
     def event(self, namespace: str | None) -> Callable[[_F_event], _F_event]: ...
-    def register_namespace(self, namespace_handler: BaseClientNamespace) -> None: ...
+    def register_namespace(self, namespace_handler: _T_namespace) -> None: ...
     def get_sid(self, namespace: str | None = ...) -> str | None: ...
     def transport(self) -> TransportType: ...
     def _engineio_client_class(self) -> type[_T_co]: ...

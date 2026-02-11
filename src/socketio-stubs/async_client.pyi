@@ -16,7 +16,9 @@ _P = ParamSpec("_P")
 
 default_logger: logging.Logger
 
-class AsyncClient(BaseClient[Literal[True], engineio.AsyncClient]):
+class AsyncClient(
+    BaseClient[Literal[True], engineio.AsyncClient, AsyncClientNamespace]
+):
     connection_url: str  # pyright: ignore[reportIncompatibleVariableOverride]
     connection_headers: dict[str, str]  # pyright: ignore[reportIncompatibleVariableOverride]
     connection_auth: Any
@@ -85,4 +87,4 @@ class AsyncClient(BaseClient[Literal[True], engineio.AsyncClient]):
         self, target: Callable[_P, Awaitable[_T]], *args: _P.args, **kwargs: _P.kwargs
     ) -> asyncio.Task[_T]: ...
     async def sleep(self, seconds: int = ...) -> None: ...
-    def register_namespace(self, namespace_handler: AsyncClientNamespace) -> None: ...  # pyright: ignore[reportIncompatibleMethodOverride]
+    def register_namespace(self, namespace_handler: AsyncClientNamespace) -> None: ...

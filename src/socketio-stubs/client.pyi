@@ -14,7 +14,7 @@ from socketio.packet import Packet
 _T = TypeVar("_T")
 _P = ParamSpec("_P")
 
-class Client(BaseClient[Literal[False], engineio.Client]):
+class Client(BaseClient[Literal[False], engineio.Client, ClientNamespace]):
     connection_url: str  # pyright: ignore[reportIncompatibleVariableOverride]
     connection_headers: dict[str, str]  # pyright: ignore[reportIncompatibleVariableOverride]
     connection_auth: Any
@@ -83,4 +83,4 @@ class Client(BaseClient[Literal[False], engineio.Client]):
         self, target: Callable[_P, _T], *args: _P.args, **kwargs: _P.kwargs
     ) -> Thread: ...
     def sleep(self, seconds: int = ...) -> None: ...
-    def register_namespace(self, namespace_handler: ClientNamespace) -> None: ...  # pyright: ignore[reportIncompatibleMethodOverride]
+    def register_namespace(self, namespace_handler: ClientNamespace) -> None: ...
