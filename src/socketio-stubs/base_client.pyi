@@ -13,6 +13,7 @@ from socketio._types import (
     ClientConnectErrorHandler,
     ClientConnectHandler,
     ClientDisconnectHandler,
+    ClientDisconnectLegacyHandler,
     EventHandler,
     JsonModule,
     SerializerType,
@@ -88,7 +89,7 @@ class BaseClient(Generic[_IsAsyncio, _T_co, _T_namespace]):
         namespace: str | None = ...,
     ) -> Callable[[H], H]: ...
     @overload
-    def on[H: ClientDisconnectHandler](
+    def on[H: ClientDisconnectHandler | ClientDisconnectLegacyHandler](
         self,
         event: Literal["disconnect"],
         handler: None = ...,

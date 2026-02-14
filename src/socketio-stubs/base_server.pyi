@@ -13,7 +13,9 @@ from socketio._types import (
     JsonModule,
     SerializerType,
     ServerConnectHandler,
+    ServerConnectHandlerWithData,
     ServerDisconnectHandler,
+    ServerDisconnectLegacyHandler,
     SyncAsyncModeType,
     TransportType,
 )
@@ -55,14 +57,14 @@ class BaseServer(Generic[_IsAsyncio, _T_co]):
     ) -> None: ...
     def is_asyncio_based(self) -> _IsAsyncio: ...
     @overload
-    def on[H: ServerConnectHandler](
+    def on[H: ServerConnectHandler | ServerConnectHandlerWithData](
         self,
         event: Literal["connect"],
         handler: None = ...,
         namespace: str | None = ...,
     ) -> Callable[[H], H]: ...
     @overload
-    def on[H: ServerDisconnectHandler](
+    def on[H: ServerDisconnectHandler | ServerDisconnectLegacyHandler](
         self,
         event: Literal["disconnect"],
         handler: None = ...,
