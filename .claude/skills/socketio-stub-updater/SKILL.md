@@ -6,7 +6,7 @@ description: >
   Use when python-socketio releases a new version and stubs need to be synchronized, or when the user 
   mentions "update stubs", "socketio upgrade", "sync stubs with socketio", or "check socketio changes".
 license: MIT
-compatibility: Requires git, uv, and Python 3.11+. Internet access needed to fetch python-socketio releases.
+compatibility: Requires git, uv, and Python 3.12+. Internet access needed to fetch python-socketio releases.
 allowed-tools: Bash(git:*) Bash(uv:*) Read Write
 ---
 
