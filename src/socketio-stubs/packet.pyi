@@ -1,6 +1,5 @@
+from collections.abc import Buffer
 from typing import Any, Literal
-
-from typing_extensions import Buffer
 
 from socketio._types import DataType, JsonModule
 

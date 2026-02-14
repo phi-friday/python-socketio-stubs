@@ -2,16 +2,7 @@ from collections.abc import Awaitable, Callable, Mapping, Sequence
 from contextlib import AbstractAsyncContextManager, AbstractContextManager
 from threading import Event as ThreadingEvent
 from types import ModuleType
-from typing import (
-    Any,
-    ClassVar,
-    Concatenate,
-    Literal,
-    NotRequired,
-    Required,
-    TypeAlias,
-    overload,
-)
+from typing import Any, ClassVar, Concatenate, Literal, NotRequired, Required, overload
 
 import engineio
 from _typeshed import Incomplete
@@ -27,17 +18,15 @@ from socketio.admin import InstrumentedServer
 from socketio.msgpack_packet import MsgPackPacket
 from socketio.server import Server
 
-JsonType: TypeAlias = (
+type JsonType = (
     str | int | float | bool | None | Sequence[JsonType] | Mapping[str, JsonType]
 )
-DataType: TypeAlias = str | bytes | Sequence[JsonType] | Mapping[str, JsonType]
-TransportType: TypeAlias = Literal["websocket", "polling"]
-SocketIOModeType: TypeAlias = Literal["development", "production"]
-SyncAsyncModeType: TypeAlias = Literal[
-    "eventlet", "gevent_uwsgi", "gevent", "threading"
-]
-AsyncAsyncModeType: TypeAlias = Literal["aiohttp", "sanic", "tornado", "asgi"]
-SerializerType: TypeAlias = Literal["default", "msgpack"]
+type DataType = str | bytes | Sequence[JsonType] | Mapping[str, JsonType]
+type TransportType = Literal["websocket", "polling"]
+type SocketIOModeType = Literal["development", "production"]
+type SyncAsyncModeType = Literal["eventlet", "gevent_uwsgi", "gevent", "threading"]
+type AsyncAsyncModeType = Literal["aiohttp", "sanic", "tornado", "asgi"]
+type SerializerType = Literal["default", "msgpack"]
 
 class SessionContextManager(AbstractContextManager[Socket]):
     server: Server[Any]
@@ -225,27 +214,25 @@ class CustomMsgPackPacket(MsgPackPacket):
 
 ## handlers
 
-ServerConnectHandler: TypeAlias = Callable[[str, dict[str, Any]], Any]
-ServerConnectHandlerWithData: TypeAlias = Callable[[str, dict[str, Any], Any], Any]
-ServerDisconnectHandler: TypeAlias = Callable[[str, engineio.Server.reason], Any]
-ServerDisconnectLegacyHandler: TypeAlias = Callable[[str], Any]
-ClientConnectHandler: TypeAlias = Callable[[], Any]
-ClientDisconnectHandler: TypeAlias = Callable[[engineio.Client.reason], Any]
-ClientDisconnectLegacyHandler: TypeAlias = Callable[[], Any]
-ClientConnectErrorHandler: TypeAlias = Callable[[Any], Any]
-CatchAllHandler: TypeAlias = Callable[[str, str, Any], Any]
-SyncEventHandlerWithSid: TypeAlias = Callable[
+type ServerConnectHandler = Callable[[str, dict[str, Any]], Any]
+type ServerConnectHandlerWithData = Callable[[str, dict[str, Any], Any], Any]
+type ServerDisconnectHandler = Callable[[str, engineio.Server.reason], Any]
+type ServerDisconnectLegacyHandler = Callable[[str], Any]
+type ClientConnectHandler = Callable[[], Any]
+type ClientDisconnectHandler = Callable[[engineio.Client.reason], Any]
+type ClientDisconnectLegacyHandler = Callable[[], Any]
+type ClientConnectErrorHandler = Callable[[Any], Any]
+type CatchAllHandler = Callable[[str, str, Any], Any]
+type SyncEventHandlerWithSid = Callable[
     Concatenate[str, ...], DataType | tuple[DataType, ...] | None
 ]
-SyncEventHandlerWithoutSid: TypeAlias = Callable[
-    [], DataType | tuple[DataType, ...] | None
-]
-SyncEventHandler: TypeAlias = SyncEventHandlerWithSid | SyncEventHandlerWithoutSid
-AsyncEventHandlerWithSid: TypeAlias = Callable[
+type SyncEventHandlerWithoutSid = Callable[[], DataType | tuple[DataType, ...] | None]
+type SyncEventHandler = SyncEventHandlerWithSid | SyncEventHandlerWithoutSid
+type AsyncEventHandlerWithSid = Callable[
     Concatenate[str, ...], Awaitable[DataType | tuple[DataType, ...] | None]
 ]
-AsyncEventHandlerWithoutSid: TypeAlias = Callable[
+type AsyncEventHandlerWithoutSid = Callable[
     [], Awaitable[DataType | tuple[DataType, ...] | None]
 ]
-AsyncEventHandler: TypeAlias = AsyncEventHandlerWithSid | AsyncEventHandlerWithoutSid
-EventHandler: TypeAlias = SyncEventHandler | AsyncEventHandler
+type AsyncEventHandler = AsyncEventHandlerWithSid | AsyncEventHandlerWithoutSid
+type EventHandler = SyncEventHandler | AsyncEventHandler

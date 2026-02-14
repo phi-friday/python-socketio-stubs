@@ -1,7 +1,7 @@
 import logging
 from collections.abc import Callable, Mapping
 from threading import Thread
-from typing import Any, Generic, Literal, NoReturn, ParamSpec, overload
+from typing import Any, Generic, Literal, NoReturn, overload
 
 import engineio
 from typing_extensions import TypeVar
@@ -22,8 +22,6 @@ from socketio.namespace import Namespace
 from socketio.packet import Packet
 
 _A = TypeVar("_A", bound=SyncAsyncModeType, default=Any)
-_P = ParamSpec("_P")
-_T = TypeVar("_T")
 
 default_logger: logging.Logger
 
@@ -115,8 +113,8 @@ class Server(BaseServer[Literal[False], engineio.Server], Generic[_A]):
     def handle_request(
         self, environ: Mapping[str, Any], start_response: Callable[[str, str], Any]
     ) -> list[str | list[tuple[str, str]] | bytes]: ...
-    def start_background_task(
-        self, target: Callable[_P, _T], *args: _P.args, **kwargs: _P.kwargs
+    def start_background_task[**P](
+        self, target: Callable[P, Any], *args: P.args, **kwargs: P.kwargs
     ) -> Thread: ...
     def sleep(self, seconds: int = ...) -> None: ...
     def instrument(

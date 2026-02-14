@@ -1,7 +1,5 @@
-from collections.abc import Callable
+from collections.abc import Buffer, Callable
 from typing import Any
-
-from typing_extensions import Buffer
 
 from socketio._types import CustomMsgPackPacket
 from socketio.packet import Packet

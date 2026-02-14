@@ -1,7 +1,7 @@
 import asyncio
 import logging
 from collections.abc import Awaitable, Callable
-from typing import Any, Literal, ParamSpec, TypeVar
+from typing import Any, Literal
 
 import engineio
 import requests
@@ -10,9 +10,6 @@ from socketio._types import DataType, JsonModule, SerializerType, TransportType
 from socketio.async_namespace import AsyncClientNamespace
 from socketio.base_client import BaseClient
 from socketio.packet import Packet
-
-_T = TypeVar("_T")
-_P = ParamSpec("_P")
 
 default_logger: logging.Logger
 
@@ -83,8 +80,8 @@ class AsyncClient(
     ) -> tuple[Any, ...] | None: ...
     async def disconnect(self) -> None: ...
     async def shutdown(self) -> None: ...
-    def start_background_task(
-        self, target: Callable[_P, Awaitable[_T]], *args: _P.args, **kwargs: _P.kwargs
-    ) -> asyncio.Task[_T]: ...
+    def start_background_task[**P, T](
+        self, target: Callable[P, Awaitable[T]], *args: P.args, **kwargs: P.kwargs
+    ) -> asyncio.Task[T]: ...
     async def sleep(self, seconds: int = ...) -> None: ...
     def register_namespace(self, namespace_handler: AsyncClientNamespace) -> None: ...

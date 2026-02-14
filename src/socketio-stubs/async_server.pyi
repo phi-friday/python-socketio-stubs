@@ -1,7 +1,7 @@
 import asyncio
 import logging
 from collections.abc import Awaitable, Callable, Iterable, Mapping, Sequence
-from typing import Any, Generic, Literal, NoReturn, ParamSpec, overload
+from typing import Any, Generic, Literal, NoReturn, overload
 
 import engineio
 from aiohttp.typedefs import LooseHeaders as AiohttpLooseHeaders
@@ -28,8 +28,6 @@ from socketio.async_namespace import AsyncNamespace
 from socketio.base_server import BaseServer
 
 _A = TypeVar("_A", bound=AsyncAsyncModeType, default=Any)
-_P = ParamSpec("_P")
-_T = TypeVar("_T")
 
 task_reference_holder: set[Any]
 
@@ -191,9 +189,9 @@ class AsyncServer(BaseServer[Literal[True], engineio.AsyncServer], Generic[_A]):
     async def handle_request(
         self, *args: Any, **kwargs: Any
     ) -> AiohttpResponse | SanicHTTPResponse | None: ...
-    def start_background_task(
-        self, target: Callable[_P, Awaitable[_T]], *args: _P.args, **kwargs: _P.kwargs
-    ) -> asyncio.Task[_T]: ...
+    def start_background_task[**P, T](
+        self, target: Callable[P, Awaitable[T]], *args: P.args, **kwargs: P.kwargs
+    ) -> asyncio.Task[T]: ...
     async def sleep(self, seconds: int = ...) -> None: ...
     def instrument(
         self,

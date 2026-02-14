@@ -13,7 +13,6 @@ from socketio._types import (
     ClientConnectErrorHandler,
     ClientConnectHandler,
     ClientDisconnectHandler,
-    ClientDisconnectLegacyHandler,
     EventHandler,
     JsonModule,
     SerializerType,
@@ -27,14 +26,6 @@ _T_namespace = TypeVar(
     "_T_namespace", bound=BaseClientNamespace[Any], default=BaseClientNamespace[Any]
 )
 _IsAsyncio = TypeVar("_IsAsyncio", bound=bool, default=Literal[False])
-_F = TypeVar("_F", bound=Callable[..., Any])
-_F_event = TypeVar("_F_event", bound=EventHandler)
-_F_connect = TypeVar("_F_connect", bound=ClientConnectHandler)
-_F_connect_error = TypeVar("_F_connect_error", bound=ClientConnectErrorHandler)
-_F_disconnect = TypeVar(
-    "_F_disconnect", bound=ClientDisconnectHandler | ClientDisconnectLegacyHandler
-)
-_F_catch_all = TypeVar("_F_catch_all", bound=CatchAllHandler)
 
 default_logger: logging.Logger
 reconnecting_clients: list[BaseClient[Any]]
@@ -83,34 +74,34 @@ class BaseClient(Generic[_IsAsyncio, _T_co, _T_namespace]):
     ) -> None: ...
     def is_asyncio_based(self) -> _IsAsyncio: ...
     @overload
-    def on(
+    def on[H: ClientConnectHandler](
         self,
         event: Literal["connect"],
         handler: None = ...,
         namespace: str | None = ...,
-    ) -> Callable[[_F_connect], _F_connect]: ...
+    ) -> Callable[[H], H]: ...
     @overload
-    def on(
+    def on[H: ClientConnectErrorHandler](
         self,
         event: Literal["connect_error"],
         handler: None = ...,
         namespace: str | None = ...,
-    ) -> Callable[[_F_connect_error], _F_connect_error]: ...
+    ) -> Callable[[H], H]: ...
     @overload
-    def on(
+    def on[H: ClientDisconnectHandler](
         self,
         event: Literal["disconnect"],
         handler: None = ...,
         namespace: str | None = ...,
-    ) -> Callable[[_F_disconnect], _F_disconnect]: ...
+    ) -> Callable[[H], H]: ...
     @overload
-    def on(
+    def on[H: CatchAllHandler](
         self, event: Literal["*"], handler: None = ..., namespace: str | None = ...
-    ) -> Callable[[_F_catch_all], _F_catch_all]: ...
+    ) -> Callable[[H], H]: ...
     @overload
-    def on(
+    def on[H: EventHandler](
         self, event: str, handler: None = ..., namespace: str | None = ...
-    ) -> Callable[[_F_event], _F_event]: ...
+    ) -> Callable[[H], H]: ...
     @overload
     def on(
         self,
@@ -119,16 +110,16 @@ class BaseClient(Generic[_IsAsyncio, _T_co, _T_namespace]):
         namespace: str | None = ...,
     ) -> None: ...
     @overload
-    def on(
+    def on[F: Callable[..., Any]](
         self,
         event: str | Callable[..., Any],
         handler: Callable[..., Any] | None = ...,
         namespace: str | None = ...,
-    ) -> Callable[[_F], _F] | None: ...
+    ) -> Callable[[F], F] | None: ...
     @overload
     def event(self, handler: EventHandler) -> None: ...
     @overload
-    def event(self, namespace: str | None) -> Callable[[_F_event], _F_event]: ...
+    def event[H: EventHandler](self, namespace: str | None) -> Callable[[H], H]: ...
     def register_namespace(self, namespace_handler: _T_namespace) -> None: ...
     def get_sid(self, namespace: str | None = ...) -> str | None: ...
     def transport(self) -> TransportType: ...

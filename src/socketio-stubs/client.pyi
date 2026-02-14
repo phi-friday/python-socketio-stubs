@@ -1,7 +1,7 @@
 import logging
 from collections.abc import Callable
 from threading import Thread
-from typing import Any, Literal, ParamSpec, TypeVar
+from typing import Any, Literal
 
 import engineio
 import requests
@@ -10,9 +10,6 @@ from socketio._types import DataType, JsonModule, SerializerType, TransportType
 from socketio.base_client import BaseClient
 from socketio.namespace import ClientNamespace
 from socketio.packet import Packet
-
-_T = TypeVar("_T")
-_P = ParamSpec("_P")
 
 class Client(BaseClient[Literal[False], engineio.Client, ClientNamespace]):
     connection_url: str  # pyright: ignore[reportIncompatibleVariableOverride]
@@ -79,8 +76,8 @@ class Client(BaseClient[Literal[False], engineio.Client, ClientNamespace]):
     ) -> tuple[Any, ...] | None: ...
     def disconnect(self) -> None: ...
     def shutdown(self) -> None: ...
-    def start_background_task(
-        self, target: Callable[_P, _T], *args: _P.args, **kwargs: _P.kwargs
+    def start_background_task[**P](
+        self, target: Callable[P, Any], *args: P.args, **kwargs: P.kwargs
     ) -> Thread: ...
     def sleep(self, seconds: int = ...) -> None: ...
     def register_namespace(self, namespace_handler: ClientNamespace) -> None: ...
