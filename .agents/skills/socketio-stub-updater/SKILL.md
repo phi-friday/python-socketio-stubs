@@ -61,7 +61,7 @@ git diff <OLD_TAG>..<NEW_TAG> -- src/socketio/*.py
 Run the analysis script to identify what changed:
 
 ```bash
-uv run python .github/skills/socketio-stub-updater/scripts/analyze_changes.py \
+uv run python .agents/skills/socketio-stub-updater/scripts/analyze_changes.py \
     --old-version <OLD_TAG> \
     --new-version <NEW_TAG> \
     --socketio-path /tmp/python-socketio-source

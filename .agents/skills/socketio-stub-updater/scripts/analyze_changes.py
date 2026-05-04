@@ -5,7 +5,8 @@ This script compares two versions of python-socketio and outputs a structured re
 of API changes that need to be reflected in the stub files.
 
 Usage:
-    python analyze_changes.py --old-version v5.10.0 --new-version v5.11.0 \
+    uv run .agents/skills/socketio-stub-updater/scripts/analyze_changes.py \
+        --old-version v5.10.0 --new-version v5.11.0 \
         --socketio-path /tmp/python-socketio-source
 
 Output:

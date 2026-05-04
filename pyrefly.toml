@@ -1,7 +1,7 @@
 project-includes = [
     "src/socketio-stubs",
     "src/tests",
-    ".claude/skills/socketio-stub-updater/**/*.py",
+    ".agents/skills/socketio-stub-updater/**/*.py",
 ]
 python-platform = "linux"
 python-version = "3.12"

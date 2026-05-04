@@ -33,7 +33,7 @@ src/
 4. Define internal types in `_types.pyi`
 5. Avoid `Incomplete` - use concrete types
 
-**⚠️ Updating Stubs**: For stub updates or new module additions, use the `socketio-stub-updater` skill located in `.github/skills/socketio-stub-updater/SKILL.md`
+**⚠️ Updating Stubs**: For stub updates or new module additions, use the `socketio-stub-updater` skill located in `.agents/skills/socketio-stub-updater/SKILL.md`
 
 ```python
 def func(param: str, optional: int = ...) -> bool: ...
