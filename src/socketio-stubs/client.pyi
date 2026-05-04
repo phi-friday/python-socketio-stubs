@@ -12,11 +12,14 @@ from socketio.namespace import ClientNamespace
 from socketio.packet import Packet
 
 class Client(BaseClient[Literal[False], engineio.Client, ClientNamespace]):
+    # pyrefly: ignore [bad-override-mutable-attribute]
     connection_url: str
+    # pyrefly: ignore [bad-override-mutable-attribute]
     connection_headers: dict[str, str]
     connection_auth: Any
     connection_transports: list[TransportType] | None
     connection_namespaces: list[str]
+    # pyrefly: ignore [bad-override-mutable-attribute]
     socketio_path: str
     namespaces: dict[str, str | None]
     connected: bool

@@ -26,6 +26,7 @@ _A = TypeVar("_A", bound=SyncAsyncModeType, default=Any)
 default_logger: logging.Logger
 
 class Server(BaseServer[Literal[False], engineio.Server], Generic[_A]):
+    # pyrefly: ignore [bad-override-mutable-attribute]
     manager: Manager
     def __init__(
         self,
@@ -126,4 +127,5 @@ class Server(BaseServer[Literal[False], engineio.Server], Generic[_A]):
         namespace: str = ...,
         server_stats_interval: int = ...,
     ) -> InstrumentedServer: ...
+    # pyrefly: ignore [bad-override]
     def register_namespace(self, namespace_handler: Namespace) -> None: ...

@@ -1,5 +1,5 @@
 project-includes = [
-    "src/python-socketio-stubs",
+    "src/socketio-stubs",
     "src/tests",
     ".claude/skills/socketio-stub-updater/**/*.py",
 ]

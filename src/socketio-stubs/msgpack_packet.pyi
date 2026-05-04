@@ -7,6 +7,7 @@ from socketio.packet import Packet
 class MsgPackPacket(Packet):
     uses_binary_events: bool
     def encode(self) -> bytes: ...
+    # pyrefly: ignore [bad-override]
     def decode(self, encoded_packet: Buffer) -> None: ...
     @classmethod
     def configure(

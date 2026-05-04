@@ -32,6 +32,7 @@ _A = TypeVar("_A", bound=AsyncAsyncModeType, default=Any)
 task_reference_holder: set[Any]
 
 class AsyncServer(BaseServer[Literal[True], engineio.AsyncServer], Generic[_A]):
+    # pyrefly: ignore [bad-override-mutable-attribute]
     manager: AsyncManager
     def __init__(
         self,
@@ -202,4 +203,5 @@ class AsyncServer(BaseServer[Literal[True], engineio.AsyncServer], Generic[_A]):
         namespace: str = ...,
         server_stats_interval: int = ...,
     ) -> InstrumentedAsyncServer: ...
+    # pyrefly: ignore [bad-override]
     def register_namespace(self, namespace_handler: AsyncNamespace) -> None: ...

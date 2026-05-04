@@ -16,11 +16,14 @@ default_logger: logging.Logger
 class AsyncClient(
     BaseClient[Literal[True], engineio.AsyncClient, AsyncClientNamespace]
 ):
+    # pyrefly: ignore [bad-override-mutable-attribute]
     connection_url: str
+    # pyrefly: ignore [bad-override-mutable-attribute]
     connection_headers: dict[str, str]
     connection_auth: Any
     connection_transports: list[TransportType] | None
     connection_namespaces: list[str]
+    # pyrefly: ignore [bad-override-mutable-attribute]
     socketio_path: str
     namespaces: dict[str, str | None]
     connected: bool
