@@ -11,7 +11,7 @@ from socketio.base_namespace import BaseClientNamespace, BaseServerNamespace
 _A = TypeVar("_A", bound=AsyncAsyncModeType, default=Any)
 
 class AsyncNamespace(BaseServerNamespace[Literal[True]], Generic[_A]):
-    server: AsyncServer[_A]  # pyright: ignore[reportIncompatibleVariableOverride]
+    server: AsyncServer[_A]
     async def trigger_event(self, event: str, *args: Any) -> Any: ...
     async def emit(
         self,

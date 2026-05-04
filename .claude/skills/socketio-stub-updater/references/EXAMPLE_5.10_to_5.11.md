@@ -178,7 +178,7 @@ cd /home/phi/git/python/repo/python-socketio-stubs
 uv run poe lint
 
 # Type check with both checkers
-uv run poe pyright
+uv run poe pyrefly
 uv run poe mypy
 
 # Run affected tests
@@ -218,7 +218,7 @@ class TestAsyncServer:
 | `server.pyi` | Refine `namespace` parameter type in `emit` | ☐ |
 | `async_server.pyi` | Add `ignore_queue` parameter to `disconnect` | ☐ |
 | Tests | Update signature tests | ☐ |
-| Validate | `uv run poe lint && uv run poe pyright && uv run poe mypy` | ☐ |
+| Validate | `uv run poe lint && uv run poe pyrefly && uv run poe mypy` | ☐ |
 
 ## Complete Workflow Summary
 
@@ -247,5 +247,5 @@ less /tmp/socketio-v5.10.0-to-v5.11.0.diff
 
 # 5. Validate
 cd /home/phi/git/python/repo/python-socketio-stubs
-uv run poe lint && uv run poe pyright && uv run poe mypy && uv run pytest src/tests/ -v
+uv run poe lint && uv run poe pyrefly && uv run poe mypy && uv run pytest src/tests/ -v
 ```

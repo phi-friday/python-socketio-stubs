@@ -7,7 +7,7 @@ from socketio.packet import Packet
 class MsgPackPacket(Packet):
     uses_binary_events: bool
     def encode(self) -> bytes: ...
-    def decode(self, encoded_packet: Buffer) -> None: ...  # pyright: ignore[reportIncompatibleMethodOverride]
+    def decode(self, encoded_packet: Buffer) -> None: ...
     @classmethod
     def configure(
         cls,

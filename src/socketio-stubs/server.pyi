@@ -26,7 +26,7 @@ _A = TypeVar("_A", bound=SyncAsyncModeType, default=Any)
 default_logger: logging.Logger
 
 class Server(BaseServer[Literal[False], engineio.Server], Generic[_A]):
-    manager: Manager  # pyright: ignore[reportIncompatibleVariableOverride]
+    manager: Manager
     def __init__(
         self,
         client_manager: Manager | None = ...,
@@ -126,4 +126,4 @@ class Server(BaseServer[Literal[False], engineio.Server], Generic[_A]):
         namespace: str = ...,
         server_stats_interval: int = ...,
     ) -> InstrumentedServer: ...
-    def register_namespace(self, namespace_handler: Namespace) -> None: ...  # pyright: ignore[reportIncompatibleMethodOverride]
+    def register_namespace(self, namespace_handler: Namespace) -> None: ...

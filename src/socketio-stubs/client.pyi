@@ -12,12 +12,12 @@ from socketio.namespace import ClientNamespace
 from socketio.packet import Packet
 
 class Client(BaseClient[Literal[False], engineio.Client, ClientNamespace]):
-    connection_url: str  # pyright: ignore[reportIncompatibleVariableOverride]
-    connection_headers: dict[str, str]  # pyright: ignore[reportIncompatibleVariableOverride]
+    connection_url: str
+    connection_headers: dict[str, str]
     connection_auth: Any
     connection_transports: list[TransportType] | None
     connection_namespaces: list[str]
-    socketio_path: str  # pyright: ignore[reportIncompatibleVariableOverride]
+    socketio_path: str
     namespaces: dict[str, str | None]
     connected: bool
 

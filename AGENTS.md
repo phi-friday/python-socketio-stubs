@@ -7,7 +7,7 @@ Type stubs for [python-socketio](https://github.com/miguelgrinberg/python-socket
 ```bash
 uv sync                    # Install dependencies
 uv run poe lint            # Ruff lint + format
-uv run poe pyright         # Type check (strict, pyright)
+uv run poe pyrefly         # Type check (strict, pyrefly)
 uv run poe mypy            # Type check (strict, mypy)
 ```
 
@@ -48,7 +48,7 @@ class Example:
 | Tool | Mode | Notes |
 |------|------|-------|
 | Mypy | strict | See pyproject.toml for disabled error codes |
-| Pyright | strict | See pyrightconfig.json |
+| Pyrefly | strict | See pyrefly.toml |
 | Ruff | ALL | Python 3.12 target |
 
 ## Important Notes
@@ -86,7 +86,7 @@ uv run python -c "import inspect; from socketio.mod import X; print(inspect.sign
 # 4. Validate (ALL must pass)
 uv run poe lint
 uv run poe mypy
-uv run poe pyright
+uv run poe pyrefly
 uv run pytest src/tests/test_<module>.py -v
 ```
 
@@ -328,7 +328,7 @@ All must pass before completion:
 ```bash
 uv run poe lint      # ✓ Ruff lint + format
 uv run poe mypy      # ✓ Type check (mypy)
-uv run poe pyright   # ✓ Type check (pyright)
+uv run poe pyrefly   # ✓ Type check (pyrefly)
 uv run pytest tests/test_<module>.py -v  # ✓ Tests pass
 ```
 
