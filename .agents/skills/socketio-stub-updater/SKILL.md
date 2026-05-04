@@ -98,6 +98,23 @@ git diff <OLD_TAG>..<NEW_TAG> -- 'src/socketio/*.py' | grep -E '^\+.*def |^\-.*d
 
 For each identified change, update the corresponding `.pyi` file:
 
+### Generic Type Parameters
+
+This repository targets Python 3.12+. Prefer PEP 695 syntax for generic stubs instead of adding direct `TypeVar` or `ParamSpec` declarations:
+
+```python
+from collections.abc import Callable
+
+class Result[T]:
+    def unwrap(self) -> T: ...
+
+def decorator[**P, T](func: Callable[P, T]) -> Callable[P, T]: ...
+```
+
+Use direct `TypeVar`/`ParamSpec` only when required by syntax limitations. In particular, keep direct `TypeVar(..., default=...)` for type parameter defaults because default values in type parameter syntax require Python 3.13+.
+
+Name PEP 695 parameters without leading underscores (`T`, `P`). If a direct `TypeVar`/`ParamSpec` is required, use underscored variables such as `_T` or `_P`.
+
 ### Adding New Function
 
 ```python

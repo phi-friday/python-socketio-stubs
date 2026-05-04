@@ -67,27 +67,36 @@ def process(data: str | bytes | list[int]) -> str | bytes | list[int]: ...
 
 ### Generic Types
 
+Prefer Python 3.12 type parameter syntax for generic stubs:
+
 ```python
-from typing import TypeVar, Generic
-from collections.abc import Callable, Iterator
+from collections.abc import Callable
 
-T = TypeVar("T")
-T_co = TypeVar("T_co", covariant=True)
-
-class Container(Generic[T]):
+class Container[T]:
     def get(self) -> T: ...
     def set(self, value: T) -> None: ...
 
 # Callable types
 def apply(func: Callable[[int, str], bool], x: int, y: str) -> bool: ...
 
-# With ParamSpec for decorators
-from typing import ParamSpec, Concatenate
-
-P = ParamSpec("P")
-
-def decorator(func: Callable[P, T]) -> Callable[P, T]: ...
+# Decorators can use ParamSpec syntax without a direct ParamSpec declaration
+def decorator[**P, T](func: Callable[P, T]) -> Callable[P, T]: ...
 ```
+
+Use direct `TypeVar`/`ParamSpec` only when the 3.12 type parameter syntax cannot express the type. The most common required case in this repository is `default=`, because type parameter defaults are only syntax-supported in Python 3.13+:
+
+```python
+from typing import Generic, Literal
+from typing_extensions import TypeVar
+
+_IsAsyncio = TypeVar("_IsAsyncio", bound=bool, default=Literal[False])
+
+class BaseNamespace(Generic[_IsAsyncio]): ...
+```
+
+Naming convention:
+- PEP 695 syntax: use `T`, `P` (not `_T`, `_P`)
+- Direct `TypeVar`/`ParamSpec`: use `_T`, `_P`
 
 ## Module Organization
 
@@ -276,8 +285,10 @@ from typing import (
     overload,
 )
 
-# Use typing_extensions for ParamSpec, TypeVar (for compatibility)
-from typing_extensions import ParamSpec, TypeVar
+# Prefer Python 3.12 type parameter syntax for generics.
+# Import TypeVar/ParamSpec from typing_extensions only when direct declarations
+# are required, such as TypeVar(..., default=...).
+from typing_extensions import TypeVar
 
 # Absolute imports from socketio modules
 from socketio._types import CustomType  # Internal types
@@ -291,7 +302,6 @@ from typing import Any, overload
 
 from socketio._types import HandlerType, Namespace
 from socketio.base_server import BaseServer
-```
 ```
 
 ## Deprecation Handling

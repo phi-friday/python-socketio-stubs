@@ -32,6 +32,35 @@ src/
 3. Use `as` syntax for re-exports: `from mod import X as X`
 4. Define internal types in `_types.pyi`
 5. Avoid `Incomplete` - use concrete types
+6. Prefer Python 3.12 type parameter syntax over direct `TypeVar`/`ParamSpec` declarations unless direct declarations are required
+
+### Generic Type Parameters
+
+This repository targets Python 3.12+. Prefer PEP 695 type parameter syntax for new generic stubs:
+
+```python
+from collections.abc import Callable
+
+class Box[T]:
+    def get(self) -> T: ...
+
+def decorator[**P, T](func: Callable[P, T]) -> Callable[P, T]: ...
+```
+
+Use direct `TypeVar`/`ParamSpec` only when the 3.12 syntax cannot express the type. The main required case is a type parameter default, because default values for type parameters are only supported by syntax in Python 3.13+:
+
+```python
+from typing import Generic, Literal
+from typing_extensions import TypeVar
+
+_IsAsyncio = TypeVar("_IsAsyncio", bound=bool, default=Literal[False])
+
+class BaseNamespace(Generic[_IsAsyncio]): ...
+```
+
+Naming convention:
+- PEP 695 syntax: use non-underscored names (`T`, `P`), not `_T`/`_P`
+- Direct `TypeVar`/`ParamSpec`: keep underscored variables (`_T`, `_P`)
 
 **⚠️ Updating Stubs**: For stub updates or new module additions, use the `socketio-stub-updater` skill located in `.agents/skills/socketio-stub-updater/SKILL.md`
 
