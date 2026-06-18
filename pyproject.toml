@@ -23,8 +23,8 @@ classifiers = [
 Repository = "https://github.com/phi-friday/python-socketio-stubs"
 
 [project.optional-dependencies]
-mypy = ["mypy>=1.20.2"]
-mypy-strict = ["mypy==1.20.2", "python-socketio-stubs[mypy]"]
+mypy = ["mypy>=2.1.0"]
+mypy-strict = ["mypy==2.1.0", "python-socketio-stubs[mypy]"]
 
 [dependency-groups]
 python-socketio-dependencies = [
