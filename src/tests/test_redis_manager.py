@@ -3,22 +3,16 @@
 from __future__ import annotations
 
 import inspect
-import logging
-from typing import assert_type
 
 import socketio.pubsub_manager as pubsub_mod
 import socketio.redis_manager as mod
 
 
-class TestLogger:
-    """Test logger module attribute."""
+class TestRemovedLogger:
+    """Test removed logger module attribute."""
 
-    def test_exists(self) -> None:
-        assert hasattr(mod, "logger")
-
-    def test_type(self) -> None:
-        assert_type(mod.logger, logging.Logger)
-        assert isinstance(mod.logger, logging.Logger)
+    def test_not_exported(self) -> None:
+        assert not hasattr(mod, "logger")
 
 
 class TestParseRedisSentinelUrl:
@@ -31,7 +25,7 @@ class TestParseRedisSentinelUrl:
     def test_signature(self) -> None:
         sig = inspect.signature(mod.parse_redis_sentinel_url)
         params = list(sig.parameters.keys())
-        assert "url" in params
+        assert params == ["url"]
 
 
 class TestRedisManager:

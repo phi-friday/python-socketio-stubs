@@ -9,8 +9,6 @@ from valkey.client import PubSub as ValkeyPubSub
 from socketio._types import JsonModule, RedisArgs
 from socketio.pubsub_manager import PubSubManager
 
-logger: logging.Logger
-
 def parse_redis_sentinel_url(
     url: str,
 ) -> tuple[list[tuple[str, int]], str | None, RedisArgs]: ...
