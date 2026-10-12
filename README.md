@@ -10,15 +10,6 @@ Type stubs for the [python-socketio](https://github.com/miguelgrinberg/python-so
 > This package provides type hints only and contains no runtime code.  
 > For the actual runtime implementation, install [`python-socketio`](https://github.com/miguelgrinberg/python-socketio).
 
-## Compatibility
-
-These stubs target `python-socketio==5.17.0`.
-
-The 5.17.0 update adds
-`BaseManager.is_sid_room(namespace: str, room: str | None) -> bool`, also
-inherited by synchronous and asynchronous managers. Other changes from 5.16.3
-affect runtime behavior without changing API signatures.
-
 ## Installation
 
 ```shell
