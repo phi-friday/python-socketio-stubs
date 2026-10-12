@@ -111,8 +111,18 @@ All Python commands in this document follow this convention.
 
 ### Workflow
 
+Read the affected module's tests and related tests first; match their scope and style.
+Confirm runtime signatures and behavior before updating stubs, using upstream
+source and temporary checks as needed. Do not turn those checks into permanent
+upstream behavior tests (connections, room state, transitions) in this repository.
+
+Follow existing patterns for API presence, signatures, and types, including
+return types (`assert_type` before `isinstance`). Checking a returned value's
+type is stub validation, not a reason to add upstream behavior scenarios.
+Do not replace the existing test structure with `TYPE_CHECKING`-only helpers.
+
 ```bash
-# 1. Check runtime behavior first
+# 1. Confirm runtime signatures and behavior (source/temporary checks)
 uv run python -c "import inspect; from socketio.mod import X; print(inspect.signature(X))"
 
 # 2. Write/update stub (.pyi)

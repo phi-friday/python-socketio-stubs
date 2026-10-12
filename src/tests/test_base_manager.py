@@ -57,6 +57,10 @@ class TestBaseManager:
         assert hasattr(mod.BaseManager, "is_connected")
         assert callable(mod.BaseManager.is_connected)
 
+    def test_is_sid_room_method(self) -> None:
+        assert hasattr(mod.BaseManager, "is_sid_room")
+        assert callable(mod.BaseManager.is_sid_room)
+
     def test_sid_from_eio_sid_method(self) -> None:
         assert hasattr(mod.BaseManager, "sid_from_eio_sid")
         assert callable(mod.BaseManager.sid_from_eio_sid)
