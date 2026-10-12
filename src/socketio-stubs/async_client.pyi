@@ -57,7 +57,7 @@ class AsyncClient(
         namespaces: str | list[str] | None = ...,
         socketio_path: str = ...,
         wait: bool = ...,
-        wait_timeout: int = ...,
+        wait_timeout: float = ...,
         retry: bool = ...,
     ) -> None: ...
     async def wait(self) -> None: ...

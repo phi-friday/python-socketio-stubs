@@ -53,7 +53,7 @@ class Client(BaseClient[Literal[False], engineio.Client, ClientNamespace]):
         namespaces: str | list[str] | None = ...,
         socketio_path: str = ...,
         wait: bool = ...,
-        wait_timeout: int = ...,
+        wait_timeout: float = ...,
         retry: bool = ...,
     ) -> None: ...
     def wait(self) -> None: ...
