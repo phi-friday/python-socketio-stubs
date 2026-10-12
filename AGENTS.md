@@ -41,8 +41,10 @@ This repository targets Python 3.12+. Prefer PEP 695 type parameter syntax for n
 ```python
 from collections.abc import Callable
 
+
 class Box[T]:
     def get(self) -> T: ...
+
 
 def decorator[**P, T](func: Callable[P, T]) -> Callable[P, T]: ...
 ```
@@ -54,6 +56,7 @@ from typing import Generic, Literal
 from typing_extensions import TypeVar
 
 _IsAsyncio = TypeVar("_IsAsyncio", bound=bool, default=Literal[False])
+
 
 class BaseNamespace(Generic[_IsAsyncio]): ...
 ```
@@ -67,8 +70,10 @@ Naming convention:
 ```python
 def func(param: str, optional: int = ...) -> bool: ...
 
+
 class Example:
     attr: ClassVar[int]
+
     def method(self) -> None: ...
 ```
 
@@ -156,7 +161,7 @@ class TestClassName:
 
     def test_attributes(self) -> None:
         obj = mod.ClassName(...)
-        assert_type(obj.attr, int)       # stub check FIRST
+        assert_type(obj.attr, int)  # stub check FIRST
         assert isinstance(obj.attr, int)  # runtime check SECOND
 ```
 
@@ -173,6 +178,7 @@ def test_init_signature(self) -> None:
     params = list(sig.parameters.keys())
     # EXACT match - catches stub/runtime mismatches
     assert params == ["self", "param1", "param2", "kwargs"]
+
 
 def test_method_signature(self) -> None:
     sig = inspect.signature(mod.ClassName.method_name)
@@ -193,6 +199,7 @@ def test_instance_attributes(self) -> None:
     # Runtime type check (when value is not None)
     if obj.attr_name is not None:
         assert isinstance(obj.attr_name, ExpectedType)
+
 
 def test_optional_attribute(self) -> None:
     obj = mod.ClassName(...)
@@ -220,7 +227,7 @@ class TestFunctionName:
 
     def test_return_type(self) -> None:
         result = mod.function_name(...)
-        assert_type(result, ExpectedType)       # stub check FIRST
+        assert_type(result, ExpectedType)  # stub check FIRST
         assert isinstance(result, ExpectedType)  # runtime check SECOND
 ```
 
@@ -234,6 +241,7 @@ def test_method_signature(self) -> None:
     params = list(sig.parameters.keys())
     # Verify exact parameter list
     assert params == ["self", "event", "data", "namespace", "timeout"]
+
 
 def test_method_has_parameter(self) -> None:
     sig = inspect.signature(mod.ClassName.method_name)
@@ -337,7 +345,7 @@ class TestFactory:
 # ❌ WRONG - "in" doesn't catch extra/missing params
 assert "param1" in params
 
-# ✅ CORRECT - exact match catches stub/runtime mismatches  
+# ✅ CORRECT - exact match catches stub/runtime mismatches
 assert params == ["self", "param1", "param2"]
 
 # ❌ WRONG - doesn't verify attribute exists at runtime

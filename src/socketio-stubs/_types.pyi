@@ -19,7 +19,7 @@ from socketio.msgpack_packet import MsgPackPacket
 from socketio.server import Server
 
 type JsonType = (
-    str | int | float | bool | None | Sequence[JsonType] | Mapping[str, JsonType]
+    str | int | float | bool | Sequence[JsonType] | Mapping[str, JsonType] | None
 )
 type DataType = str | bytes | Sequence[JsonType] | Mapping[str, JsonType]
 type TransportType = Literal["websocket", "polling"]

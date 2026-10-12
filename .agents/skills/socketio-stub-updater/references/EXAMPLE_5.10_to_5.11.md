@@ -100,6 +100,7 @@ from collections.abc import Callable
 from socketio._types import Namespace
 from socketio.base_server import BaseServer
 
+
 # Before (v5.10.0 stub)
 class Server(BaseServer):
     def emit(
@@ -112,6 +113,7 @@ class Server(BaseServer):
         namespace: Namespace | None = ...,  # CHANGE THIS
         callback: Callable[..., Any] | None = ...,
     ) -> None: ...
+
 
 # After (v5.11.0 stub)
 class Server(BaseServer):
@@ -148,21 +150,18 @@ git diff v5.10.0..v5.11.0 -- src/socketio/async_server.py | grep -E "def disconn
 from socketio._types import Namespace
 from socketio.base_server import BaseServer
 
+
 # Before (v5.10.0 stub) - method didn't have ignore_queue parameter
 class AsyncServer(BaseServer):
     async def disconnect(
-        self,
-        sid: str,
-        namespace: Namespace = ...,
+        self, sid: str, namespace: Namespace = ...
     ) -> None: ...  # ADD ignore_queue PARAMETER
+
 
 # After (v5.11.0 stub)
 class AsyncServer(BaseServer):
     async def disconnect(
-        self,
-        sid: str,
-        namespace: Namespace = ...,
-        ignore_queue: bool = ...,
+        self, sid: str, namespace: Namespace = ..., ignore_queue: bool = ...
     ) -> None: ...
 ```
 
@@ -199,6 +198,7 @@ class TestServer:
         params = list(sig.parameters.keys())
         # namespace parameter should have default value
         assert sig.parameters["namespace"].default != inspect.Parameter.empty
+
 
 # In src/tests/test_async_server.py
 class TestAsyncServer:

@@ -28,6 +28,7 @@ import socketio
 # Your type checker will now understand python-socketio's types
 sio = socketio.Server()
 
+
 @sio.event
 def connect(sid: str, environ: dict[str, Any], auth: dict[str, Any] | None) -> None:
     session = sio.get_session(sid)

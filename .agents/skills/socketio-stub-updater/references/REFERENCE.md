@@ -10,14 +10,18 @@ Detailed conventions for writing and maintaining python-socketio type stubs.
 # Simple function
 def func(param: str, count: int = ...) -> bool: ...
 
+
 # Optional parameter (default is None)
 def func(param: str | None = ...) -> str: ...
+
 
 # With *args and **kwargs
 def func(*args: Any, **kwargs: Any) -> Result: ...
 
+
 # Keyword-only parameters
 def func(pos_arg: int, *, keyword_only: str = ...) -> None: ...
+
 
 # Positional-only parameters (Python 3.8+)
 def func(pos_only: int, /, normal: str) -> None: ...
@@ -28,22 +32,23 @@ def func(pos_only: int, /, normal: str) -> None: ...
 ```python
 from typing import ClassVar, Self
 
+
 class MyClass:
     # Class variable
     class_attr: ClassVar[int]
-    
+
     # Instance variable (declared without assignment)
     instance_attr: str
-    
+
     def __init__(self, value: str) -> None: ...
-    
+
     # Method returning same type
     def copy(self) -> Self: ...
-    
+
     # Property
     @property
     def computed(self) -> int: ...
-    
+
     # Setter
     @computed.setter
     def computed(self, value: int) -> None: ...
@@ -55,6 +60,7 @@ Use `@overload` when a function's return type depends on input types:
 
 ```python
 from typing import overload
+
 
 @overload
 def process(data: str) -> str: ...
@@ -72,12 +78,15 @@ Prefer Python 3.12 type parameter syntax for generic stubs:
 ```python
 from collections.abc import Callable
 
+
 class Container[T]:
     def get(self) -> T: ...
     def set(self, value: T) -> None: ...
 
+
 # Callable types
 def apply(func: Callable[[int, str], bool], x: int, y: str) -> bool: ...
+
 
 # Decorators can use ParamSpec syntax without a direct ParamSpec declaration
 def decorator[**P, T](func: Callable[P, T]) -> Callable[P, T]: ...
@@ -90,6 +99,7 @@ from typing import Generic, Literal
 from typing_extensions import TypeVar
 
 _IsAsyncio = TypeVar("_IsAsyncio", bound=bool, default=Literal[False])
+
 
 class BaseNamespace(Generic[_IsAsyncio]): ...
 ```
@@ -120,11 +130,7 @@ from socketio.async_client import AsyncClient
 from socketio.async_server import AsyncServer
 from socketio.client import Client
 from socketio.server import Server
-from socketio.exceptions import (
-    ConnectionError,
-    DisconnectedError,
-    SocketIOError,
-)
+from socketio.exceptions import ConnectionError, DisconnectedError, SocketIOError
 
 __all__ = [
     "AsyncClient",
@@ -151,6 +157,7 @@ from collections.abc import Callable
 HandlerType: TypeAlias = Callable[..., None]
 Namespace: TypeAlias = str
 
+
 # Protocols for duck typing
 class EngineProtocol(Protocol):
     def send(self, data: str | bytes) -> None: ...
@@ -161,6 +168,7 @@ class EngineProtocol(Protocol):
 ```python
 # In src/socketio-stubs/server.pyi
 from socketio._types import HandlerType, Namespace  # Absolute import
+
 
 def on(event: str, handler: HandlerType, namespace: Namespace = ...) -> None: ...
 ```
@@ -177,11 +185,12 @@ from typing import Any, overload
 from socketio._types import HandlerType, Namespace
 from socketio.base_server import BaseServer
 
+
 class Server(BaseServer):
     async_handlers: bool
     always_connect: bool
     namespaces: dict[str, Any]
-    
+
     def __init__(
         self,
         client_manager: Any | None = ...,
@@ -191,23 +200,17 @@ class Server(BaseServer):
         always_connect: bool = ...,
         **kwargs: Any,
     ) -> None: ...
-    
+
     # Event handler registration with overloads
     @overload
     def on(
-        self,
-        event: str,
-        handler: None = ...,
-        namespace: Namespace = ...,
+        self, event: str, handler: None = ..., namespace: Namespace = ...
     ) -> Callable[[HandlerType], HandlerType]: ...
     @overload
     def on(
-        self,
-        event: str,
-        handler: HandlerType,
-        namespace: Namespace = ...,
+        self, event: str, handler: HandlerType, namespace: Namespace = ...
     ) -> HandlerType: ...
-    
+
     def emit(
         self,
         event: str,
@@ -230,9 +233,10 @@ from typing import Any
 from socketio._types import HandlerType
 from socketio.base_namespace import BaseServerNamespace
 
+
 class Namespace(BaseServerNamespace):
     def __init__(self, namespace: str | None = ...) -> None: ...
-    
+
     def trigger_event(self, event: str, *args: Any) -> Any: ...
     def emit(
         self,
@@ -312,6 +316,7 @@ When something is deprecated but still present:
 from typing import deprecated
 from warnings import deprecated  # Python 3.13+
 
+
 @deprecated("Use new_function instead")
 def old_function(x: int) -> int: ...
 ```
@@ -348,11 +353,9 @@ def process_data(data, *, normalize=True, fill_value=0):
 ```python
 from numpy.typing import ArrayLike, NDArray
 
+
 def process_data(
-    data: ArrayLike,
-    *,
-    normalize: bool = ...,
-    fill_value: int | float = ...,
+    data: ArrayLike, *, normalize: bool = ..., fill_value: int | float = ...
 ) -> NDArray[Any]: ...
 ```
 

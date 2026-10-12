@@ -105,8 +105,10 @@ This repository targets Python 3.12+. Prefer PEP 695 syntax for generic stubs in
 ```python
 from collections.abc import Callable
 
+
 class Result[T]:
     def unwrap(self) -> T: ...
+
 
 def decorator[**P, T](func: Callable[P, T]) -> Callable[P, T]: ...
 ```
@@ -120,10 +122,7 @@ Name PEP 695 parameters without leading underscores (`T`, `P`). If a direct `Typ
 ```python
 # In src/socketio-stubs/<module>.pyi
 def new_function(
-    param1: str,
-    param2: int = ...,
-    *,
-    keyword_only: bool = ...,
+    param1: str, param2: int = ..., *, keyword_only: bool = ...
 ) -> ReturnType: ...
 ```
 
@@ -147,7 +146,7 @@ When a function signature changes:
 ```python
 @overload
 def func(x: int) -> int: ...
-@overload  
+@overload
 def func(x: str) -> str: ...
 def func(x: int | str) -> int | str: ...
 ```
